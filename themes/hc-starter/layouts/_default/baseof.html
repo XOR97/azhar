@@ -1,0 +1,11 @@
+{{ partial "header.html" . .Section  }}
+
+    <main id="main" class="Container">
+
+      {{ block "main" . }}{{ end }}
+
+    </main>
+
+    {{ partial "newsletter.html" . }}
+
+{{ partialCached "footer.html" . }}

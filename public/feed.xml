@@ -1,0 +1,57 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <author>Azhar Khan</author>
+    <title>Cogito Ergo Sum on Azhar Khan</title>
+    <link>https://azharkhan.in/</link>
+    <description>Recent content in Cogito Ergo Sum on Azhar Khan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
+    <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
+    <lastBuildDate>Mon, 24 Oct 2016 17:23:17 +0100</lastBuildDate>
+    
+        <atom:link href="https://azharkhan.in/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Page</title>
+      <link>https://azharkhan.in/page/</link>
+      <pubDate>Wed, 20 Feb 2019 22:30:25 +0000</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/page/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Articles</title>
+      <link>https://azharkhan.in/articles/</link>
+      <pubDate>Sun, 27 Jan 2019 14:10:29 +0000</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/articles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Notes</title>
+      <link>https://azharkhan.in/notes/</link>
+      <pubDate>Sat, 01 Sep 2018 14:10:29 +0000</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/notes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Projects</title>
+      <link>https://azharkhan.in/projects/</link>
+      <pubDate>Tue, 02 May 2017 22:05:42 +0100</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/projects/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

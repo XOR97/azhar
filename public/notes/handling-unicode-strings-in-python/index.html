@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Handling unicode strings in Python &ndash; Azhar Khan</title>
+    <meta name="title" content="Handling unicode strings in Python">
+    
+    <meta name="description" content="Blog posts on code and design by github.com/XOR97">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/handling-unicode-strings-in-python/">
+    <meta property="og:title" content="Handling unicode strings in Python - Azhar Khan">
+    <meta property="og:description" content=" Blog posts on code and design by github.com/XOR97">
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/AzhrKAN" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+    <meta property="og:image" content="https://res.cloudinary.com/harrycresswell/image/upload/w_700,dpr_2.0,c_scale,f_auto,q_auto/v1550264713/hc/harry-cresswell-about-me.jpg">
+    
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/handling-unicode-strings-in-python/">
+    <meta property="twitter:title" content="Handling unicode strings in Python - Azhar Khan">
+    <meta property="twitter:description" content="  Blog posts on code and design by github.com/XOR97">
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.344db5cf78e57a6591e912b93f9118a96cac6c0e2d3e9ca27c7b9d234bf44374.css" integrity="sha256-NE21z3jlemWR6RK5P5EYqWysbA4tPpyifHudI0v0Q3Q=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main" class="Container">
+
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Handling unicode strings in Python</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Sat, Aug 5, 2017</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/python" class="p-category">Python</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <hr>
+<p><img src="https://imgs.xkcd.com/comics/the_history_of_unicode.png" alt="Logo"></p>
+<h2 id="summary">Summary&nbsp;<a class="heading-anchor" href="#summary" aria-label="Anchor">#</a> </h2>
+<p>In this post I will try to explain how to handle unicode strings in <code>python 2 and 3</code>.</p>
+<p>Let’s start shall we?</p>
+<h2 id="ascii-strings">ASCII strings&nbsp;<a class="heading-anchor" href="#ascii-strings" aria-label="Anchor">#</a> </h2>
+<p>So let’s start with the <code>ASCII</code> strings, Have a look at hi.txt</p>
+<p>Let’s see what does it hold</p>
+<pre><code>azhar at MacbookPro in ~/unicode
+$ cat hi.txt
+hi
+</code></pre><p>Nice and easy. It contains, two characters <code>h</code> and <code>i</code></p>
+<p>Size ?</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">azhar</span> <span class="n">at</span> <span class="n">MacbookPro</span> <span class="ow">in</span> <span class="o">~</span><span class="o">/</span><span class="nb">unicode</span>
+<span class="err">$</span> <span class="n">du</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">b</span> <span class="n">hi</span><span class="o">.</span><span class="n">txt</span>
+<span class="mi">2</span>   <span class="n">hi</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div><p>This means that the file is of <code>2 bytes</code>. Now what do these <code>2 bytes</code> hold inside them? Let’s do a <code>hexdump</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">azhar</span> <span class="n">at</span> <span class="n">MacbookPro</span> <span class="ow">in</span> <span class="o">~</span><span class="o">/</span><span class="nb">unicode</span>
+<span class="err">$</span> <span class="n">hexdump</span> <span class="n">hi</span><span class="o">.</span><span class="n">txt</span>
+<span class="mo">0000000</span> <span class="mi">6968</span>                                   
+<span class="mo">0000002</span>
+</code></pre></div><p>If you look over to the <a href="http://www.asciitable.com">ASCII</a> table and look out for the hex representations, you will see that the letter <code>h</code> is represented by <code>68</code> and <code>i</code> is represented by <code>69</code></p>
+<p>Let’s see how <code>python2</code> handles this. Firing up the <code>interpreter</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">hi.txt</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="o">.</span><span class="o">.</span><span class="o">.</span>   <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="p">)</span>
+<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">content</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">hi</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">str</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span>
+</code></pre></div><p>Now I probably should reiterate the fact that</p>
+<blockquote>
+<p>Every character in a string is a single byte</p>
+</blockquote>
+<p>And that the ASCII table translates each byte value to a unique character. the file contains an <code>ASCII</code> string of exactly two characters. So it does makes sense. Let’s dig a little further.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">h</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">content</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">i</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span>
+</code></pre></div><p>So this confirms that the <code>x[0]</code> contains <code>h</code> and <code>x[1]</code> contains <code>i</code></p>
+<h2 id="enter-unicode">Enter Unicode&nbsp;<a class="heading-anchor" href="#enter-unicode" aria-label="Anchor">#</a> </h2>
+<p>So how many characters does the <code>ASCII</code> representation able to represent? Doing the math, 256(<code>2^8</code>) would be the maximum number of characters that the <code>ASCII</code> table can represent. Just giving a heads up here, <code>Chinese</code> has a lot more than <code>256</code> characters. So how would you handle <code>chinese</code> as well as the characters on your keyboard?</p>
+<p>Have a look at chinese.txt</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">azhar</span> <span class="n">at</span> <span class="n">MacbookPro</span> <span class="ow">in</span> <span class="o">~</span><span class="o">/</span><span class="nb">unicode</span>
+<span class="err">$</span> <span class="n">cat</span> <span class="n">chinese</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">hi猫</span>
+</code></pre></div><p>So it contains three character namely <code>h</code>, <code>i</code> and <code>猫</code>. Size?</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">azhar</span> <span class="n">at</span> <span class="n">MacbookPro</span> <span class="ow">in</span> <span class="o">~</span><span class="o">/</span><span class="nb">unicode</span>
+<span class="err">$</span> <span class="n">du</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">b</span> <span class="n">chinese</span><span class="o">.</span><span class="n">txt</span>
+<span class="mi">5</span>   <span class="n">chinese</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div><p><code>5 bytes</code>. Let’s see what does each byte contain</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">azhar</span> <span class="n">at</span> <span class="n">MacbookPro</span> <span class="ow">in</span> <span class="o">~</span><span class="o">/</span><span class="nb">unicode</span>
+<span class="err">$</span> <span class="n">hexdump</span> <span class="n">chinese</span><span class="o">.</span><span class="n">txt</span>
+<span class="mo">0000000</span> <span class="mi">68</span> <span class="mi">69</span> <span class="n">e7</span> <span class="mi">8</span><span class="n">c</span> <span class="n">ab</span>
+<span class="mo">0000005</span>
+</code></pre></div><p>The relevant thing to note here are the five <code>hexadecimal</code> numbers <code>69</code>, <code>68</code>, <code>e7</code>, <code>8c</code> and <code>ab</code></p>
+<p>So five numbers, 5 bytes. Good so far? Now how do we interpret these numbers? We will have a look at the <a href="https://en.wikipedia.org/wiki/UTF-8">Unicode UTF-8</a> table.</p>
+<p>In this table, <code>68</code> is the character <code>h</code>, <code>69</code> is the character <code>i</code>, and the three-byte sequence <code>e7</code>, <code>8c</code>, <code>ab</code> is the character <code>猫</code>. To recap, <code>h</code> is one byte, <code>i</code> is one byte, but <code>猫</code> is three bytes.</p>
+<p>A point to note here is that, the Unicode UTF-8 table is a superset of the ASCII table, so that’s the reason <code>h</code> and <code>i</code> are represented by the same characters in both.</p>
+<h2 id="handling-unicode-strings-in-python2">Handling unicode strings in <code>python2</code>&nbsp;<a class="heading-anchor" href="#handling-unicode-strings-in-python2" aria-label="Anchor">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">chinese.txt</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="o">.</span><span class="o">.</span><span class="o">.</span>   <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="p">)</span>
+<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">content</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">hi</span><span class="se">\xe7</span><span class="se">\x8c</span><span class="se">\xab</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span>
+</code></pre></div><p>What was all that? <code>h</code> and <code>i</code> are represented just fine but when it comes to the chinese character, it shows me hexdecimal numbers. And how does it return me <code>5</code> as the string lenght, when we know perfectly well that there are just <code>3</code> characters in that file?</p>
+<p>It turns out that the python <code>str</code> doesn’t store a <code>string</code> but a stream of <code>bytes</code> in it. Digging further.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">h</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">i</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="se">\xe7</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="se">\x8c</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="se">\xab</span><span class="s1">&#39;</span>
+</code></pre></div><p>The <code>hi</code> is returned prefectly fine as those are ASCII characters, but when it comes to the chinese character, it is represented by UTF-8 unicode. But since <code>str</code> object in <code>python2</code> just stores a sequece of bytes, it has no way of deciding to group these 3 characters to represent the chinese character. So we see them as the hexadecimal numbers.</p>
+<p>So how should we deal with this.</p>
+<h2 id="decode-to-the-rescue"><code>decode()</code> to the rescue&nbsp;<a class="heading-anchor" href="#decode-to-the-rescue" aria-label="Anchor">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">utf_content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">utf-8</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">utf_content</span>
+<span class="sa">u</span><span class="s1">&#39;</span><span class="s1">hi</span><span class="se">\u732b</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">utf_content</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">unicode</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">utf_content</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">utf_content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="sa">u</span><span class="s1">&#39;</span><span class="s1">h</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">utf_content</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="sa">u</span><span class="s1">&#39;</span><span class="s1">i</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">utf_content</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="sa">u</span><span class="s1">&#39;</span><span class="se">\u732b</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span>
+</code></pre></div><p>So the <code>decode()</code> tells python to convert the string <code>content</code> into a <code>UTF-8</code> string. I know, the name is confusing as hell. But let’s leave that for another day.</p>
+<p>I we call the <code>print</code> statement now. Let’s see what we get</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="k">print</span> <span class="n">utf_content</span>
+<span class="n">hi猫</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span>
+</code></pre></div><p>So there you go.</p>
+<h2 id="word-of-caution">Word of caution&nbsp;<a class="heading-anchor" href="#word-of-caution" aria-label="Anchor">#</a> </h2>
+<p>Weird things happen in <code>python2</code> if you think that <code>str</code> is a <code>string</code>. To be safe, convert the <code>str</code> object to <code>utf-8</code> format immediately by doing a <code>decode('utf-8')</code>. Then work with your <code>unicode</code> object and not the <code>str</code>.</p>
+<blockquote>
+<p>In python2, a unicode object type represents real strings whereas the str object is a sequece of bytes.</p>
+</blockquote>
+<p>So when you are done precessing your <code>unicode</code> object and now you want to write it down to a file or a database. First convert it back to a sequence of <code>bytes</code> (<code>str</code> object) using the <code>encode()</code> method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">str_content</span> <span class="o">=</span> <span class="n">utf_content</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">utf-8</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_content</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">str</span><span class="s1">&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">str_content</span>
+<span class="sa"></span><span class="s1">&#39;</span><span class="s1">hi</span><span class="se">\xe7</span><span class="se">\x8c</span><span class="se">\xab</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span> <span class="n">content</span> <span class="o">==</span> <span class="n">str_content</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;</span><span class="o">&gt;</span>
+</code></pre></div><p>Now you will be able to write this content to a file or database as directly doing so with a <code>unicode</code> object would have given you some wierd errors.</p>
+<p>Okay, okay. I will show that to you</p>
+<pre><code>&gt;&gt;&gt; with open('myfile.txt', 'w') as f:
+...   f.write(utf_content)
+...
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;
+UnicodeEncodeError: 'ascii' codec can't encode character u'\u732b' in position 2: ordinal not in range(128)
+&gt;&gt;&gt;
+</code></pre><p>Now doing the same with the <code>str</code> object</p>
+<pre><code>&gt;&gt;&gt; with open('myfile.txt', 'w') as f:
+...   f.write(str_content)
+...
+&gt;&gt;&gt;
+</code></pre><h2 id="handling-unicode-strings-in-python3">Handling unicode strings in <code>python3</code>&nbsp;<a class="heading-anchor" href="#handling-unicode-strings-in-python3" aria-label="Anchor">#</a> </h2>
+<p>Python3 makes handling of unicode strings easy.</p>
+<p>One of the significant changes being that, <code>str</code> now stores unicode <code>strings</code> and not a sequence of <code>bytes</code></p>
+<p>Let’s see how it handles the chinese.txt file</p>
+<pre><code>azhar at MacbookPro in ~/unicode
+$ python3
+Python 3.4.2 (default, Jun 19 2015, 11:34:49)
+[Clang 10.0.0 (clang-1000.11.45.5)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; with open('chinese.txt') as f:
+...   content = f.read()
+...
+&gt;&gt;&gt; type(content)
+&lt;class 'str'&gt;
+&gt;&gt;&gt; len(content)
+3
+&gt;&gt;&gt; content[0]
+'h'
+&gt;&gt;&gt; content[1]
+'i'
+&gt;&gt;&gt; content[2]
+'猫'
+</code></pre><p>So everything works out of the box (Going with the Batteries included philosophy of <code>python</code>).</p>
+<p>Now what if I wanted to interpret the contents of it as <code>bytes</code>.</p>
+<p>You can do so by passing the argument <code>rb</code> when opening the file</p>
+<pre><code>&gt;&gt;&gt; with open('chinese.txt', 'rb') as f:
+...   content = f.read()
+...
+&gt;&gt;&gt; type(content)
+&lt;class 'bytes'&gt;
+&gt;&gt;&gt; content
+b'hi\xe7\x8c\xab'
+</code></pre><p>So now you have got the default behaviour of <code>python2</code>.</p>
+<p>Converting it into <code>utf-8</code></p>
+<pre><code>&gt;&gt;&gt; content.decode('utf-8')
+'hi猫'
+</code></pre><p>So to sum it up</p>
+<p>In <code>python3</code>, <code>str</code> represents <code>unicode</code> string while the <code>bytes</code> type represent the sequence of <code>bytes</code></p>
+<p>For further reading, I would really, really suggest you have a look on the content written by these guys</p>
+<ul>
+<li>
+<p><a href="https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/">Joel Spolsky</a></p>
+</li>
+<li>
+<p><a href="https://nedbatchelder.com/text/unipain.html">Ned Batchelder</a></p>
+</li>
+<li>
+<p><a href="http://pgbovine.net/unicode-python.htm">Philip Guo</a></p>
+</li>
+</ul>
+<p>on this topic</p>
+
+        
+<div class="PostAuthor">
+    <div class="Avatar Avatar--round Avatar--m">
+        <div class="Avatar-img Avatar--round Avatar--m"></div>
+    </div>
+    <div class="PostAuthor-text">
+        <h4>Did you enjoy this?</h4>
+        <p>If so, consider subscribing to the feed for even more content.</p>
+    </div>
+</div>
+
+
+<div hidden>
+    <a class="u-url" href="https://azharkhan.in/https://azharkhan.in/articles/columnar-in-memory-analytics-using-arrow/">Columnar In-Memory Analytics using Arrow</a>
+    <p class="h-card p-author">
+        <a class="p-name u-url" href="https://azharkhan.in/"  rel="author">Harry Cresswell</a>
+        <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Azhar Khan">
+    </p>
+</div>
+
+      </section>
+
+  </article>
+
+
+    </main>
+
+    
+
+  <footer class="Footer">
+    <nav class="FooterNav">
+        
+        
+        <a class="FooterNav-link" href="/articles/">Articles</a>
+        
+        <a class="FooterNav-link" href="/notes/">Notes</a>
+        
+        <a class="FooterNav-link" href="/tags/">Tags</a>
+        
+    </nav>
+    <p>Content &copy;2020 Azhar Khan, unless otherwise specified. Subscribe to RSS Feeds for <a href="https://azharkhan.in/feed.xml">all content</a>, <a href="https://azharkhan.in/articles/feed.xml">articles</a> or <a href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+    
+    
+    
+    
+    
+    
+    <script type="text/javascript" src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+
+    <script>
+        var cl = cloudinary.Cloudinary.new({
+          cloud_name: "azhar932"
+        });
+
+        cl.responsive();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.3.0/cloudinary-core-shrinkwrap.min.js">
+    </script>
+
+	</body>
+</html>
+

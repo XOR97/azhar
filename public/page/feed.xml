@@ -1,0 +1,109 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <author>Azhar Khan</author>
+    <title>Page on Azhar Khan</title>
+    <link>https://azharkhan.in/page/</link>
+    <description>Recent content in Page on Azhar Khan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
+    <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
+    <lastBuildDate>Wed, 20 Feb 2019 22:30:25 +0000</lastBuildDate>
+    
+        <atom:link href="https://azharkhan.in/page/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Things I’ve made.</title>
+      <link>https://azharkhan.in/things/</link>
+      <pubDate>Wed, 20 Feb 2019 22:30:25 +0000</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/things/</guid>
+      <description>&lt;p&gt;A curated list of projects that I have contributed to or have made during my university days. More of my work can be found out over at my &lt;a href=&#34;https://github.com/XOR97&#34;&gt;Github&lt;/a&gt; profile.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Movie-Recommender-System&#34;&gt;Movie Recommender System&lt;/a&gt;. A recommender system implemented through collaborative filtering using PySpark.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Stock-Price-Prediction&#34;&gt;Stock Price Prediction&lt;/a&gt;. Worked on past stock data extracted from Google finance website and trained a neural network to predict the price for tomorrow of that particular stock.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Twitter-Sentiment-Analysis&#34;&gt;Twitter Sentiment Analysis&lt;/a&gt;. Real-time streaming sentiment analysis tool built using &lt;a href=&#34;https://plot.ly/products/dash/&#34;&gt;Dash&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Spam-Ham-Classifier&#34;&gt;Spam Classifier&lt;/a&gt;. General purpose spam classifier implemented using Naive Bayes probability approach.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Packet-Sniffer&#34;&gt;Packet-Sniffer&lt;/a&gt;. A program to get access to the data flowing through your router/ethernet.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Web-Crawler&#34;&gt;Web Crawler&lt;/a&gt;. A multi-threaded bot written in Python.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Chat-Client&#34;&gt;Chat Client&lt;/a&gt;. A multi-threaded client/server chat application implemented using Java™ Socket programming.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/azkh93/Shell-Shocker&#34;&gt;Shell Shocker&lt;/a&gt;. A shell which can access information about any remote server.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Privacy Policy.</title>
+      <link>https://azharkhan.in/privacy/</link>
+      <pubDate>Mon, 21 May 2018 13:16:53 +0100</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/privacy/</guid>
+      <description>&lt;p&gt;In compliance with the data and privacy laws (“GDPR”), effective of May 25th 2018 and in an effort to be more transparent with those who who choose to share data with me, I have assembled the following information.&lt;/p&gt;
+&lt;h2 id=&#34;what-data-i-collect&#34;&gt;What data I collect&lt;/h2&gt;
+&lt;p&gt;The only data I collect is the name and email address of those who sign up for &lt;a href=&#34;https://azharkhan.in/newsletter/&#34;&gt;my weekly newsletter&lt;/a&gt; via the sign up form on the bottom of each page.&lt;/p&gt;
+&lt;h2 id=&#34;what-i-do-with-data&#34;&gt;What I do with data&lt;/h2&gt;
+&lt;p&gt;I only email people who have genuinely signed up to receive my newsletter each week. I do not add contacts, clients or people I meet randomly on the climbing wall.&lt;/p&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://kb.mailchimp.com/lists/signup-forms/single-opt-in-vs.-double-opt-in&#34;&gt;double opt-in&lt;/a&gt; during the sign up process to prevent spam accounts and include an unsubscribe link on each and every email I send out.&lt;/p&gt;
+&lt;p&gt;By signing up for my mailing list you are agreeing to receive an email from me containing useful content, once a week on a Friday and that’s it. I have no intention of selling you anything, advertising or passing your data on to any 3rd party services.&lt;/p&gt;
+&lt;p&gt;I do not use Google Analytics or any other tracking software.&lt;/p&gt;
+&lt;h2 id=&#34;how-i-keep-your-data-safe&#34;&gt;How I keep your data safe&lt;/h2&gt;
+&lt;p&gt;I store your data securely inside my &lt;a href=&#34;https://mailchimp.com/features/landing-pages/&#34;&gt;Mailchimp&lt;/a&gt; account and use a generated password from &lt;a href=&#34;https://1password.com/&#34;&gt;1Password&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/Multi-factor_authentication&#34;&gt;two-factor authentication&lt;/a&gt; (2FA) in order to keep it safe. Rest assured, your details aren’t lying around in an old spreadsheet or .csv file somewhere.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Awesome.</title>
+      <link>https://azharkhan.in/success/</link>
+      <pubDate>Mon, 12 Mar 2018 21:14:42 +0000</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/success/</guid>
+      <description>&lt;p&gt;Thanks for your message. It’s flying through the internet right now.&lt;/p&gt;
+&lt;p&gt;Forgive me if I don’t reply right away, I receive a lot of messages so I tend to pause my inbox to limit distraction from email to once per day. I aim to get back to everyone within 24hrs.&lt;/p&gt;
+&lt;p&gt;P.S. — If you’re here to check out how this form works and you want to know more about building forms on static sites read my article &lt;a href=&#34;https://azharkhan.in/articles/forms-with-netlify/&#34;&gt;Handling forms on static sites with Netlify&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Right now.</title>
+      <link>https://azharkhan.in/now/</link>
+      <pubDate>Tue, 02 May 2017 22:05:42 +0100</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/now/</guid>
+      <description>&lt;p&gt;In Ottawa. This is how I’m spending my time right now.&lt;/p&gt;
+&lt;h3 id=&#34;currently-looking-into&#34;&gt;Currently looking into&amp;hellip;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://spacy.io&#34;&gt;Spacy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GatsbyJS and GraphQL&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.figma.com&#34;&gt;Figma&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The art of problem solving&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.sanity.io/&#34;&gt;Sanity.io&lt;/a&gt;, an API based CMS&lt;/li&gt;
+&lt;li&gt;French. This might be on here for a while&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;courses-winter-2020&#34;&gt;Courses (Winter 2020)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://catalogue.uottawa.ca/search/?P=ADM%206420&#34;&gt;ADM 6420&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://catalogue.uottawa.ca/search/?P=ADM%206287&#34;&gt;ADM 6287&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://catalogue.uottawa.ca/search/?P=EBC%205125&#34;&gt;EBC 5125&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://catalogue.uottawa.ca/search/?P=EMP%205111&#34;&gt;EMP 5111&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://catalogue.uottawa.ca/search/?P=EMP%205116&#34;&gt;EMP 5116&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;currently-listening&#34;&gt;Currently Listening&lt;/h3&gt;
+&lt;iframe allow=&#34;autoplay *; encrypted-media *;&#34; frameborder=&#34;0&#34; height=&#34;250&#34; style=&#34;width:100%;max-width:600px;overflow:hidden;background:transparent;&#34; sandbox=&#34;allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation&#34; src=&#34;https://embed.music.apple.com/us/album/views/1440841363?app=music&#34;&gt;&lt;/iframe&gt;
+
+&lt;h3 id=&#34;reading&#34;&gt;Reading&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/38447.The_Handmaid_s_Tale&#34;&gt;The Handmaid&amp;rsquo;s Tale&lt;/a&gt; by Margaret Atwood&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/6518085-pro-git&#34;&gt;Pro Git&lt;/a&gt; by Scott Chacon&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/43798285-the-institute?from_choice=true&#34;&gt;The Institute&lt;/a&gt; by Stephen King&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/43852758-how-to?from_choice=true&#34;&gt;How To&lt;/a&gt; by Randall Munroe&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Last Updated:&lt;/strong&gt; January 30, 2020.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Page inspired by:&lt;/strong&gt; &lt;a href=&#34;https://zenhabits.net/now/&#34;&gt;Zen Habits&lt;/a&gt; and &lt;a href=&#34;https://nownownow.com/about&#34;&gt;Derek Sivers&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

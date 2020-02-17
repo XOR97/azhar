@@ -1,0 +1,554 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <author>Azhar Khan</author>
+    <title>Azhar Khan – Articles</title>
+    <link>https://azharkhan.in/articles/</link>
+    <description>Azhar Khan – Articles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
+    <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
+    <lastBuildDate>Sun, 27 Jan 2019 14:10:29 +0000</lastBuildDate>
+    
+        <atom:link href="https://azharkhan.in/articles/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+      <item>
+        <author>Azhar Khan</author>
+        <title>Columnar In-Memory Analytics using Arrow</title>
+        <link>https://azharkhan.in/articles/columnar-in-memory-analytics-using-arrow/</link>
+        <pubDate>Sun, 27 Jan 2019 14:10:29 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/columnar-in-memory-analytics-using-arrow/</guid>
+        <description>&lt;p&gt;Folks, there is a new library in town that is taking the data engineering community by storm.&lt;/p&gt;
+&lt;p&gt;Welcome, Apache Arrow&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Apache Arrow is a cross-language development platform for in-memory data. It specifies a standardized language-independent
+columnar memory format for flat and hierarchical data, organized for efficient analytic operations on modern hardware.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Arrow isn’t a standalone piece of software but rather a component used to accelerate analytics within a particular system and to allow Arrow-enabled systems to exchange data with low overhead. It is sufficiently flexible to support most complex data models.&lt;/p&gt;
+&lt;p&gt;In simple words, It facilitates communication between many components, for example, reading a parquet file with Python (pandas) and transforming to a Spark dataframe, Falcon Data Visualization or Cassandra without worrying about conversion.&lt;/p&gt;
+&lt;p&gt;For the Python and R communities, Arrow is extremely important, as data interoperability has been one of the biggest roadblocks to tighter integration with big data systems (which largely run on the JVM).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn-images-1.medium.com/max/1600/1*Q-5NKsHXBZ5glJmi_ifRpg.png&#34; alt=&#34;image1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A good question is to ask how does the data look like in memory? Well, Apache Arrow takes advantages of a columnar buffer to reduce IO and accelerate analytical processing performance.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://arrow.apache.org/img/simd.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In our case, we will use the pyarrow library to execute some basic codes and check some features. In order to install, we have two options using conda or pip commands*.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;conda install -c conda-forge pyarrow
+or
+pip install pyarrow
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;*It’s recommended to use conda in a Python 3 environment.&lt;/p&gt;
+&lt;h2 id=&#34;apache-arrow-with-pandas-local-file-system&#34;&gt;Apache Arrow with Pandas (Local File System)&lt;/h2&gt;
+&lt;h3 id=&#34;converting-pandas-dataframe-to-apache-arrow-table&#34;&gt;Converting Pandas Dataframe to Apache Arrow Table&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;import numpy as np
+import pandas as pd
+import pyarrow as pa
+df = pd.DataFrame({&#39;one&#39;: [20, np.nan, 2.5],&#39;two&#39;: [&#39;january&#39;, &#39;february&#39;, &#39;march&#39;],&#39;three&#39;: [True, False, True]},index=list(&#39;abc&#39;))
+table = pa.Table.from_pandas(df)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;pyarrow-table-to-pandas-data-frame&#34;&gt;Pyarrow Table to Pandas Data Frame&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;df_new = table.to_pandas()
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;read-csv&#34;&gt;Read CSV&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;from pyarrow import csv
+fn = ‘data/demo.csv’
+table = csv.read_csv(fn)
+df = table.to_pandas()
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;writing-a-parquet-file-from-apache-arrow&#34;&gt;Writing a parquet file from Apache Arrow&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;import pyarrow.parquet as pq
+pq.write_table(table, &#39;example.parquet&#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;reading-a-parquet-file&#34;&gt;Reading a parquet file&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;table2 = pq.read_table(‘example.parquet’)
+table2
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;reading-some-columns-from-a-parquet-file&#34;&gt;Reading some columns from a parquet file&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;table2 = pq.read_table(&#39;example.parquet&#39;, columns=[&#39;one&#39;, &#39;three&#39;])
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;reading-from-partitioned-datasets&#34;&gt;Reading from Partitioned Datasets&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;dataset = pq.ParquetDataset(‘dataset_name_directory/’)
+table = dataset.read()
+table
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;transforming-parquet-file-into-a-pandas-dataframe&#34;&gt;Transforming Parquet file into a Pandas DataFrame&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;pdf = pq.read_pandas(&#39;example.parquet&#39;, columns=[&#39;two&#39;]).to_pandas()
+pdf
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;avoiding-pandas-index&#34;&gt;Avoiding pandas index&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;table = pa.Table.from_pandas(df, preserve_index=False)
+pq.write_table(table, &#39;example_noindex.parquet&#39;)
+t = pq.read_table(&#39;example_noindex.parquet&#39;)
+t.to_pandas()
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;check-metadata&#34;&gt;Check metadata&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;parquet_file = pq.ParquetFile(‘example.parquet’)
+parquet_file.metadata
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;see-data-schema&#34;&gt;See data schema&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;parquet_file.schema
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;timestamp&#34;&gt;Timestamp&lt;/h3&gt;
+&lt;p&gt;Remember Pandas use nanoseconds so you can truncate in milliseconds for compatibility.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pq.write_table(table, where, coerce_timestamps=&#39;ms&#39;)
+pq.write_table(table, where, coerce_timestamps=&#39;ms&#39;, allow_truncated_timestamps=True)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;compression&#34;&gt;Compression&lt;/h3&gt;
+&lt;p&gt;By default, Apache arrow uses snappy compression (not so compressed but easier access), although other codecs are allowed.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pq.write_table(table, where, compression=&#39;snappy&#39;)
+pq.write_table(table, where, compression=&#39;gzip&#39;)
+pq.write_table(table, where, compression=&#39;brotli&#39;)
+pq.write_table(table, where, compression=&#39;none&#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Also, It’s possible to use more than one compression in a table&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pq.write_table(table, ‘example_diffcompr.parquet’, compression={b’one’: ‘snappy’, b’two’: ‘gzip’})
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;write-a-partitioned-parquet-table&#34;&gt;Write a partitioned Parquet table&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;df = pd.DataFrame({‘one’: [1, 2.5, 3],
+                   ‘two’: [‘Peru’, ‘Brasil’, ‘Canada’],
+                   ‘three’: [True, False, True]},
+                   index=list(‘abc’))
+table = pa.Table.from_pandas(df)
+pq.write_to_dataset(table, root_path=’dataset_name’,partition_cols=[‘one’, ‘two’])
+&lt;/code&gt;&lt;/pre&gt;</description>
+      </item>
+      
+    
+      
+      <item>
+        <author>Azhar Khan</author>
+        <title>Jekyll &#43; Hydeout &#43; Github Pages</title>
+        <link>https://azharkhan.in/articles/jekyll-hydeout-github-pages/</link>
+        <pubDate>Mon, 15 Oct 2018 14:10:29 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/jekyll-hydeout-github-pages/</guid>
+        <description>&lt;p&gt;I recently migrated this website from &lt;a href=&#34;http://wordpress.com&#34;&gt;Wordpress&lt;/a&gt; to &lt;a href=&#34;http://pages.github.com/&#34;&gt;Github pages&lt;/a&gt;
+using &lt;a href=&#34;http://jekyllrb.com&#34;&gt;Jekyll&lt;/a&gt; and &lt;a href=&#34;https://github.com/fongandrew/hydeout&#34;&gt;Hydeout&lt;/a&gt;. Over time, I grew to really dislike how heavy-weight Wordpress is. The WYSIWYG editors make it really hard to see what HTML is being generated and tend to bloat the code that is produced. I found the Wordpress plugin system so confusing that I was afraid to try to customize the layout of anything.&lt;/p&gt;
+&lt;p&gt;The process of backing up Wordpress is a huge pain. I was annoyed constantly installing security updates. I hated having to keep an opaque database in order to keep all of my content. And whenever I went in to edit my website, I was always afraid that I would fat-finger change something and have no idea what happened.&lt;/p&gt;
+&lt;p&gt;So when I learned about &lt;a href=&#34;http://jekyllrb.com/&#34;&gt;Jekyll&lt;/a&gt;, it seemed like a great alternative. I like the idea that my entire blog is a set of static files. Besides its simplicity, it makes backups so much easier and avoids most common security concerns caused by running dynamic websites. I could write my posts in &lt;a href=&#34;http://en.wikipedia.org/wiki/Markdown&#34;&gt;Markdown&lt;/a&gt;, which is quite handy. Also, Jekyll allows for code examples to be very nicely embedded in the website. Finally, Jekyll is very lightweight and allows for very minimal websites without any bloat.&lt;/p&gt;
+&lt;p&gt;The fact that GitHub provides &lt;a href=&#34;http://pages.github.com&#34;&gt;free hosting for Jekyll blogs&lt;/a&gt; is just icing on the cake. It will save me a few extra dollars each year in hosting. GitHub provides automatic version control of my blog. I can use GitHub&amp;rsquo;s web editor to write blog posts online. And I can still connect it to my custom domain &lt;a href=&#34;https://azharkhan.in&#34;&gt;azharkhan.in&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;I came across this really cool git repo called &lt;a href=&#34;https://github.com/fongandrew/hydeout&#34;&gt;Hydeout&lt;/a&gt; which was super easy to setup. Hydeout is a theme built on top of &lt;a href=&#34;https://github.com/poole/poole&#34;&gt;poole&lt;/a&gt;. Hydeout updates the original &lt;a href=&#34;https://github.com/poole/hyde&#34;&gt;Hyde&lt;/a&gt; theme of poole for Jekyll 3.x and adds new functionality.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fongandrew.github.io/hydeout/&#34;&gt;fongandrew.github.io&lt;/a&gt; is a working demo of the Hydeout website that looks like this&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://azharkhan.in/assets/demo.png&#34; alt=&#34;The demo Hydeout website&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To get started with my blog, all I had to do was create a new Git repo with the name &lt;a href=&#34;http://azkh93.github.io&#34;&gt;azkh93.github.io&lt;/a&gt;, download the Hydeout repository, and push it to my git repo. A few minutes later the website azkh93.github.io was ready! I only had a few posts on my previous website so I just copied them over manually. But there is &lt;a href=&#34;http://jekyllrb.com/docs/migrations&#34;&gt;a package&lt;/a&gt; for migrating blogs to Jekyll.&lt;/p&gt;
+&lt;h2 id=&#34;blog-layout&#34;&gt;Blog Layout&lt;/h2&gt;
+&lt;p&gt;The initial state of the Hydeout repository is:&lt;/p&gt;
+&lt;p&gt;{% highlight sh %}
+$ ls -1
+404.html
+Gemfile
+CNAME
+LICENSE.md
+README.md
+_config.yml
+_includes
+_layouts
+_posts
+_sass
+_screenshots
+assests/css
+category
+about.md
+favicon.ico
+favicon.png
+atom.xml
+index.html
+search.html
+tags.html
+{% endhighlight %}&lt;/p&gt;
+&lt;p&gt;You can view the folder structure on &lt;a href=&#34;https://github.com/fongandrew/hydeout&#34;&gt;GitHub&lt;/a&gt;.
+When you run Jekyll, it creates a folder called _site with the
+static website inside of it. Every file or folder in the repo will get copied
+into the _site folder unless it begins with an underscore.
+Markdown files will get automatically converted to HTML
+and Hydeout uses the &lt;a href=&#34;http://liquidmarkup.org&#34;&gt;Liquid&lt;/a&gt; templating system to allow
+for somewhat dynamic content on the website.&lt;/p&gt;
+&lt;p&gt;The folder &lt;a href=&#34;https://github.com/fongandrew/hydeout/tree/master/_posts&#34;&gt;_posts&lt;/a&gt; contains all of the blog posts in markdown format.
+Some example posts that come with Hydeout are:
+{% highlight bash %}
+$ ls -1 _posts/
+2013-12-31-whats-jekyll.md
+2014-01-01-example-content.md
+2014-01-02-introducing-hyde.md
+{% endhighlight %}
+&lt;a href=&#34;https://github.com/fongandrew/hydeout/blob/master/index.html&#34;&gt;index.html&lt;/a&gt;
+contains the front page of the blog and
+&lt;a href=&#34;https://github.com/fongandrew/hydeout/blob/master/about.md&#34;&gt;about.md&lt;/a&gt; is a
+static post in markdown format.
+If you want to have more static files, you can just add them to the
+repo and Hydeout will copy them to the _site folder when rendering the website.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/fongandrew/hydeout/blob/master/_config.yml&#34;&gt;_config.yml&lt;/a&gt;
+contains general configuration stuff for the website:
+{% highlight yaml %}&lt;/p&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+&lt;p&gt;title:            Hydeout
+tagline:          &amp;lsquo;The Jekyll theme&amp;rsquo;
+description:      &amp;lsquo;The &lt;!-- raw HTML omitted --&gt;Hyde&lt;!-- raw HTML omitted --&gt; theme for &lt;!-- raw HTML omitted --&gt;Jekyll&lt;!-- raw HTML omitted --&gt;, refreshed.&amp;rsquo;
+url:              &lt;a href=&#34;https://fongandrew.github.io&#34;&gt;https://fongandrew.github.io&lt;/a&gt;
+&amp;hellip;
+{% endhighlight %}&lt;/p&gt;
+&lt;p&gt;Finally, the folders &lt;a href=&#34;https://github.com/fongandrew/hydeout/tree/master/_layouts&#34;&gt;_layouts&lt;/a&gt;
+and &lt;a href=&#34;https://github.com/fongandrew/hydeout/tree/master/_includes&#34;&gt;_includes&lt;/a&gt;
+contain boiler-plate HTML for building the website.
+{% highlight yaml %}
+$ ls -1 _layouts/
+default.html
+page.html
+category.html
+index.html
+post.html
+search.html
+tags.html&lt;/p&gt;
+&lt;p&gt;$ ls -1 _includes/
+category-links.html     custom-head.html        favicons.html           page-links.html         post-tags.html          sidebar-nav-links.html
+comments.html           custom-icon-links.html  font-includes.html      pagination-newer.html   related_posts.html      sidebar.html
+copyright.html          custom-nav-links.html   google-analytics.html   pagination-older.html   search-form.html        svg
+custom-foot.html        disqus.html             head.html               post-meta.html          sidebar-icon-links.html tags-list.html
+{% endhighlight %}&lt;/p&gt;
+&lt;h2 id=&#34;disqus-comments&#34;&gt;Disqus Comments&lt;/h2&gt;
+&lt;p&gt;Disqus integration is ready out of the box. Just add the following to
+your config file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;disqus&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;shortname&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;my-disqus-shortname&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you don&amp;rsquo;t want Disqus or want to use something else, override
+&lt;code&gt;comments.html&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;google-analytics&#34;&gt;Google Analytics&lt;/h2&gt;
+&lt;p&gt;For Google Analytics support, define a &lt;code&gt;google_analytics&lt;/code&gt; variable with your tracking ID in your config file.&lt;/p&gt;
+&lt;h2 id=&#34;getting-a-custom-url&#34;&gt;Getting a Custom URL&lt;/h2&gt;
+&lt;p&gt;Once I got my blog up to speed on GitHub with the URL &lt;a href=&#34;https://azkh93.github.io&#34;&gt;azkh93.github.io&lt;/a&gt;, it was easy to link my personal domain &lt;a href=&#34;https://azharkhan.in&#34;&gt;azharkhan.in&lt;/a&gt; to it. I use GoDaddy to host my domain, so I followed the instructions &lt;a href=&#34;https://hackernoon.com/how-to-set-up-godaddy-domain-with-github-pages-a9300366c7b&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I hope this blog post will help you get up to speed quickly with GitHub Pages, Jekyll, and Hydeout.
+If you have any questions about my implementation, you can view my entire website on &lt;a href=&#34;https://github.com/azkh93/azkh93.github.io&#34;&gt;GitHub&lt;/a&gt; or leave a question below.&lt;/p&gt;
+&lt;h2 id=&#34;more-links&#34;&gt;More Links&lt;/h2&gt;
+&lt;p&gt;Here are some links which helped me along the way:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The official &lt;a href=&#34;http://jekyllrb.com&#34;&gt;Jekyll&lt;/a&gt; website, along with detailed &lt;a href=&#34;http://jekyllrb.com/docs/home&#34;&gt;documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Documentation by GitHub about hosting static webpages with &lt;a href=&#34;http://pages.github.com&#34;&gt;GitHub pages&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;https://github.com/poole/poole&#34;&gt;poole&lt;/a&gt; GitHub repository.&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;https://github.com/fongandrew/hydeout&#34;&gt;Hydeout&lt;/a&gt; GitHub repository.&lt;/li&gt;
+&lt;li&gt;The GitHub repository for my &lt;a href=&#34;https://github.com/azkh93/azkh93.github.io&#34;&gt;personal website&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <author>Azhar Khan</author>
+        <title>Extracting key phrases from BIG (text) data</title>
+        <link>https://azharkhan.in/articles/extracting-key-phrases-from-big-text-data/</link>
+        <pubDate>Wed, 21 Mar 2018 14:10:29 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/extracting-key-phrases-from-big-text-data/</guid>
+        <description>&lt;p&gt;I often apply natural language processing for purposes of automatically extracting structured information from unstructured (text) datasets. One such task is the extraction of important topical words and phrases from documents, commonly known as &lt;a href=&#34;https://en.wikipedia.org/wiki/Terminology_extraction&#34;&gt;terminology extraction&lt;/a&gt; or &lt;strong&gt;automatic keyphrase extraction&lt;/strong&gt;. Keyphrases provide a concise description of a document’s content; they are useful for document categorization, clustering, indexing, search, and summarization; quantifying semantic similarity with other documents; as well as conceptualizing particular knowledge domains.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://bdewilde.github.io/assets/images/2014-09-23-keyphrase_extraction.png&#34; alt=&#34;Im1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Despite wide applicability and much research, keyphrase extraction suffers from poor performance relative to many other core NLP tasks, partly because there’s no objectively “correct” set of keyphrases for a given document. While human-labeled keyphrases are generally considered to be the gold standard, humans disagree about what that standard is! As a general rule of thumb, keyphrases should be relevant to one or more of a document’s major topics, and the set of keyphrases describing a document should provide good coverage of all major topics. (They should also be understandable and grammatical, of course.) The fundamental difficulty lies in determining which keyphrases are the most relevant and provide the best coverage. As described in &lt;a href=&#34;http://www.hlt.utdallas.edu/~saidul/acl14.pdf&#34;&gt;Automatic Keyphrase Extraction: A Survey of the State of the Art&lt;/a&gt;, several factors contribute to this difficulty, including document length, structural inconsistency, changes in topic, and (a lack of) correlations between topics.&lt;/p&gt;
+&lt;h2 id=&#34;methodology&#34;&gt;Methodology&lt;/h2&gt;
+&lt;p&gt;Automatic keyphrase extraction is typically a two-step process: first, a set of words and phrases that could convey the topical content of a document are identified, then these candidates are scored/ranked and the “best” are selected as a document’s keyphrases.&lt;/p&gt;
+&lt;h3 id=&#34;1-candidate-identification&#34;&gt;1. Candidate Identification&lt;/h3&gt;
+&lt;p&gt;A brute-force method might consider all words and/or phrases in a document as candidate keyphrases. However, given computational costs and the fact that not all words and phrases in a document are equally likely to convey its content, heuristics are typically used to identify a smaller subset of better candidates. Common heuristics include removing &lt;a href=&#34;https://en.wikipedia.org/wiki/Stop_words&#34;&gt;stop words&lt;/a&gt; and punctuation; filtering for words with certain parts of speech or, for multi-word phrases, certain POS patterns; and using external knowledge bases like &lt;a href=&#34;https://wordnet.princeton.edu&#34;&gt;WordNet&lt;/a&gt; or Wikipedia as a reference source of good/bad keyphrases.&lt;/p&gt;
+&lt;p&gt;For example, rather than taking all of the &lt;a href=&#34;https://en.wikipedia.org/wiki/N-gram&#34;&gt;n-grams&lt;/a&gt; (where 1 ≤ n ≤ 5) in this post’s first two paragraphs as candidates, we might limit ourselves to only noun phrases matching the POS pattern &lt;code&gt;{(&amp;lt;JJ&amp;gt;* &amp;lt;NN.*&amp;gt;+ &amp;lt;IN&amp;gt;)? &amp;lt;JJ&amp;gt;* &amp;lt;NN.*&amp;gt;+}&lt;/code&gt; (a regular expression written in a simplified format used by &lt;a href=&#34;http://www.nltk.org&#34;&gt;NLTK’s&lt;/a&gt; &lt;code&gt;RegexpParser()&lt;/code&gt;). This matches any number of adjectives followed by at least one noun that may be joined by a preposition to one other adjective(s)+noun(s) sequence, and results in the following candidates:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[&#39;art&#39;, automatic keyphrase extraction&#39;, &#39;changes in topic&#39;, &#39;concise description&#39;,
+&#39;content&#39;, &#39;coverage&#39;, &#39;difficulty&#39;, &#39;document&#39;, &#39;document categorization&#39;,
+&#39;document length&#39;, &#39;extraction of important topical words&#39;, &#39;fundamental difficulty&#39;,
+&#39;general rule of thumb&#39;, &#39;gold standard&#39;, &#39;good coverage&#39;, &#39;human-labeled keyphrases&#39;,
+&#39;humans&#39;, &#39;indexing&#39;, &#39;keyphrases&#39;, &#39;major topics&#39;, &#39;many other core nlp tasks&#39;,
+&#39;much research&#39;, &#39;natural language processing for purposes&#39;, &#39;particular knowledge domains&#39;,
+&#39;phrases from documents&#39;, &#39;search&#39;, &#39;semantic similarity with other documents&#39;,
+&#39;set of keyphrases&#39;, &#39;several factors&#39;, &#39;state&#39;, &#39;structural inconsistency&#39;,
+&#39;summarization&#39;, &#39;survey&#39;, &#39;terminology extraction&#39;, &#39;topics&#39;, &#39;wide applicability&#39;, &#39;work&#39;]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Compared to the brute force result, which gives 1100+ candidate n-grams, most of which are almost certainly not keyphrases (e.g. “task”, “relative to”, “and the set”, “survey of the state”, …), this seems like a much smaller and more likely set of candidates, right? As document length increases, though, even the number of likely candidates can get quite large. Selecting the best keyphrase candidates is the objective of step 2.&lt;/p&gt;
+&lt;h3 id=&#34;2-keyphrase-selection&#34;&gt;2. Keyphrase Selection&lt;/h3&gt;
+&lt;p&gt;Researchers have devised a plethora of methods for distinguishing between good and bad (or better and worse) keyphrase candidates. The simplest rely solely on &lt;strong&gt;frequency statistics&lt;/strong&gt;, such as &lt;a href=&#34;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&#34;&gt;TF*IDF&lt;/a&gt; or &lt;a href=&#34;https://en.wikipedia.org/wiki/Okapi_BM25&#34;&gt;BM25&lt;/a&gt;, to score candidates, assuming that a document’s keyphrases tend to be relatively frequent within the document as compared to an external reference corpus. Unfortunately, their performance is mediocre; researchers have demonstrated that the best keyphrases aren’t necessarily the most frequent within a document. (For a statistical analysis of human-generated keyphrases, check out &lt;a href=&#34;http://vis.stanford.edu/papers/keyphrases&#34;&gt;Descriptive Keyphrases for Text Visualization.&lt;/a&gt;) A next attempt might score candidates using multiple statistical features combined in an ad hoc or heuristic manner, but this approach only goes so far. More sophisticated methods apply machine learning to the problem. They fall into two broad categories.&lt;/p&gt;
+&lt;h3 id=&#34;unsupervised&#34;&gt;Unsupervised&lt;/h3&gt;
+&lt;p&gt;Unsupervised machine learning methods attempt to discover the underlying structure of a dataset without the assistance of already-labeled examples (“training data”). The canonical unsupervised approach to automatic keyphrase extraction uses a &lt;strong&gt;graph-based ranking&lt;/strong&gt; method, in which the importance of a candidate is determined by its relatedness to other candidates, where “relatedness” may be measured by two terms’ frequency of co-occurrence or &lt;a href=&#34;https://en.wikipedia.org/wiki/Semantic_similarity&#34;&gt;semantic relatedness&lt;/a&gt;. This method assumes that more important candidates are related to a greater number of other candidates, and that more of those related candidates are also considered important; it does not, however, ensure that selected keyphrases cover all major topics, although multiple variations try to compensate for this weakness.&lt;/p&gt;
+&lt;p&gt;Essentially, a document is represented as a network whose nodes are candidate keyphrases (typically only key words) and whose edges (optionally weighted by the degree of relatedness) connect related candidates. Then, a &lt;a href=&#34;https://networkx.github.io/documentation/networkx-1.9/reference/algorithms.centrality.html&#34;&gt;graph-based ranking algorithm&lt;/a&gt;, such as Google’s famous &lt;a href=&#34;https://en.wikipedia.org/wiki/PageRank&#34;&gt;PageRank&lt;/a&gt;, is run over the network, and the highest-scoring terms are taken to be the document’s keyphrases.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://bdewilde.github.io/assets/images/2014-09-23-document_as_network.png&#34; alt=&#34;Im2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The most famous instantiation of this approach is &lt;a href=&#34;http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf&#34;&gt;TextRank&lt;/a&gt;; a variation that attempts to ensure good topic coverage is DivRank. For a more extensive breakdown, see &lt;a href=&#34;http://www.hlt.utdallas.edu/~vince/papers/coling10-keyphrase.pdf&#34;&gt;Conundrums in Unsupervised Keyphrase Extraction&lt;/a&gt;, which includes an example of a &lt;strong&gt;topic-based clustering&lt;/strong&gt; method, the other main class of unsupervised keyphrase extraction algorithms (which I’m not going to delve into).&lt;/p&gt;
+&lt;p&gt;Unsupervised approaches have at least one notable strength: No training data required! In an age of massive but unlabled datasets, this can be a huge advantage over other approaches. As for disadvantages, unsupervised methods make assumptions that don’t necessarily hold across different domains, and up until recently, their performance has been inferior to supervised methods. Which brings me to the next section.&lt;/p&gt;
+&lt;h3 id=&#34;supervised&#34;&gt;Supervised&lt;/h3&gt;
+&lt;p&gt;Supervised machine learning methods use training data to infer a function that maps a set of input variables called features to some desired (and known) output value; ideally, this function can correctly predict the (unknown) output values of new examples based on their features alone. The two primary developments in supervised approaches to automatic keyphrase extraction deal with &lt;strong&gt;task reformulation&lt;/strong&gt; and &lt;strong&gt;feature design&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Early implementations recast the problem of extracting keyphrases from a document as a &lt;strong&gt;binary classification&lt;/strong&gt; problem, in which some fraction of candidates are classified as keyphrases and the rest as non-keyphrases. This is a well-understood problem, and there are many methods to solve it: &lt;a href=&#34;https://scikit-learn.org/stable/modules/naive_bayes.html&#34;&gt;Naive Bayes&lt;/a&gt;, &lt;a href=&#34;https://scikit-learn.org/stable/modules/tree.html&#34;&gt;decision trees&lt;/a&gt;, and &lt;a href=&#34;https://scikit-learn.org/stable/modules/svm.html&#34;&gt;support vector machines&lt;/a&gt;, among others. However, this reformulation of the task is conceptually problematic; humans don’t judge keyphrases independently of one another, instead they judge certain phrases as more key than others in a intrinsically relative sense. As such, more recently the problem has been reformulated as a &lt;strong&gt;ranking&lt;/strong&gt; problem, in which a function is trained to rank candidates pairwise according to degree of “keyness”. The best candidates rise to the top, and the top N are taken to be the document’s keyphrases.&lt;/p&gt;
+&lt;p&gt;The second line of research into supervised approaches has explored a wide variety of features used to discriminate between keyphrases and non-keyphrases. The most common are the aforementioned frequency statistics, along with a grab-bag of other &lt;strong&gt;statistical features&lt;/strong&gt;: phrase length (number of constituent words), phrase position (normalized position within a document of first and/or last occurrence therein), and “supervised keyphraseness” (number of times a keyphrase appears as such in the training data). Some models take advantage of a document’s &lt;strong&gt;structural features&lt;/strong&gt; — titles, abstracts, intros and conclusions, metadata, and so on — because a candidate is more likely to be a keyphrase if it appears in notable sections. Others are &lt;strong&gt;external resource-based features&lt;/strong&gt;: “Wikipedia-based keyphraseness” assumes that keyphrases are more likely to appear as Wiki article links and/or titles, while phrase commonness compares a candidate’s frequency in a document with respect to its frequency in an external corpus. The list of possible features goes on and on.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://bdewilde.github.io/assets/images/2014-09-23-keyphrase_extraction_features.png&#34; alt=&#34;Im3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A well-known implementation of the binary classification method, &lt;a href=&#34;http://community.nzdl.org/kea/&#34;&gt;KEA&lt;/a&gt; (as published in &lt;a href=&#34;http://community.nzdl.org/kea/Nevill-et-al-1999-DL99-poster.pdf&#34;&gt;Practical Automatic Keyphrase Extraction&lt;/a&gt;), used TF*IDF and position of first occurrence (while filtering on phrase length) to identify keyphrases. In A Ranking Approach to Keyphrase Extraction, researchers used a Linear Ranking SVM to rank candidate keyphrases with much success (but failed to give their algorithm a catchy name).&lt;/p&gt;
+&lt;p&gt;Supervised approaches have generally achieved better performance than unsupervised approaches; however, good training data is hard to find (although here’s &lt;a href=&#34;https://github.com/snkim/AutomaticKeyphraseExtraction&#34;&gt;a decent place to start&lt;/a&gt;), and the danger of training a model that doesn’t generalize to unseen examples is something to always guard against (e.g. through &lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-validation_(statistics)&#34;&gt;cross-validation&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+&lt;p&gt;Okay, now that I’ve scared/bored away all but the truly interested, let’s dig into some code and results! As an example document, I’ll use all of the text in this post up to this results section; as a reference corpus, I’ll use all other posts on this blog. In principle, a reference corpus isn’t necessary for single-document keyphrase extraction (case in point: TextRank), but it’s often helpful to compare a document’s candidates against other documents’ in order to characterize its particular content. Consider that tf*idf reduces to just tf (term frequency) in the case of a single document, since idf (inverse document frequency) is the same value for every candidate.&lt;/p&gt;
+&lt;p&gt;As mentioned, there are many ways to extract candidate keyphrases from a document; here’s a simplified and compact implementation of the “noun phrases only” heuristic method:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def extract_candidate_chunks(text, grammar=r&#39;KT: {(&amp;lt;JJ&amp;gt;* &amp;lt;NN.*&amp;gt;+ &amp;lt;IN&amp;gt;)? &amp;lt;JJ&amp;gt;* &amp;lt;NN.*&amp;gt;+}&#39;):
+    import itertools, nltk, string
+
+    # exclude candidates that are stop words or entirely punctuation
+    punct = set(string.punctuation)
+    stop_words = set(nltk.corpus.stopwords.words(&#39;english&#39;))
+    # tokenize, POS-tag, and chunk using regular expressions
+    chunker = nltk.chunk.regexp.RegexpParser(grammar)
+    tagged_sents = nltk.pos_tag_sents(nltk.word_tokenize(sent) for sent in nltk.sent_tokenize(text))
+    all_chunks = list(itertools.chain.from_iterable(nltk.chunk.tree2conlltags(chunker.parse(tagged_sent))
+                                                    for tagged_sent in tagged_sents))
+    # join constituent chunk words into a single chunked phrase
+    candidates = [&#39; &#39;.join(word for word, pos, chunk in group).lower()
+                  for key, group in itertools.groupby(all_chunks, lambda (word,pos,chunk): chunk != &#39;O&#39;) if key]
+
+    return [cand for cand in candidates
+            if cand not in stop_words and not all(char in punct for char in cand)]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When &lt;code&gt;text&lt;/code&gt; is assigned to the first two paragraphs of this post, &lt;code&gt;set(extract_candidate_chunks(text))&lt;/code&gt; returns more or less the same set of candidate keyphrases as listed in 1. Candidate Identification. (Additional cleaning and filtering code improves the list a bit and helps to makes up for tokenizing/tagging/chunking errors.) For comparison, the original TextRank algorithm performs best when extracting all (unigram) nouns and adjectives, like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def extract_candidate_words(text, good_tags=set([&#39;JJ&#39;,&#39;JJR&#39;,&#39;JJS&#39;,&#39;NN&#39;,&#39;NNP&#39;,&#39;NNS&#39;,&#39;NNPS&#39;])):
+    import itertools, nltk, string
+
+    # exclude candidates that are stop words or entirely punctuation
+    punct = set(string.punctuation)
+    stop_words = set(nltk.corpus.stopwords.words(&#39;english&#39;))
+    # tokenize and POS-tag words
+    tagged_words = itertools.chain.from_iterable(nltk.pos_tag_sents(nltk.word_tokenize(sent)
+                                                                    for sent in nltk.sent_tokenize(text)))
+    # filter on certain POS tags and lowercase all words
+    candidates = [word.lower() for word, tag in tagged_words
+                  if tag in good_tags and word.lower() not in stop_words
+                  and not all(char in punct for char in word)]
+
+    return candidates
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In this case, &lt;code&gt;set(extract_candidate_words(text))&lt;/code&gt; gives basically the same set of words visualized as a network in the sub-section on unsupervised methods.&lt;/p&gt;
+&lt;p&gt;Code for keyphrase selection depends entirely on the approach taken, of course. It’s relatively straightforward to implement the simplest, frequency statistic-based approach using &lt;a href=&#34;https://scikit-learn.org/stable/&#34;&gt;scikit-learn&lt;/a&gt; or &lt;a href=&#34;https://radimrehurek.com/gensim/&#34;&gt;gensim&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def score_keyphrases_by_tfidf(texts, candidates=&#39;chunks&#39;):
+    import gensim, nltk
+
+    # extract candidates from each text in texts, either chunks or words
+    if candidates == &#39;chunks&#39;:
+        boc_texts = [extract_candidate_chunks(text) for text in texts]
+    elif candidates == &#39;words&#39;:
+        boc_texts = [extract_candidate_words(text) for text in texts]
+    # make gensim dictionary and corpus
+    dictionary = gensim.corpora.Dictionary(boc_texts)
+    corpus = [dictionary.doc2bow(boc_text) for boc_text in boc_texts]
+    # transform corpus with tf*idf model
+    tfidf = gensim.models.TfidfModel(corpus)
+    corpus_tfidf = tfidf[corpus]
+
+    return corpus_tfidf, dictionary
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;First we assign &lt;code&gt;texts&lt;/code&gt; to a list of normalized text content (stripped of various YAML, HTML, and Markdown formatting) from all previous blog posts plus the first two sections of this post, then we call &lt;code&gt;score_keyphrases_by_tfidf(texts)&lt;/code&gt; to get all posts back in a sparse, tf&lt;em&gt;idf-weighted representation. It’s now trivial to print out the 20 candidate keyphrases with the highest tf&lt;/em&gt;idf values for this blog post:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;keyphrase                           tfidf
+-----------------------------------------
+keyphrases......................... 0.573
+document........................... 0.375
+candidates......................... 0.306
+approaches......................... 0.191
+approach........................... 0.115
+candidate.......................... 0.115
+major topics....................... 0.115
+methods............................ 0.115
+automatic keyphrase extraction..... 0.076
+frequency statistics............... 0.076
+keyphrase.......................... 0.076
+keyphrase candidates............... 0.076
+network............................ 0.076
+relatedness........................ 0.076
+researchers........................ 0.076
+set of keyphrases.................. 0.076
+state.............................. 0.076
+survey............................. 0.076
+function........................... 0.075
+performance........................ 0.075
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Not too shabby! Although you can clearly see how &lt;a href=&#34;https://en.wikipedia.org/wiki/Stemming&#34;&gt;stemming&lt;/a&gt; or &lt;a href=&#34;https://en.wikipedia.org/wiki/Lemmatisation&#34;&gt;lemmatizing&lt;/a&gt; candidates would improve results (candidate / candidates, approach / approaches, and keyphrase / keyphrases would normalize together). You can also see that this approach seems to favor unigram keyphrases, likely owing to their much higher frequencies of occurrence in natural language texts. Considering that human-selected keyphrases are most often bigrams (according to the analysis in &lt;a href=&#34;http://vis.stanford.edu/papers/keyphrases&#34;&gt;Descriptive Keyphrases for Text Visualization&lt;/a&gt;), this seems to be another limitation of such simplistic methods.&lt;/p&gt;
+&lt;p&gt;Now, let’s try a bare-bones implementation of the TextRank algorithm. To keep it simple, only unigram candidates (not chunks or n-grams) are added to the network as nodes, the co-occurrence window size is fixed at 2 (so only adjacent words are said to “co-occur”), and the edges between nodes are unweighted (rather than weighted by the number of co-occurrences). The N top-scoring candidates are taken to be its keywords; sequences of adjacent keywords are merged to form key phrases and their individual PageRank scores are averaged, so as not to bias for longer keyphrases.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def score_keyphrases_by_textrank(text, n_keywords=0.05):
+    from itertools import takewhile, tee, izip
+    import networkx, nltk
+
+    # tokenize for all words, and extract *candidate* words
+    words = [word.lower()
+             for sent in nltk.sent_tokenize(text)
+             for word in nltk.word_tokenize(sent)]
+    candidates = extract_candidate_words(text)
+    # build graph, each node is a unique candidate
+    graph = networkx.Graph()
+    graph.add_nodes_from(set(candidates))
+    # iterate over word-pairs, add unweighted edges into graph
+    def pairwise(iterable):
+        &amp;quot;&amp;quot;&amp;quot;s -&amp;gt; (s0,s1), (s1,s2), (s2, s3), ...&amp;quot;&amp;quot;&amp;quot;
+        a, b = tee(iterable)
+        next(b, None)
+        return izip(a, b)
+    for w1, w2 in pairwise(candidates):
+        if w2:
+            graph.add_edge(*sorted([w1, w2]))
+    # score nodes using default pagerank algorithm, sort by score, keep top n_keywords
+    ranks = networkx.pagerank(graph)
+    if 0 &amp;lt; n_keywords &amp;lt; 1:
+        n_keywords = int(round(len(candidates) * n_keywords))
+    word_ranks = {word_rank[0]: word_rank[1]
+                  for word_rank in sorted(ranks.iteritems(), key=lambda x: x[1], reverse=True)[:n_keywords]}
+    keywords = set(word_ranks.keys())
+    # merge keywords into keyphrases
+    keyphrases = {}
+    j = 0
+    for i, word in enumerate(words):
+        if i &amp;lt; j:
+            continue
+        if word in keywords:
+            kp_words = list(takewhile(lambda x: x in keywords, words[i:i+10]))
+            avg_pagerank = sum(word_ranks[w] for w in kp_words) / float(len(kp_words))
+            keyphrases[&#39; &#39;.join(kp_words)] = avg_pagerank
+            # counter as hackish way to ensure merged keyphrases are non-overlapping
+            j = i + len(kp_words)
+
+    return sorted(keyphrases.iteritems(), key=lambda x: x[1], reverse=True)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;With &lt;code&gt;text&lt;/code&gt; as the first two sections of this post, calling &lt;code&gt;score_keyphrases_by_textrank(text)&lt;/code&gt; returns the following top 20 keyphrases:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;keyphrase                           textrank
+--------------------------------------------
+keyphrases.........................    0.028
+candidates.........................    0.022
+document...........................    0.022
+candidate keyphrases...............    0.019
+best keyphrases....................    0.018
+keyphrase candidates...............    0.017
+likely candidates..................    0.015
+best candidates....................    0.015
+best keyphrase candidates..........    0.014
+features...........................    0.013
+keyphrase..........................    0.012
+keyphrase extraction...............    0.012
+extraction.........................    0.012
+methods............................    0.011
+candidate..........................     0.01
+words..............................     0.01
+automatic keyphrase extraction.....     0.01
+approaches.........................    0.009
+problem............................    0.009
+set................................    0.008
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Again, not too shabby, but obviously there’s room for improvement. You can see that this algorithm occasionally produces novel and high-quality keyphrases, but there’s a fair amount of noise, too. Normalization of candidates (keyphrase / keyphrases, …) could help, as could better cleaning and filtering. Furthermore, experimenting with different aspects of the algorithm — like DivRank, SingleRank, &lt;a href=&#34;http://www.aaai.org/Papers/AAAI/2008/AAAI08-136.pdf&#34;&gt;ExpandRank&lt;/a&gt;, &lt;a href=&#34;http://www.aclweb.org/anthology/C/C08/C08-1122.pdf&#34;&gt;CollabRank&lt;/a&gt;, and others — including co-occurrence window size, weighted graphs, and the manner in which keywords are merged into keyphrases, has been shown to produce better results.&lt;/p&gt;
+&lt;p&gt;Lastly, let’s try a supervised algorithm. I prefer a ranking approach over binary classification, for conceptual as well as result quality reasons. Conveniently, someone has already implemented a &lt;a href=&#34;https://gist.github.com/agramfort/2071994&#34;&gt;pairwise Ranking SVM&lt;/a&gt; in Python — and &lt;a href=&#34;http://fa.bianp.net/blog/2012/learning-to-rank-with-scikit-learn-the-pairwise-transform/&#34;&gt;blogged about it!&lt;/a&gt; Feature design is something of an art; drawing on multiple sources for inspiration, I extracted a diverse grab-bag of features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;frequency-based&lt;/strong&gt;: term frequency, g&lt;!-- raw HTML omitted --&gt;2&lt;!-- raw HTML omitted --&gt;, corpus and web “commonness” (as defined &lt;a href=&#34;http://vis.stanford.edu/papers/keyphrases&#34;&gt;here&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;statistical&lt;/strong&gt;: term length, spread, lexical cohesion, max word length&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;grammatical&lt;/strong&gt;: “is acronym”, “is &lt;a href=&#34;https://en.wikipedia.org/wiki/Named-entity_recognition&#34;&gt;named entity&lt;/a&gt;”&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;positional&lt;/strong&gt;: normalized positions of first and last occurrence, “is in title”, “is in key excerpt” (such as an abstract or introductory paragraph)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Feature extraction can get very complicated and convoluted. In the interest of brevity and simplicity, then, here’s a partial example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def extract_candidate_features(candidates, doc_text, doc_excerpt, doc_title):
+    import collections, math, nltk, re
+
+    candidate_scores = collections.OrderedDict()
+
+    # get word counts for document
+    doc_word_counts = collections.Counter(word.lower()
+                                          for sent in nltk.sent_tokenize(doc_text)
+                                          for word in nltk.word_tokenize(sent))
+
+    for candidate in candidates:
+
+        pattern = re.compile(r&#39;\b&#39;+re.escape(candidate)+r&#39;(\b|[,;.!?]|\s)&#39;, re.IGNORECASE)
+
+        # frequency-based
+        # number of times candidate appears in document
+        cand_doc_count = len(pattern.findall(doc_text))
+        # count could be 0 for multiple reasons; shit happens in a simplified example
+        if not cand_doc_count:
+            print &#39;**WARNING:&#39;, candidate, &#39;not found!&#39;
+            continue
+
+        # statistical
+        candidate_words = candidate.split()
+        max_word_length = max(len(w) for w in candidate_words)
+        term_length = len(candidate_words)
+        # get frequencies for term and constituent words
+        sum_doc_word_counts = float(sum(doc_word_counts[w] for w in candidate_words))
+        try:
+            # lexical cohesion doesn&#39;t make sense for 1-word terms
+            if term_length == 1:
+                lexical_cohesion = 0.0
+            else:
+                lexical_cohesion = term_length * (1 + math.log(cand_doc_count, 10)) * cand_doc_count / sum_doc_word_counts
+        except (ValueError, ZeroDivisionError) as e:
+            lexical_cohesion = 0.0
+
+        # positional
+        # found in title, key excerpt
+        in_title = 1 if pattern.search(doc_title) else 0
+        in_excerpt = 1 if pattern.search(doc_excerpt) else 0
+        # first/last position, difference between them (spread)
+        doc_text_length = float(len(doc_text))
+        first_match = pattern.search(doc_text)
+        abs_first_occurrence = first_match.start() / doc_text_length
+        if cand_doc_count == 1:
+            spread = 0.0
+            abs_last_occurrence = abs_first_occurrence
+        else:
+            for last_match in pattern.finditer(doc_text):
+                pass
+            abs_last_occurrence = last_match.start() / doc_text_length
+            spread = abs_last_occurrence - abs_first_occurrence
+
+        candidate_scores[candidate] = {&#39;term_count&#39;: cand_doc_count,
+                                       &#39;term_length&#39;: term_length, &#39;max_word_length&#39;: max_word_length,
+                                       &#39;spread&#39;: spread, &#39;lexical_cohesion&#39;: lexical_cohesion,
+                                       &#39;in_excerpt&#39;: in_excerpt, &#39;in_title&#39;: in_title,
+                                       &#39;abs_first_occurrence&#39;: abs_first_occurrence,
+                                       &#39;abs_last_occurrence&#39;: abs_last_occurrence}
+
+    return candidate_scores
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;As an example, &lt;code&gt;candidate_scores[&amp;quot;automatic keyphrase extraction&amp;quot;]&lt;/code&gt; returns the following features:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{&#39;abs_first_occurrence&#39;: 0.029178287921046986,
+ &#39;abs_last_occurrence&#39;: 0.9301652006007295,
+ &#39;in_excerpt&#39;: 1,
+ &#39;in_title&#39;: 1,
+ &#39;lexical_cohesion&#39;: 0.9699006820274416,
+ &#39;max_word_length&#39;: 10,
+ &#39;spread&#39;: 0.9009869126796826,
+ &#39;term_count&#39;: 6,
+ &#39;term_length&#39;: 3}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The last thing to do is train a Ranking SVM model on an already-labeled dataset; I used the SemEval 2010 keyphrase extraction dataset, plus a couple extra bits and pieces, which can be found in this GitHub repo. When applied to the first two sections of this blog post, the 20 top-scoring candidates are as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;keyphrase                           ranksvm
+-------------------------------------------
+keyphrase extraction...............   1.736
+document categorization............   1.151
+particular knowledge domains.......   1.031
+phrases from documents.............   1.014
+keyphrase..........................    0.97
+terminology extraction.............   0.951
+keyphrases.........................   0.909
+set of keyphrases..................   0.895
+concise description................   0.873
+document...........................   0.691
+human-labeled keyphrases...........   0.643
+candidate identification...........   0.642
+frequency of co-occurrence.........   0.636
+candidate keyphrases...............   0.624
+wide applicability.................   0.604
+rest as non-keyphrases.............   0.578
+binary classification problem......   0.567
+canonical unsupervised approach....   0.566
+structural inconsistency...........   0.556
+paragraphs as candidates...........   0.548
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now that is a nice set of keyphrases! There’s some bias for longer keyphrases (and longer words within keyphrases), perhaps because the training dataset was about 90% scientific articles, but it’s not inappropriate for this science-ish blog’s content.&lt;/p&gt;
+&lt;p&gt;All of the code shown here has been pared down and simplified for demonstration purposes. Adding extensive candidate cleaning, filtering, case/syntactic normalization, and de-duplication can dramatically reduce noise and improve results, as can incorporating additional features and external resources into the keyphrase selection algorithm. Furthermore, although all of these methods were presented in the context of single-document keyphrase extraction, there are ways to extract keyphrases from multiple documents and thus categorize/cluster/summarize/index/conceptualize entire corpora. This really is just an introduction to an ongoing challenge in natural language processing research.&lt;/p&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <author>Azhar Khan</author>
+        <title>Data Science. What the heck is that?</title>
+        <link>https://azharkhan.in/articles/data-science.-what-the-heck-is-that/</link>
+        <pubDate>Sat, 05 Nov 2016 14:10:29 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/data-science.-what-the-heck-is-that/</guid>
+        <description>&lt;p&gt;If I’m to write about becoming a &lt;em&gt;data scientist&lt;/em&gt;, I should first define what I mean by &lt;em&gt;data science&lt;/em&gt;. A simple &lt;a href=&#34;http://lmgtfy.com/?q=what+is+data+science%3F&#34;&gt;Google search&lt;/a&gt; yields over one billion results… so I’ll do my best to summarize. (This is easier said than done, of course, since the concept has been around and &lt;a href=&#34;https://www.smartdatacollective.com/evolution-what-data-science/&#34;&gt;evolved considerably&lt;/a&gt; since the 1970s, and a generally-accepted definition does not appear to exist.)&lt;/p&gt;
+&lt;p&gt;Data science is a relatively new field that lies at the intersection of math and statistics, computing and hacking, machine learning and data mining. As such, its practitioners (data scientists) are inherently interdisciplinary, problem-solving generalists who, according to Mike Loukides in his seminal article “&lt;a href=&#34;https://www.oreilly.com/ideas/what-is-data-science&#34;&gt;What is data science?&lt;/a&gt;”, “can think outside the box to come up with new ways to view the problem, or to work with very broadly defined problems: ‘here’s a lot of data, what can you make from it?’” In an &lt;a href=&#34;https://techcrunch.com/2012/09/06/in-the-studio-linkedins-pete-skomoroch-discusses-the-voltron-of-data-science/&#34;&gt;interview&lt;/a&gt; with &lt;a href=&#34;https://twitter.com/peteskomoroch&#34;&gt;Peter Skomoroch&lt;/a&gt; of LinkedIn, the “&lt;a href=&#34;https://www.youtube.com/watch?v=tZZv5Z2Iz_s&amp;amp;feature=youtu.be&#34;&gt;Voltron&lt;/a&gt; of data science” is characterized by a technical ability to code, mathematical know-how to build algorithms, and overall business intelligence. &lt;a href=&#34;https://twitter.com/dpatil&#34;&gt;DJ Patil&lt;/a&gt; describes data scientists in “&lt;a href=&#34;http://radar.oreilly.com/2011/09/building-data-science-teams.html?utm_source=feedburner&amp;amp;utm_medium=feed&amp;amp;utm_campaign=Feed%3A+oreilly%2Fradar%2Fatom+%28O%27Reilly+Radar%29&amp;amp;utm_content=My+Yahoo&#34;&gt;Building data science teams&lt;/a&gt;” as “those who use both data and science to create something new.” He goes on to stress the importance of curiosity and cleverness as personality traits of successful data scientists.&lt;/p&gt;
+&lt;p&gt;A visual attempt at definition comes in the form of &lt;a href=&#34;http://drewconway.com/zia/?p=2378&#34;&gt;The Data Science Venn Diagram&lt;/a&gt; by &lt;a href=&#34;&#34;&gt;Drew Conway&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://bdewilde.github.io/assets/images/2012-09-27-data-science-venn-diagram.png&#34; alt=&#34;Venn_Diag&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The emphasis here is, again, on the interdisciplinary nature of data science, which lies at the intersection of three general domains of knowledge and experience. His inclusion of “substantive expertise” points to what makes data science (and data scientists) new and distinct from, say, business intelligence analysts: It’s not just about the existence of the data and the ability to quantitatively analyze it; data science is about testing hypotheses, and deriving new knowledge from the data, then making sure that the conclusions are valid. It’s about &lt;em&gt;discovery&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Another way to define data science is to describe the sort of work that’s actually performed by data scientists. In &lt;a href=&#34;http://www.dataists.com/2010/09/a-taxonomy-of-data-science/&#34;&gt;A Taxonomy of Data Science&lt;/a&gt;, &lt;a href=&#34;https://hilarymason.com/about/&#34;&gt;Hilary Mason&lt;/a&gt; and &lt;a href=&#34;http://www.columbia.edu/~chw2/&#34;&gt;Chris Wiggins&lt;/a&gt; list what a data scientist actually does, in approximate chronological order: obtain (finding and getting sufficient amounts of data from a variety of sources); scrub (cleaning up messy and/or incomplete data to make analysis possible); explore (looking at the data by reading numbers, basic plotting, and unsupervised clustering techniques); model (producing the most predictive model of the data possible, quantifying the accuracy of its predictions); and interpret (gleaning generalized insight from the model to produce data products and suggest directions for further inquiry). Not surprisingly, data scientists perform a wide array of specific tasks. According to Jeff Hammerbacher&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;”… on any given day, a team member could author a multistage processing pipeline in Python, design a hypothesis test, perform a regression analysis over data samples with R, design and implement an algorithm for some data-intensive product or service in Hadoop, or communicate the results of our analyses to other members of the organization.”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Amazing. Mike Driscoll details the three sexy skills of data geeks — statistics, data munging, and visualization — the last of which is a critical component of data science that I’ve not yet mentioned. Presenting the data such that its underlying structure is clear and visible facilitates a better understanding of the dataset itself, not to mention communication of your conclusions with others! On that note, here’s a final, visual take on tasks now associated with data science, taken from a 2004 dissertation on computational information design by &lt;a href=&#34;https://benfry.com&#34;&gt;Ben Fry&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://bdewilde.github.io/assets/images/2012-09-27-data-science-tasks.png&#34; alt=&#34;Img_2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So, as far as I can tell, that’s data science in a nutshell. But, given that it’s a new and varied field, I’ve probably missed some important points; if anybody out there has something to add, please do so in the comments!&lt;/p&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <author>Azhar Khan</author>
+        <title>Hello World</title>
+        <link>https://azharkhan.in/articles/hello-world/</link>
+        <pubDate>Fri, 15 Jul 2016 14:10:29 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/hello-world/</guid>
+        <description>&lt;h4 id=&#34;this-is-where-it-all-begins-more-to-follow&#34;&gt;This is where it all begins. More to follow.&lt;/h4&gt;
+</description>
+      </item>
+      
+    
+  </channel>
+</rss>

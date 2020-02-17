@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Columnar In-Memory Analytics using Arrow &ndash; Azhar Khan</title>
+    <meta name="title" content="Columnar In-Memory Analytics using Arrow">
+    
+    <meta name="description" content="Blog posts on code and design by github.com/XOR97">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/columnar-in-memory-analytics-using-arrow/">
+    <meta property="og:title" content="Columnar In-Memory Analytics using Arrow - Azhar Khan">
+    <meta property="og:description" content=" Blog posts on code and design by github.com/XOR97">
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/AzhrKAN" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+    <meta property="og:image" content="https://res.cloudinary.com/harrycresswell/image/upload/w_700,dpr_2.0,c_scale,f_auto,q_auto/v1550264713/hc/harry-cresswell-about-me.jpg">
+    
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/columnar-in-memory-analytics-using-arrow/">
+    <meta property="twitter:title" content="Columnar In-Memory Analytics using Arrow - Azhar Khan">
+    <meta property="twitter:description" content="  Blog posts on code and design by github.com/XOR97">
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.344db5cf78e57a6591e912b93f9118a96cac6c0e2d3e9ca27c7b9d234bf44374.css" integrity="sha256-NE21z3jlemWR6RK5P5EYqWysbA4tPpyifHudI0v0Q3Q=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main" class="Container">
+
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Columnar In-Memory Analytics using Arrow</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2019-01-27 14:10:29 &#43;0000 UTC">Sun, Jan 27, 2019</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/data-science" class="p-category">Data Science</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>Folks, there is a new library in town that is taking the data engineering community by storm.</p>
+<p>Welcome, Apache Arrow</p>
+<blockquote>
+<p>Apache Arrow is a cross-language development platform for in-memory data. It specifies a standardized language-independent
+columnar memory format for flat and hierarchical data, organized for efficient analytic operations on modern hardware.</p>
+</blockquote>
+<p>Arrow isn’t a standalone piece of software but rather a component used to accelerate analytics within a particular system and to allow Arrow-enabled systems to exchange data with low overhead. It is sufficiently flexible to support most complex data models.</p>
+<p>In simple words, It facilitates communication between many components, for example, reading a parquet file with Python (pandas) and transforming to a Spark dataframe, Falcon Data Visualization or Cassandra without worrying about conversion.</p>
+<p>For the Python and R communities, Arrow is extremely important, as data interoperability has been one of the biggest roadblocks to tighter integration with big data systems (which largely run on the JVM).</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*Q-5NKsHXBZ5glJmi_ifRpg.png" alt="image1"></p>
+<p>A good question is to ask how does the data look like in memory? Well, Apache Arrow takes advantages of a columnar buffer to reduce IO and accelerate analytical processing performance.</p>
+<p><img src="http://arrow.apache.org/img/simd.png" alt="image2"></p>
+<p>In our case, we will use the pyarrow library to execute some basic codes and check some features. In order to install, we have two options using conda or pip commands*.</p>
+<pre><code>conda install -c conda-forge pyarrow
+or
+pip install pyarrow
+</code></pre><p>*It’s recommended to use conda in a Python 3 environment.</p>
+<h2 id="apache-arrow-with-pandas-local-file-system">Apache Arrow with Pandas (Local File System)&nbsp;<a class="heading-anchor" href="#apache-arrow-with-pandas-local-file-system" aria-label="Anchor">#</a> </h2>
+<h3 id="converting-pandas-dataframe-to-apache-arrow-table">Converting Pandas Dataframe to Apache Arrow Table&nbsp;<a class="heading-anchor" href="#converting-pandas-dataframe-to-apache-arrow-table" aria-label="Anchor">#</a> </h3>
+<pre><code>import numpy as np
+import pandas as pd
+import pyarrow as pa
+df = pd.DataFrame({'one': [20, np.nan, 2.5],'two': ['january', 'february', 'march'],'three': [True, False, True]},index=list('abc'))
+table = pa.Table.from_pandas(df)
+</code></pre><h3 id="pyarrow-table-to-pandas-data-frame">Pyarrow Table to Pandas Data Frame&nbsp;<a class="heading-anchor" href="#pyarrow-table-to-pandas-data-frame" aria-label="Anchor">#</a> </h3>
+<pre><code>df_new = table.to_pandas()
+</code></pre><h3 id="read-csv">Read CSV&nbsp;<a class="heading-anchor" href="#read-csv" aria-label="Anchor">#</a> </h3>
+<pre><code>from pyarrow import csv
+fn = ‘data/demo.csv’
+table = csv.read_csv(fn)
+df = table.to_pandas()
+</code></pre><h3 id="writing-a-parquet-file-from-apache-arrow">Writing a parquet file from Apache Arrow&nbsp;<a class="heading-anchor" href="#writing-a-parquet-file-from-apache-arrow" aria-label="Anchor">#</a> </h3>
+<pre><code>import pyarrow.parquet as pq
+pq.write_table(table, 'example.parquet')
+</code></pre><h3 id="reading-a-parquet-file">Reading a parquet file&nbsp;<a class="heading-anchor" href="#reading-a-parquet-file" aria-label="Anchor">#</a> </h3>
+<pre><code>table2 = pq.read_table(‘example.parquet’)
+table2
+</code></pre><h3 id="reading-some-columns-from-a-parquet-file">Reading some columns from a parquet file&nbsp;<a class="heading-anchor" href="#reading-some-columns-from-a-parquet-file" aria-label="Anchor">#</a> </h3>
+<pre><code>table2 = pq.read_table('example.parquet', columns=['one', 'three'])
+</code></pre><h3 id="reading-from-partitioned-datasets">Reading from Partitioned Datasets&nbsp;<a class="heading-anchor" href="#reading-from-partitioned-datasets" aria-label="Anchor">#</a> </h3>
+<pre><code>dataset = pq.ParquetDataset(‘dataset_name_directory/’)
+table = dataset.read()
+table
+</code></pre><h3 id="transforming-parquet-file-into-a-pandas-dataframe">Transforming Parquet file into a Pandas DataFrame&nbsp;<a class="heading-anchor" href="#transforming-parquet-file-into-a-pandas-dataframe" aria-label="Anchor">#</a> </h3>
+<pre><code>pdf = pq.read_pandas('example.parquet', columns=['two']).to_pandas()
+pdf
+</code></pre><h3 id="avoiding-pandas-index">Avoiding pandas index&nbsp;<a class="heading-anchor" href="#avoiding-pandas-index" aria-label="Anchor">#</a> </h3>
+<pre><code>table = pa.Table.from_pandas(df, preserve_index=False)
+pq.write_table(table, 'example_noindex.parquet')
+t = pq.read_table('example_noindex.parquet')
+t.to_pandas()
+</code></pre><h3 id="check-metadata">Check metadata&nbsp;<a class="heading-anchor" href="#check-metadata" aria-label="Anchor">#</a> </h3>
+<pre><code>parquet_file = pq.ParquetFile(‘example.parquet’)
+parquet_file.metadata
+</code></pre><h3 id="see-data-schema">See data schema&nbsp;<a class="heading-anchor" href="#see-data-schema" aria-label="Anchor">#</a> </h3>
+<pre><code>parquet_file.schema
+</code></pre><h3 id="timestamp">Timestamp&nbsp;<a class="heading-anchor" href="#timestamp" aria-label="Anchor">#</a> </h3>
+<p>Remember Pandas use nanoseconds so you can truncate in milliseconds for compatibility.</p>
+<pre><code>pq.write_table(table, where, coerce_timestamps='ms')
+pq.write_table(table, where, coerce_timestamps='ms', allow_truncated_timestamps=True)
+</code></pre><h3 id="compression">Compression&nbsp;<a class="heading-anchor" href="#compression" aria-label="Anchor">#</a> </h3>
+<p>By default, Apache arrow uses snappy compression (not so compressed but easier access), although other codecs are allowed.</p>
+<pre><code>pq.write_table(table, where, compression='snappy')
+pq.write_table(table, where, compression='gzip')
+pq.write_table(table, where, compression='brotli')
+pq.write_table(table, where, compression='none')
+</code></pre><p>Also, It’s possible to use more than one compression in a table</p>
+<pre><code>pq.write_table(table, ‘example_diffcompr.parquet’, compression={b’one’: ‘snappy’, b’two’: ‘gzip’})
+</code></pre><h3 id="write-a-partitioned-parquet-table">Write a partitioned Parquet table&nbsp;<a class="heading-anchor" href="#write-a-partitioned-parquet-table" aria-label="Anchor">#</a> </h3>
+<pre><code>df = pd.DataFrame({‘one’: [1, 2.5, 3],
+                   ‘two’: [‘Peru’, ‘Brasil’, ‘Canada’],
+                   ‘three’: [True, False, True]},
+                   index=list(‘abc’))
+table = pa.Table.from_pandas(df)
+pq.write_to_dataset(table, root_path=’dataset_name’,partition_cols=[‘one’, ‘two’])
+</code></pre>
+        
+<div class="PostAuthor">
+    <div class="Avatar Avatar--round Avatar--m">
+        <div class="Avatar-img Avatar--round Avatar--m"></div>
+    </div>
+    <div class="PostAuthor-text">
+        <h4>Did you enjoy this?</h4>
+        <p>If so, consider subscribing to the feed for even more content.</p>
+    </div>
+</div>
+
+
+<div hidden>
+    <a class="u-url" href="https://azharkhan.in/https://azharkhan.in/articles/columnar-in-memory-analytics-using-arrow/">Columnar In-Memory Analytics using Arrow</a>
+    <p class="h-card p-author">
+        <a class="p-name u-url" href="https://azharkhan.in/"  rel="author">Harry Cresswell</a>
+        <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Azhar Khan">
+    </p>
+</div>
+
+      </section>
+
+  </article>
+
+
+    </main>
+
+    
+
+  <footer class="Footer">
+    <nav class="FooterNav">
+        
+        
+        <a class="FooterNav-link" href="/articles/">Articles</a>
+        
+        <a class="FooterNav-link" href="/notes/">Notes</a>
+        
+        <a class="FooterNav-link" href="/tags/">Tags</a>
+        
+    </nav>
+    <p>Content &copy;2020 Azhar Khan, unless otherwise specified. Subscribe to RSS Feeds for <a href="https://azharkhan.in/feed.xml">all content</a>, <a href="https://azharkhan.in/articles/feed.xml">articles</a> or <a href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+    
+    
+    
+    
+    
+    
+    <script type="text/javascript" src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+
+    <script>
+        var cl = cloudinary.Cloudinary.new({
+          cloud_name: "azhar932"
+        });
+
+        cl.responsive();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.3.0/cloudinary-core-shrinkwrap.min.js">
+    </script>
+
+	</body>
+</html>
+
