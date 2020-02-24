@@ -19,13 +19,13 @@ Most of my experience has been focused on the design & growth of analytic-driven
 
 Love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I'm also an opensource contributor and my current favorite projects are [Apache Arrow](https://arrow.apache.org) & [Coala](https://coala.io/).
 
-When not writing code, I can be found playing football (soccer if you may), watching the [Champions League](https://www.uefa.com), backpacking across 🇨🇦 and outside of it once in a while. An avid quizzer who occasionally brags about random trivia that no one seems to care. Have a weak spot for 🍫
+When not writing code, I can be found playing football (soccer if you may), watching the [Champions League](https://www.uefa.com), backpacking across 🇨🇦 and outside of it once in a while. An avid quizzer who occasionally brags about random trivia that no one seems to care. Have a weak spot for [Samosa](https://en.wikipedia.org/wiki/Samosa).
 
 ###### P.S. I use [Atom](https://atom.io).
 
 ## Where to go next
 
-You can find out [what I'm up to right now](/now/). Alternatively, take a look at [my CV](pdf/Azhar_Khan.pdf) to get a bit more idea of my experience.
+You can find out [what I'm up to right now](/now/). Alternatively, take a look at [my CV](pdf/Azhar_CV_20Feb.pdf) to get a bit more idea of my experience.
 
 I’m currently working on a [projects](/projects/) page, to case study some of my work, but it’s taking a while. In the meantime check out a few [things I’ve made](/things/).
 
