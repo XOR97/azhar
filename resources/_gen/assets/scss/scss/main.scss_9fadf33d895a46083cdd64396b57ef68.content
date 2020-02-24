@@ -292,13 +292,15 @@ a {
 /*------------------------------------*\
     #BASE: LISTS
 \*------------------------------------*/
-ul, ol {
-  color: var(--color-dark);
+ul,
+ol {
+  color: var(--color-body);
   list-style-position: inside;
   max-width: 675px;
   padding-left: 0; }
   @media (min-width: 48em) {
-    ul, ol {
+    ul,
+    ol {
       list-style-position: outside; } }
 
 ul + p,
@@ -1034,7 +1036,7 @@ video {
   line-height: 1.2;
   margin-top: 0rem;
   margin-bottom: 0.75rem;
-  max-width: 960px; }
+  max-width: 30ch; }
   @media screen and (min-width: 48em) {
     .PostListItem-title {
       margin-top: 0rem; } }

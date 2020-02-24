@@ -19,7 +19,7 @@ You need to have the latest/LTS [node](https://nodejs.org/en/download/) and [npm
 Clone this repository:
 
 ```
-git clone https://github.com/XOR97/XOR97.github.io.git
+git clone https://github.com/XOR97/azhar.git
 ```
 
 Then run:

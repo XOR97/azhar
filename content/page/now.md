@@ -1,5 +1,5 @@
 +++
-title = "Right now."
+title = "Right now"
 date = "2017-05-02T22:05:42+01:00"
 description = "What I’m doing now, what I’m choosing to focus my time and attention on. Maintaining a page like this is an incredibly effective way of staying on track and blocking out the noise"
 slug = "now"
@@ -14,7 +14,6 @@ In Ottawa. This is how I’m spending my time right now.
 - [Spacy](https://spacy.io)
 - GatsbyJS and GraphQL
 - [Figma](https://www.figma.com)
-- The art of problem solving
 - [Sanity.io](https://www.sanity.io/), an API based CMS
 - French. This might be on here for a while
 
@@ -38,6 +37,6 @@ In Ottawa. This is how I’m spending my time right now.
 - [How To](https://www.goodreads.com/book/show/43852758-how-to?from_choice=true) by Randall Munroe
 
 
-**Last Updated:** January 30, 2020.
+**Last Updated:** February 20, 2020.
 
 **Page inspired by:** [Zen Habits](https://zenhabits.net/now/) and [Derek Sivers](https://nownownow.com/about).
