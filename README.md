@@ -1,4 +1,4 @@
-# Hugo Starter 1.0
+# azharkhan.in
 
 A Hugo starter project and theme used for [azharkhan.in](https://azharkhan.in/).
 
@@ -77,6 +77,6 @@ Write your **Sass** inside `./assets/scss`.
 With the server running (`npm start`) Hugo will watch your Sass for changes, then pipe them to `./public/css/main.css` and reload the browser.
 
 
-### Site structure
+### Making layout changes
 
 The main structure of the site live is `./themes/hc-starter`, so this is where you will need to go to change layouts, partials, shorcodes and taxonomies.
