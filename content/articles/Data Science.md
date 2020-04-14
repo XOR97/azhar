@@ -12,7 +12,7 @@ Data science is a relatively new field that lies at the intersection of math and
 
 A visual attempt at definition comes in the form of [The Data Science Venn Diagram](http://drewconway.com/zia/?p=2378) by [Drew Conway]():
 
-![Venn_Diag](http://bdewilde.github.io/assets/images/2012-09-27-data-science-venn-diagram.png)
+![Venn_Diag](https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/ke17ZwdGBToddI8pDm48kB2M2-8_3EzuSSXvzQBRsa1Zw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxPe_8B-x4gq2tfVez1FwLYYZXud0o-3jV-FAs7tmkMHY-a7GzQZKbHRGZboWC-fOc/Data_Science_VD.png?format=1500w)
 
 The emphasis here is, again, on the interdisciplinary nature of data science, which lies at the intersection of three general domains of knowledge and experience. His inclusion of “substantive expertise” points to what makes data science (and data scientists) new and distinct from, say, business intelligence analysts: It’s not just about the existence of the data and the ability to quantitatively analyze it; data science is about testing hypotheses, and deriving new knowledge from the data, then making sure that the conclusions are valid. It’s about *discovery*.
 
@@ -20,8 +20,6 @@ Another way to define data science is to describe the sort of work that’s actu
 
 > ”… on any given day, a team member could author a multistage processing pipeline in Python, design a hypothesis test, perform a regression analysis over data samples with R, design and implement an algorithm for some data-intensive product or service in Hadoop, or communicate the results of our analyses to other members of the organization.”
 
-Amazing. Mike Driscoll details the three sexy skills of data geeks — statistics, data munging, and visualization — the last of which is a critical component of data science that I’ve not yet mentioned. Presenting the data such that its underlying structure is clear and visible facilitates a better understanding of the dataset itself, not to mention communication of your conclusions with others! On that note, here’s a final, visual take on tasks now associated with data science, taken from a 2004 dissertation on computational information design by [Ben Fry](https://benfry.com):
+Amazing. Mike Driscoll details the three sexy skills of data geeks — statistics, data munging, and visualization — the last of which is a critical component of data science that I’ve not yet mentioned. Presenting the data such that its underlying structure is clear and visible facilitates a better understanding of the dataset itself, not to mention communication of your conclusions with others!
 
-![Img_2](http://bdewilde.github.io/assets/images/2012-09-27-data-science-tasks.png)
-
-So, as far as I can tell, that’s data science in a nutshell. But, given that it’s a new and varied field, I’ve probably missed some important points; if anybody out there has something to add, please do so in the comments!
+So, as far as I can tell, that’s data science in a nutshell. But, given that it’s a new and varied field, I’ve probably might have missed some important points.

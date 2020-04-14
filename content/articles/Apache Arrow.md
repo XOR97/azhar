@@ -24,7 +24,7 @@ For the Python and R communities, Arrow is extremely important, as data interope
 
 A good question is to ask how does the data look like in memory? Well, Apache Arrow takes advantages of a columnar buffer to reduce IO and accelerate analytical processing performance.
 
-![image2](http://arrow.apache.org/img/simd.png)
+![image2](https://arrow.apache.org/img/simd.png)
 
 In our case, we will use the pyarrow library to execute some basic codes and check some features. In order to install, we have two options using conda or pip commands*.
 
