@@ -1,7 +1,7 @@
 +++
 title = "Handling unicode strings in Python"
 date = "2017-08-05T14:10:29Z"
-description = ""
+description = "A look at Python's relationship with strings."
 slug = ""
 tags = ["Python"]
 +++
@@ -255,9 +255,5 @@ In `python3`, `str` represents `unicode` string while the `bytes` type represent
 For further reading, I would really, really suggest you have a look on the content written by these guys
 
 * [Joel Spolsky](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
-
 * [Ned Batchelder](https://nedbatchelder.com/text/unipain.html)
-
 * [Philip Guo](http://pgbovine.net/unicode-python.htm)
-
-on this topic

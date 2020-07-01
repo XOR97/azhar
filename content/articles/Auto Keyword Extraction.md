@@ -1,7 +1,7 @@
 +++
 title = "Extracting key phrases from BIG (text) data"
 date = "2018-03-21T14:10:29Z"
-description = ""
+description = "Understanding how value can be derived from a sea of information."
 slug = ""
 tags = ["Data Science"]
 +++

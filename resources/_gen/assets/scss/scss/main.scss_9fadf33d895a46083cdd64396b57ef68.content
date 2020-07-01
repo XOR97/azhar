@@ -8,7 +8,7 @@
 :root {
   --color-dark: #222;
   --color-body: #373a3c;
-  --color-light: #777;
+  --color-light: #767676;
   --color-lighter: #888;
   --color-lightest: #f5f5f5;
   --color-link: #542bff;
@@ -38,7 +38,6 @@ aside.primary {
   @media (min-width: 37.5em) {
     aside.primary {
       /* responsive content */ } }
-
 /*------------------------------------*\
     #ABSTRACTS: TYPOGRAPHY
 \*------------------------------------*/
@@ -48,6 +47,9 @@ aside.primary {
 /*------------------------------------*\
     #ABSTRACTS: SPACING
 \*------------------------------------*/
+:root {
+  --space: calc(1rem/2); }
+
 /*------------------------------------*\
     #BASE: RESET
 \*------------------------------------*/
@@ -118,7 +120,6 @@ html {
     @media screen and (min-width: 675px) {
       html {
         font-size: 20px; } }
-
 body {
   background-color: var(--color-white);
   color: var(--color-body);
@@ -137,7 +138,6 @@ p {
     @media screen and (min-width: 48em) {
       p:not(:last-of-type) {
         margin-bottom: 1.28rem; } }
-
 /*------------------------------------*\
     #BASE: HEADINGS
 \*------------------------------------*/
@@ -167,7 +167,6 @@ h1,
     h1,
     .size-1 {
       margin-bottom: 1.6rem; } }
-
 h2,
 .size-2 {
   font-size: 1.44rem;
@@ -192,7 +191,6 @@ h2,
     h2,
     .size-2 {
       margin-bottom: 0.8rem; } }
-
 h3,
 .size-3 {
   font-size: 1.44rem;
@@ -217,7 +215,6 @@ h3,
     h3,
     .size-3 {
       margin-bottom: 0.8rem; } }
-
 h4,
 .size-4 {
   font-size: 1.2rem;
@@ -242,7 +239,6 @@ h4,
     h4,
     .size-4 {
       margin-bottom: 0.8rem; } }
-
 /*------------------------------------*\
     #BASE: IMAGES
 \*------------------------------------*/
@@ -266,7 +262,6 @@ figcaption {
   @media screen and (min-width: 48em) {
     figcaption {
       margin-top: 0.8rem; } }
-
 /*------------------------------------*\
     #BASE: LINKS
 \*------------------------------------*/
@@ -277,7 +272,7 @@ a {
     color: var(--color-white);
     background-color: var(--color-link);
     text-decoration: none; }
-  a:focus {
+  a:active, a:focus {
     outline: 1px dotted;
     outline-offset: 4px; }
   a:visited {
@@ -302,7 +297,6 @@ ol {
     ul,
     ol {
       list-style-position: outside; } }
-
 ul + p,
 ol + p {
   margin-top: 1.5rem; }
@@ -310,7 +304,6 @@ ol + p {
     ul + p,
     ol + p {
       margin-top: 1.6rem; } }
-
 ul[class],
 ol[class] {
   list-style: none; }
@@ -350,7 +343,6 @@ blockquote {
       blockquote cite,
       blockquote figcaption {
         margin-top: 0.8rem; } }
-
 code,
 kbd,
 samp {
@@ -371,7 +363,6 @@ pre + p {
   @media screen and (min-width: 48em) {
     pre + p {
       margin-top: 1.6rem; } }
-
 p code,
 li code {
   padding: .125rem .35rem; }
@@ -426,7 +417,6 @@ label {
   @media screen and (min-width: 48em) {
     label {
       margin-bottom: 0.4rem; } }
-
 /*------------------------------------*\
     #BASE: SELECT
 \*------------------------------------*/
@@ -789,7 +779,7 @@ video {
  */
 .Container {
   padding-top: 24%;
-  max-width: 1248px;
+  max-width: 1600px;
   margin: 0 auto; }
 
 @media (min-width: 48em) {
@@ -811,7 +801,6 @@ video {
   @media screen and (min-width: 48em) {
     .Section {
       margin-bottom: 1.6rem; } }
-
 @media (min-width: 48em) {
   .Section {
     margin-top: 3rem;
@@ -822,7 +811,6 @@ video {
   @media screen and (min-width: 48em) and (min-width: 48em) {
     .Section {
       margin-bottom: 3.2rem; } }
-
 /*------------------------------------*\
     #LAYOUTS: FLEX
 \*------------------------------------*/
@@ -858,7 +846,7 @@ video {
   .Grid--2col {
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 48px;
-    max-width: 1248px; }
+    max-width: 1600px; }
   /**
  * Component Element
  */
@@ -893,39 +881,55 @@ video {
  * Component Block
  */
 .PostHeader-title {
-  max-width: 960px; }
+  max-width: 18ch; }
 
 .PostMeta {
   display: flex;
-  max-width: 1248px;
+  max-width: 1600px;
   margin: 0 auto;
   margin-bottom: 1.5rem; }
   @media screen and (min-width: 48em) {
     .PostMeta {
       margin-bottom: 1.6rem; } }
-
 .PostBody {
   margin-top: 3rem;
-  max-width: 1248px;
+  max-width: 1600px;
   margin: 0 auto; }
   @media screen and (min-width: 48em) {
     .PostBody {
       margin-top: 3.2rem; } }
-  .PostBody h2, .PostBody h3, .PostBody h4, .PostBody h5, .PostBody h6 {
+  .PostBody h2,
+  .PostBody h3,
+  .PostBody h4,
+  .PostBody h5,
+  .PostBody h6 {
+    max-width: 30ch;
+    line-height: 1.2;
     position: relative;
     margin-top: 2.25rem;
     margin-bottom: 0.75rem; }
     @media screen and (min-width: 48em) {
-      .PostBody h2, .PostBody h3, .PostBody h4, .PostBody h5, .PostBody h6 {
+      .PostBody h2,
+      .PostBody h3,
+      .PostBody h4,
+      .PostBody h5,
+      .PostBody h6 {
         margin-top: 2.4rem; } }
     @media screen and (min-width: 48em) {
-      .PostBody h2, .PostBody h3, .PostBody h4, .PostBody h5, .PostBody h6 {
+      .PostBody h2,
+      .PostBody h3,
+      .PostBody h4,
+      .PostBody h5,
+      .PostBody h6 {
         margin-bottom: 0.8rem; } }
   .PostBody p {
+    max-width: 60ch;
     margin-bottom: 1.2rem; }
     @media screen and (min-width: 48em) {
       .PostBody p {
         margin-bottom: 1.28rem; } }
+  .PostBody .intro {
+    max-width: 48ch; }
 
 /**
  * Component Element
@@ -951,25 +955,29 @@ video {
   .Post p.Message a:hover {
     text-decoration: none; }
 
-.Post .intro, .intro {
+.Post .intro,
+.intro {
   font-size: 100%;
   line-height: 1.5;
   margin-bottom: 1.5rem; }
   @media screen and (min-width: 48em) {
-    .Post .intro, .intro {
+    .Post .intro,
+    .intro {
       margin-bottom: 1.6rem; } }
   @media (min-width: 48em) {
-    .Post .intro, .intro {
+    .Post .intro,
+    .intro {
       font-size: 125%;
       line-height: 1.5; } }
-
 .PostAuthor {
   display: flex;
+  align-items: center;
   margin-top: 3rem; }
   @media screen and (min-width: 48em) {
     .PostAuthor {
       margin-top: 3.2rem; } }
-  .PostAuthor h4 {
+  .PostAuthor h4,
+  .PostAuthor p {
     margin: 0; }
 
 .PostRelated {
@@ -977,7 +985,6 @@ video {
   @media screen and (min-width: 48em) {
     .PostRelated {
       margin-bottom: 3.2rem; } }
-
 .Post .heading-anchor {
   display: none;
   position: absolute;
@@ -989,7 +996,6 @@ video {
   @media (min-width: 37.5em) {
     .Post .heading-anchor {
       display: block; } }
-
 .Post h2:focus > .heading-anchor,
 .Post h2:hover > .heading-anchor,
 .Post h3:focus > .heading-anchor,
@@ -1061,23 +1067,20 @@ video {
   @media (min-width: 48em) {
     .PostListItem-meta {
       font-size: 100%; } }
-
 /*------------------------------------*\
     #LAYOUTS: TAG-LIST
 \*------------------------------------*/
 /**
  * Component Block
  */
+.TagList {
+  columns: 14rem auto; }
+
 @media (min-width: 48em) {
   .TagList {
-    column-count: 2;
     column-gap: 64px;
     margin-top: 64px;
     margin-bottom: 64px; } }
-
-@media (min-width: 75em) {
-  .TagList {
-    column-count: 3; } }
 
 .TagListItem {
   margin: 0 0 16px 0; }
@@ -1096,14 +1099,23 @@ video {
   @media screen and (min-width: 48em) {
     .Project {
       margin-bottom: 4.8rem; } }
-
+.Project-description {
+  font-weight: 400;
+  letter-spacing: unset; }
+  .Project-description {
+    font-size: 15px; }
+    @media screen and (min-width: 320px) {
+      .Project-description {
+        font-size: calc(15px + 5 * ((100vw - 320px) / 355)); } }
+    @media screen and (min-width: 675px) {
+      .Project-description {
+        font-size: 20px; } }
 @media (min-width: 48em) {
   .Project-description {
     margin-top: 1.5rem; } }
   @media screen and (min-width: 48em) and (min-width: 48em) {
     .Project-description {
       margin-top: 1.6rem; } }
-
 .Project .Message {
   border: dotted 1px;
   padding: 32px 64px; }
@@ -1120,6 +1132,29 @@ video {
 .Blocks h4 {
   margin: 0; }
 
+.Likes {
+  display: grid;
+  grid-gap: 32px;
+  justify-content: space-between;
+  margin: calc(var(--space)*6) 0; }
+  @media (min-width: 48em) {
+    .Likes {
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); } }
+.LikesItem {
+  border: dotted 1px var(--color-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--space)*3); }
+  .LikesItem h3 {
+    min-width: 100%;
+    margin: 0; }
+  .LikesItem:focus-within {
+    border: solid 1px var(--color-dark); }
+
+.LikesItem-url {
+  margin-top: calc(var(--space) *3); }
+
 /*------------------------------------*\
     #OBJECTS: AVATAR
 \*------------------------------------*/
@@ -1130,21 +1165,6 @@ video {
   display: inline-block;
   position: relative;
   margin-right: 30px; }
-
-/**
- * Component Element
- */
-.Avatar-img {
-  background-image: url("./../img/hc.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50%;
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  z-index: 1; }
 
 /**
  * Component Modifier
@@ -1169,7 +1189,6 @@ video {
   @media screen and (min-width: 48em) {
     .ButtonWrap {
       margin-bottom: 6.4rem; } }
-
 .Button {
   border-width: 0;
   border-radius: 0;
@@ -1190,7 +1209,6 @@ video {
   @media (min-width: 48em) {
     .Button {
       font-size: 0.9rem; } }
-
 /**
  * Component Modifier
  */
@@ -1229,7 +1247,6 @@ video {
   @media screen and (min-width: 48em) {
     .Form {
       margin-bottom: 1.6rem; } }
-
 ::placeholder {
   color: var(--color-lighter); }
 
@@ -1253,7 +1270,7 @@ video {
   .Form-select:focus,
   .Form-select:active {
     border: 2px solid var(--color-link);
-    outline: 4px solid #e4deff;
+    outline: #d9ddff solid 3px;
     outline-offset: 0;
     transition: all .2s; }
 
@@ -1276,7 +1293,6 @@ video {
   @media screen and (min-width: 48em) {
     .Form-button {
       margin-top: 0.8rem; } }
-
 /*------------------------------------*\
     #OBJECTS: VIDEO
 \*------------------------------------*/
@@ -1292,7 +1308,6 @@ video {
   @media screen and (min-width: 48em) {
     .Video {
       margin-bottom: 2.4rem; } }
-
 /*------------------------------------*\
     #COMPONENTS: HEADER
 \*------------------------------------*/
@@ -1303,9 +1318,9 @@ video {
   display: flex;
   font-weight: 500;
   justify-content: space-between;
-  max-width: 1248px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 7% 0; }
+  padding: 4% 0; }
   .Header a {
     color: var(--color-dark);
     text-decoration: none; }
@@ -1331,7 +1346,6 @@ video {
   @media screen and (min-width: 48em) and (min-width: 48em) {
     .Nav-listItem:not(:last-of-type) {
       margin-right: 1.6rem; } }
-
 /*------------------------------------*\
     #COMPONENTS: FOOTER
 \*------------------------------------*/
@@ -1339,7 +1353,7 @@ video {
  * Component Block
  */
 .Footer {
-  max-width: 1248px;
+  max-width: 1600px;
   margin: 0 auto;
   margin-top: 1.5rem;
   padding-bottom: 64px; }
@@ -1351,7 +1365,6 @@ video {
     @media screen and (min-width: 48em) {
       .Footer p {
         margin-top: 1.6rem; } }
-
 .FooterNav a {
   color: var(--color-dark);
   text-decoration: none;
@@ -1373,7 +1386,6 @@ video {
   @media screen and (min-width: 48em) {
     .Image figcaption {
       margin-top: 0.8rem; } }
-
 .Image + p,
 p + .Image {
   margin-top: 2.25rem; }
@@ -1381,7 +1393,6 @@ p + .Image {
     .Image + p,
     p + .Image {
       margin-top: 2.4rem; } }
-
 .ImageCover {
   object-fit: cover;
   height: 350px; }
@@ -1421,7 +1432,7 @@ p + .Image {
  * Component Block
  */
 .Newsletter {
-  max-width: 1248px;
+  max-width: 1600px;
   margin: 0 auto; }
 
 .NewsletterForm {
@@ -1431,13 +1442,11 @@ p + .Image {
   @media screen and (min-width: 48em) {
     .NewsletterForm {
       margin-top: 1.6rem; } }
-
 .NewsletterForm-field:nth-child(even) {
   margin-bottom: 1.5rem; }
   @media screen and (min-width: 48em) {
     .NewsletterForm-field:nth-child(even) {
       margin-bottom: 1.6rem; } }
-
 @media (min-width: 48em) {
   .NewsletterForm {
     flex-direction: row; }
@@ -1446,7 +1455,6 @@ p + .Image {
   @media screen and (min-width: 48em) and (min-width: 48em) {
     .NewsletterForm-label {
       margin-top: 0rem; } }
-
 @media (min-width: 48em) {
   .NewsletterForm-field {
     flex: 1;
@@ -1456,183 +1464,12 @@ p + .Image {
     @media screen and (min-width: 48em) and (min-width: 48em) {
       .NewsletterForm-field:nth-child(even) {
         margin-bottom: 0rem; } }
-
 @media (min-width: 48em) {
     .NewsletterForm-field:not(:last-of-type) {
       margin-right: 0.75rem; } }
     @media screen and (min-width: 48em) and (min-width: 48em) {
       .NewsletterForm-field:not(:last-of-type) {
         margin-right: 0.8rem; } }
-
-/*------------------------------------*\
-    #COMPONENTS: CV
-\*------------------------------------*/
-/**
- * Component Block
- */
-.Cv {
-  background: #fff;
-  line-height: 32px;
-  margin: 0 auto;
-  max-width: 1440px;
-  padding: 32px; }
-  .Cv p {
-    margin: 0;
-    max-width: 100%; }
-  .Cv img {
-    object-fit: cover;
-    height: 352px; }
-
-.Cv-header {
-  margin-bottom: 32px; }
-
-p.Cv-headerTitle {
-  font-weight: 700;
-  margin-bottom: 16px; }
-
-.Cv-headerLinks a {
-  display: block;
-  text-decoration: none; }
-
-.Cv-mainItemSection:not(:last-of-type) {
-  margin-bottom: 16px; }
-
-p.Cv-mainItemTitle {
-  border-bottom: solid 1px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  margin-top: 32px;
-  padding-bottom: 16px; }
-
-.Cv-footer {
-  margin-top: 32px; }
-  .Cv-footer a {
-    text-decoration: none; }
-
-/* Flexbox helpers */
-.Cv-flex a:not(:last-of-type) {
-  margin-right: 16px; }
-
-.Cv-flexCol:not(:first-of-type) {
-  margin-top: 16px; }
-
-@media screen and (min-width: 800px) {
-  /* Cv-container */
-  .Cv-container {
-    background: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 4px 5px 0 rgba(0, 0, 0, 0.04), 0 1px 10px 0 rgba(0, 0, 0, 0.05);
-    margin: 32px;
-    padding: 128px 0; }
-  /* Cv-header */
-  .Cv-header {
-    display: grid;
-    grid-template-columns: 2fr 13fr 1fr 13fr 1fr 13fr 2fr;
-    margin-bottom: 32px; }
-  .Cv-headerTitle {
-    grid-column: 2 / 3; }
-  .Cv-headerLinks {
-    grid-column: 6 / 7; }
-  /* Cv-hero */
-  .Cv-hero {
-    display: grid;
-    grid-template-columns: 2fr 13fr 1fr 2fr 11fr 1fr 13fr 2fr;
-    margin-bottom: 64px; }
-  .Cv-heroItem:nth-child(1) {
-    grid-column: 1 / 5;
-    grid-row: 1;
-    z-index: 1; }
-  .Cv-heroItem:nth-child(2) {
-    grid-column: 4 / 8;
-    grid-row: 1;
-    z-index: 2; }
-  .Cv-heroItemTitle {
-    font-size: 3rem;
-    line-height: 3rem;
-    margin-top: 160px; }
-  /* Cv-main */
-  .Cv-main {
-    display: grid;
-    grid-template-columns: 2fr 13fr 1fr 27fr 2fr;
-    grid-row-gap: 64px; }
-  .Cv-mainItemSection:not(:last-of-type) {
-    margin-bottom: 32px; }
-  .Cv-mainItem:nth-child(1) {
-    grid-column: 2 / 3;
-    grid-row: 1; }
-  .Cv-mainItem:nth-child(2) {
-    grid-column: 4 / 5;
-    grid-row: 1; }
-  .Cv-mainItem:nth-child(3) {
-    grid-column: 2 / 3;
-    grid-row: 2; }
-  .Cv-mainItem:nth-child(4) {
-    grid-column: 4 / 5;
-    grid-row: 2; }
-  .Cv-mainItem:nth-child(5) {
-    grid-column: 2 / 3;
-    grid-row: 3; }
-  .Cv-mainItem:nth-child(6) {
-    grid-column: 4 / 5;
-    grid-row: 3; }
-  .Cv-mainItem:nth-child(7) {
-    grid-column: 2 / 3;
-    grid-row: 4; }
-  .Cv-mainItem:nth-child(8) {
-    grid-column: 4 / 5;
-    grid-row: 4; }
-  .Cv-mainItem:nth-child(9) {
-    grid-column: 2 / 3;
-    grid-row: 5; }
-  .Cv-mainItem:nth-child(10) {
-    grid-column: 4 / 5;
-    grid-row: 5; }
-  .Cv-mainItem:nth-child(11) {
-    grid-column: 2 / 3;
-    grid-row: 6; }
-  .Cv-mainItem:nth-child(12) {
-    grid-column: 4 / 5;
-    grid-row: 6; }
-  .Cv-mainItem:nth-child(13) {
-    grid-column: 2 / 3;
-    grid-row: 7; }
-  .Cv-mainItem:nth-child(14) {
-    grid-column: 4 / 5;
-    grid-row: 7; }
-  p.Cv-mainItemTitle {
-    border: none;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 0; }
-  /* Cv-footer */
-  .Cv-footer {
-    margin-top: 0;
-    margin-right: 32px;
-    margin-bottom: 96px;
-    margin-left: 32px; } }
-
-/* Flexbox for > 960px */
-@media screen and (min-width: 960px) {
-  .Cv-flex {
-    display: flex; }
-  .Cv-flexCol {
-    flex: 1; }
-  .Cv-flexCol:not(:first-of-type) {
-    margin-top: 0; }
-  .Cv-flexCol:not(:last-of-type) {
-    margin-right: 48px; }
-  .Cv-flex--sb {
-    justify-content: space-between; } }
-
-/* Helpers */
-.Cv-accent {
-  font-size: 16px;
-  font-style: italic; }
-
-.Cv-tdn {
-  text-decoration: none; }
-  .Cv-tdn:hover {
-    text-decoration: none; }
-
 /*------------------------------------*\
     #COMPONENTS: RATIO
 \*------------------------------------*/
@@ -1690,7 +1527,6 @@ p.Cv-mainItemTitle {
     @media screen and (min-width: 48em) {
       .PullQuote > figcaption {
         margin-left: 0rem; } }
-
 /**
  * Component Modifier
  */
@@ -1709,7 +1545,6 @@ p.Cv-mainItemTitle {
   @media screen and (min-width: 48em) and (min-width: 48em) {
     .PullQuote--left {
       margin-left: 0rem; } }
-
 .PullQuote--right {
   float: right;
   margin-top: 1.5rem;
@@ -1735,7 +1570,6 @@ p.Cv-mainItemTitle {
   @media screen and (min-width: 48em) and (min-width: 48em) {
     .PullQuote--right {
       margin-right: 12.8rem; } }
-
 /*------------------------------------*\
     #UTILITIES: LAYOUT
 \*------------------------------------*/
@@ -1755,6 +1589,22 @@ p.Cv-mainItemTitle {
   width: 100vw;
   margin-left: 50%;
   transform: translateX(-50%); }
+
+.skip-link:not(:focus) {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap; }
+
+.skip-link:focus {
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 /*------------------------------------*\
     #UTILITIES: COLOR
@@ -1809,7 +1659,6 @@ p.Cv-mainItemTitle {
   @media screen and (min-width: 48em) {
     .body {
       margin-top: 0rem; } }
-
 .small {
   font-size: 80%; }
 

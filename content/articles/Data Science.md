@@ -1,7 +1,7 @@
 +++
 title = "Data Science. What the heck is that?"
 date = "2016-11-05T14:10:29Z"
-description = ""
+description = "Diving into the world of data and the science behind it."
 slug = ""
 tags = ["Data Science"]
 +++

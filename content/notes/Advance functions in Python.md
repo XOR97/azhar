@@ -1,7 +1,7 @@
 +++
-title = "Python's advance functions explained"
+title = "Advance functions in Python"
 date = "2017-05-23T14:10:29Z"
-description = ""
+description = "Higher order functions in Python."
 slug = ""
 tags = ["Python"]
 +++

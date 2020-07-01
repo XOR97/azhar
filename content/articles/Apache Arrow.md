@@ -1,14 +1,14 @@
 +++
 title = "Columnar In-Memory Analytics using Arrow"
 date = "2019-01-27T14:10:29Z"
-description = ""
+description = "A peek into the the future of analytic computations."
 slug = ""
 tags = ["Data Science"]
 +++
 
 Folks, there is a new library in town that is taking the data engineering community by storm.
 
-Welcome, Apache Arrow
+Introducing, Apache Arrow
 
 > Apache Arrow is a cross-language development platform for in-memory data. It specifies a standardized language-independent
 columnar memory format for flat and hierarchical data, organized for efficient analytic operations on modern hardware.

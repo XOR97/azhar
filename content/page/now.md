@@ -9,25 +9,23 @@ url = "now"
 In Ottawa. This is how I’m spending my time right now.
 
 
-### Currently looking into...
+### Currently into...
 
 - [Spacy](https://spacy.io)
-- GatsbyJS and GraphQL
+- GraphQL
 - [Figma](https://www.figma.com)
 - [Sanity.io](https://www.sanity.io/), an API based CMS
 - French. This might be on here for a while
 
-### Courses (Winter 2020)
+### Courses (Summer 2020)
 
-- [ADM 6420](https://catalogue.uottawa.ca/search/?P=ADM%206420)
-- [ADM 6287](https://catalogue.uottawa.ca/search/?P=ADM%206287)
-- [EBC 5125](https://catalogue.uottawa.ca/search/?P=EBC%205125)
-- [EMP 5111](https://catalogue.uottawa.ca/search/?P=EMP%205111)
-- [EMP 5116](https://catalogue.uottawa.ca/search/?P=EMP%205116)
+- [EMP 6997](https://catalogue.uottawa.ca/en/search/?search=6997&fscaturl=%2Fen%2F&gscaturl=%2Fen%2F)
+- [MBA 5270](https://catalogue.uottawa.ca/search/?P=MBA%205270)
+- [MBA 6295](https://catalogue.uottawa.ca/en/search/?search=MBA+6295)
 
-### Currently Listening
+### Listening to...
 
-{{< apple_music >}}
+{{< music >}}
 
 ### Reading
 
@@ -37,6 +35,6 @@ In Ottawa. This is how I’m spending my time right now.
 - [How To](https://www.goodreads.com/book/show/43852758-how-to?from_choice=true) by Randall Munroe
 
 
-**Last Updated:** February 20, 2020.
+**Last Updated:** May 20, 2020
 
 **Page inspired by:** [Zen Habits](https://zenhabits.net/now/) and [Derek Sivers](https://nownownow.com/about).

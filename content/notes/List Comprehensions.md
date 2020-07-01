@@ -1,7 +1,7 @@
 +++
 title = "List Comprehensions"
 date = "2017-09-23T14:10:29Z"
-description = ""
+description = "One of Python's coolest features."
 slug = ""
 tags = ["Python"]
 +++

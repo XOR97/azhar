@@ -1,7 +1,7 @@
 +++
 title = "What's Jekyll?"
-date = "2018-09-01T14:10:29Z"
-description = ""
+date = "2017-04-10T14:10:29Z"
+description = "Another static site generator."
 slug = ""
 tags = ["Jekyll"]
 +++

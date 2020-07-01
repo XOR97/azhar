@@ -23,7 +23,7 @@ pygmentsCodeFences = true
 [author]
   name = "Azhar Khan"
   email = "azhar932@icloud.com"
-  twitter = "https://twitter.com/AzhrKAN"
+  twitter = "https://twitter.com/Azhr_K_"
   github = "https://github.com/XOR97"
   linkedin = "https://www.linkedin.com/in/azhar93/"
 
@@ -61,8 +61,6 @@ enableEmoji = true
   name = "Tags"
   url = "/tags/"
   weight = 20
-
-
 
 [[menu.footer]]
   name = "Articles"

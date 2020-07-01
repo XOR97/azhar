@@ -1,10 +1,10 @@
 +++
-title = "Hello World"
+title = "Inception"
 date = "2016-07-15T14:10:29Z"
-description = "A new beginning"
+description = "A start of something special."
 slug = ""
 tags = ["General"]
 +++
 
 
-#### This is where it all begins. More to follow.
+#### Hello World. This is where it all begins. More to follow...

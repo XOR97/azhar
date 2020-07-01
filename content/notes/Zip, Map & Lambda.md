@@ -1,7 +1,7 @@
 +++
 title = "Zip, Map, and Lambda"
 date = "2017-02-03T14:10:29Z"
-description = ""
+description = "Three important functions of the Python programming language."
 slug = ""
 tags = ["Python"]
 +++
