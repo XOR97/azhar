@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Design &amp; Code on Azhar Khan</title>
+    <title>“The more you know, the more you realize you know nothing.” — Socrates on Azhar Khan</title>
     <link>https://azharkhan.in/</link>
-    <description>Recent content in Design &amp; Code on Azhar Khan</description>
+    <description>Recent content in “The more you know, the more you realize you know nothing.” — Socrates on Azhar Khan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
@@ -17,7 +17,7 @@
       <item>
         <title>Articles</title>
         <link>https://azharkhan.in/articles/</link>
-        <pubDate>Fri, 05 Jun 2020 09:50:37 +0100</pubDate>
+        <pubDate>Thu, 30 Apr 2020 11:08:58 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
         <guid>https://azharkhan.in/articles/</guid>
         <description></description>
@@ -26,20 +26,9 @@
     
       
       <item>
-        <title>Page</title>
-        <link>https://azharkhan.in/page/</link>
-        <pubDate>Thu, 28 May 2020 14:23:25 +0100</pubDate>
-        <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/page/</guid>
-        <description></description>
-      </item>
-      
-    
-      
-      <item>
         <title>Notes</title>
         <link>https://azharkhan.in/notes/</link>
-        <pubDate>Tue, 19 May 2020 07:42:58 +0100</pubDate>
+        <pubDate>Mon, 30 Mar 2020 17:20:31 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
         <guid>https://azharkhan.in/notes/</guid>
         <description></description>
@@ -48,11 +37,11 @@
     
       
       <item>
-        <title>Projects</title>
-        <link>https://azharkhan.in/projects/</link>
-        <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
+        <title>Page</title>
+        <link>https://azharkhan.in/page/</link>
+        <pubDate>Fri, 21 Feb 2020 13:04:04 +0000</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/projects/</guid>
+        <guid>https://azharkhan.in/page/</guid>
         <description></description>
       </item>
       
