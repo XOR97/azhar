@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Performant syntax highlighting in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Performant syntax highlighting in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="The quickest and most performant way to set up syntax highlighting in Hugo.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Performant syntax highlighting in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="The quickest and most performant way to set up syntax highlighting in Hugo.">
+    <meta property="og:site_name" content="Performant syntax highlighting in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/performant-syntax-highlighting-in-hugo/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/performant-syntax-highlighting-in-hugo/">
+    <meta property="twitter:title" content="Performant syntax highlighting in Hugo - Azhar Khan">
+    <meta property="twitter:description" content=" The quickest and most performant way to set up syntax highlighting in Hugo. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/performant-syntax-highlighting-in-hugo/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Performant syntax highlighting in Hugo</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2019-12-02 12:56:26 &#43;0000 UTC">Mon, Dec 2, 2019</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/hugo" class="p-category">Hugo</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>The quickest way to use syntax highlighting in Hugo is with <a href="https://github.com/alecthomas/chroma">Chroma</a>, the default syntax highlighter. Without any config, you can wrap a code block in the built in <code>highlight</code> Shortcode, pass in the language as a variable and you’re code will be highlighted:</p>
+<pre><code>{&lt; highlight go &gt;}
+	// Html code to highlight
+{&lt; / highlight &gt;}
+</code></pre><p><em>Note: to render the example above on the page I have used single curly braces. You will need to use double curly braces.</em></p>
+<p>The advantage of using Chroma over other JavaScript libraries like <a href="https://highlightjs.org/">Highlight.js</a> or <a href="https://prismjs.com/">Prisma.js</a> is that it’s built right into Hugo and doesn’t require any external dependencies. This make it extremely fast and reliable.</p>
+<p>Out of the box, however, Chroma doesn’t give us much control over the style of our highlighted code. To change that all we need to do is add one line of code to the top level of our <code>config.toml</code> file:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Enable for syntax highlighting</span><span class="w">
+</span><span class="w"></span>pygmentsUseClasses<span class="w"> </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></div><p><em>Note: It’s important you add this line to the top level and not under <code>[params]</code> if you want it to work. Something like this should do it:</em></p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">baseurl<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;http://localhost:1313/&#34;</span><span class="w">
+</span><span class="w"></span>theme=<span class="s2">&#34;theme name&#34;</span><span class="w">
+</span><span class="w"></span>languageCode<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;en&#34;</span><span class="w">
+</span><span class="w"></span>title<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;your site title&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Enable for syntax highlighting</span><span class="w">
+</span><span class="w"></span>pygmentsUseClasses<span class="w"> </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></div><h2 id="adding-option-for-code-fencing">Adding option for code fencing&nbsp;<a class="heading-anchor" href="#adding-option-for-code-fencing" aria-label="Anchor">#</a> </h2>
+<p>It is also possible to add syntax highlighting to code within code fences. To enable this add the following to your <code>config.toml</code> file:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">pygmentsCodefences<span class="w"> </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></div><p>Now you can wrap your code in two sets of triple backticks (```) and specify the language after the opening set to highlight the code correctly. Make sure you check the <a href="https://github.com/alecthomas/chroma#supported-languages">list of supported langauges</a>.</p>
+<pre><code>(```) yaml
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+(```)
+</code></pre><p><em>Note: Make sure you omit the parentheses as seen above. This is just to show you the code without it rendering.</em></p>
+<p>Now you can highlight any syntax inside of code fences:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1, shrink-to-fit=no&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><h2 id="customising-your-syntax-theme">Customising your syntax theme&nbsp;<a class="heading-anchor" href="#customising-your-syntax-theme" aria-label="Anchor">#</a> </h2>
+<p>To change the theme of your syntax highlighting generate <code>chromastyles</code>. Then set the name of the theme you want using the <code>--style</code> flag.</p>
+<p>From the command line run:</p>
+<pre><code>hugo gen chromastyles --style=lovelace &gt; syntax.css
+</code></pre><p>This will generate the <code>syntax.css</code> file at the root of your project.</p>
+<p>See <a href="https://xyproto.github.io/splash/docs/">https://xyproto.github.io/splash/docs/</a> for available themes. You can also run <code>hugo gen chromastyles -h</code> to see more options.</p>
+<p>Don’t forget to link to the stylesheet from the <!-- raw HTML omitted --> of your document otherwise your theme won’t work!</p>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Performant syntax highlighting in Hugo" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

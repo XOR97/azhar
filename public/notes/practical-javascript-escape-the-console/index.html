@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Escape the Console | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Escape the Console | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Version 9 of Practical Javascript course, learn how to leave the console behind and allow users to use the interface and return data to the screen">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Escape the Console | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Version 9 of Practical Javascript course, learn how to leave the console behind and allow users to use the interface and return data to the screen">
+    <meta property="og:site_name" content="Escape the Console | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-escape-the-console/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-escape-the-console/">
+    <meta property="twitter:title" content="Escape the Console - Azhar Khan">
+    <meta property="twitter:description" content=" Version 9 of Practical Javascript course, learn how to leave the console behind and allow users to use the interface and return data to the screen Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-escape-the-console/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Escape the Console</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Tue, Jan 15, 2019</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>In version 9 of our todo app we will completely escape the console, allowing users to not only use the interface but see the data returned aswell.</p>
+<h2 id="requirements">Requirements&nbsp;<a class="heading-anchor" href="#requirements" aria-label="Anchor">#</a> </h2>
+<ul>
+<li>There should be an <code>li</code> element for every todo</li>
+<li>Each <code>li</code> element should contain <code>.todoText</code></li>
+<li>Each <code>li</code> element should show <code>.completed</code></li>
+</ul>
+<p>List items will represent every todo in our list. Each list item should contain the <code>.todoText</code> property and show if it’s <code>.completed</code> or not.</p>
+<p>We will also remove the display todos buttons as we want the data to automatically display in the interface when actions are taken by the user.</p>
+<h2 id="inserting-li-elements-into-the-dom">Inserting li elements into the DOM&nbsp;<a class="heading-anchor" href="#inserting-li-elements-into-the-dom" aria-label="Anchor">#</a> </h2>
+<p>We want to repesent our todo list in the form of an unordered list in html. Where each <code>li</code> represents our todo list items.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div><p>With our app we won’t know how many items are in our list so we need to be able to dynamically add and remove these <code>li</code>’s. So the first thing to understand is how we can insert list items into the DOM. We can do this using JavaScript.</p>
+<p>We can start in our HTML by creating an empty <code>ul</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div><p>Then, inside the console first we can initilize a new varibale, which uses a method on the <code>document</code> object called <code>createElement</code> to create an <code>li</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+</code></pre></div><p>Now if you type <code>todoLi</code> and hit enter, you can see we have an empty <code>li</code> to work with.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div><p>Now we have something we can insert into the DOM, next we need to figure out a way we can insert this list item into the <code>ul</code>. So we need to create a referece to the <code>ul</code> in our HTML file.</p>
+<p>To do this we can create another variable and use the <code>querySelector</code> method on the <code>document</code> object to grab the <code>ul</code> element.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+</code></pre></div><p>Now if we type <code>todoUL</code> and hit enter we can see the unordered list on our page is returned. If you hover over the <code>ul</code> in the console you will see where it is highlighted on the page.</p>
+<p>Now we have a referece to our todos <code>ul</code> we can add the list item to the <code>ul</code>. Because the <code>li</code> is a child element of the parent <code>ul</code> we can use a method called <code>appendChild</code> to do this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todosUL</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+</code></pre></div><p>Run <code>todosUL</code> and we can see our <code>li</code> has been added to the page inside the <code>ul</code> element. Again we can hove over <code>&lt;li&gt;&lt;/li&gt;</code> in the console and see the <code>&lt;li&gt;</code> highlighted in the page view.</p>
+<p>This is the technique we’ll be using to add our list items to the page. To wrap up we need to do 3 things:</p>
+<ul>
+<li>create an <code>&lt;li&gt;</code> element and save it to a varibale called <code>todoLi</code></li>
+<li>grab a reference to the <code>&lt;ul&gt;&lt;/ul&gt;</code> on our page and assign it to a variable called <code>todosUL</code></li>
+<li>Insert the <code>&lt;li&gt;</code> into our <code>&lt;ul&gt;&lt;/ul&gt;</code> using <code>appendChild</code></li>
+</ul>
+<h2 id="there-should-be-an-li-element-for-every-todos">There should be an li element for every todos&nbsp;<a class="heading-anchor" href="#there-should-be-an-li-element-for-every-todos" aria-label="Anchor">#</a> </h2>
+<p>Now we can take what we’ve learnt and build a function, which runs the code everytime theres a new item added to the todos.</p>
+<p>First we need the empty <code>&lt;ul&gt;&lt;/ul&gt;</code> in our HTML.</p>
+<p>Next, inside our JavaScript file we can create a new object called <code>view</code>. The reason it’s called view is because it’s responsible for what the user sees. I doen’t have any logic or change any data in our app, it just takes the todos array and displays it in the page. It’s responsibe only for view functions.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>Next we need to create a method in our <code>view</code> object for <code>displayTodos</code> which is equal to a function. Eventually this will replace the <code>todoList.displayTods</code> function as we will no longer need to display todos to the console.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Inside the function the code will be similar to what we learnt in the last section. First we grab a reference to the todos <code>ul</code> using the <code>querySelector</code> method. Then we want to create a new <code>li</code> item to contain our todo items. We can do this with the <code>createElement</code> method and tell it we want to create a <code>li</code>. Next we need to grab the <code>todosUl</code> and insert the <code>li</code> into it with <code>appendChild</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">todosUl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">todoLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+    <span class="nx">todosUL</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Now we can run our code with <code>view.displayTodos</code> to see how it works. You can see a <code>&lt;li&gt;</code> is added to the page. Run the code again and you’ll see another item added.</p>
+<p>Now we want this code run for each item in our <code>todos</code> array. We can do this with a <code>for</code> loop, which runs our code for each of the items in our <code>todos</code> array. So if our array has 5 items it will run 5 times, and so on.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">todosUl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">todoLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+      <span class="nx">todosUL</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>If we run the app we can see how this works. First we will need to add a todo item, then we can type <code>view.displayTodos</code> and hit enter. Run the code twice and you’ll see there are now 2 <code>&lt;li&gt;</code>’s on the page, even though we only have 1 todo item. This isn’t exactly how we want the app to work. We want <code>displayTodos</code> to always reflect the number of items in our <code>todos</code> array.</p>
+<p>Ideally we could clear the previous items from the page before the code runs, so each time it starts from 0.</p>
+<p>We can do this by moving <code>todosUl</code> outside of the <code>for</code> loop as we don’t need to create it everytime the <code>for</code> loop runs. Then using the <code>.innerHTML</code> method to target whatever is inside the <code>&lt;ul&gt;</code>, we can set it to nothing with an empty string. This will clear out the <code>&lt;ul&gt;</code> before it starts adding new <code>&lt;li&gt;</code> elements.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">todosUl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+    <span class="nx">todosUl</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">todoLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+      <span class="nx">todosUL</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>To test this is working we can head to our interface and add 3 new items. Next run <code>view.displayTodos();</code>.</p>
+<p>We should now see 3 new <code>&lt;li&gt;</code>’s on the screen. Now when we run the code again, instead of adding another 3 <code>&lt;li&gt;</code>’s to make 6 — as it did before – it clears the 3 and adds another 3. So now it looks like nothing changes.</p>
+<p>Now our code reflects the number of items in our <code>todos</code> array, exactly as we want it to.</p>
+<h2 id="each-li-element-should-contain-todotext">Each li element should contain .todoText&nbsp;<a class="heading-anchor" href="#each-li-element-should-contain-todotext" aria-label="Anchor">#</a> </h2>
+<p>The next requirement is to add the actual todo text to each <code>&lt;li&gt;</code> element. So we can show something to the user.</p>
+<p>We can do this in one line. First using <code>.textContent</code>, a property built into <code>todoLi</code>, which allows you to set the text content of an element. In this case our <code>&lt;li&gt;</code> elements.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span>
+</code></pre></div><p>Now we need to give it the value of our todo text. To make this happen we need to access our <code>todos</code> array.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span>
+</code></pre></div><p>But now we need to access the actual todo text for each item in our todos array. To access each item we can use bracket notation <code>[]</code> and parse in <code>i</code>, as this will allow us to look at each item through our <code>for</code> loop. Finally we can use <code>.todoText</code> to grab the actual todo text for each item and add it as the content inside each <code>&lt;li&gt;</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">;</span>
+</code></pre></div><p>The final code should look like this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">todosUl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+    <span class="nx">todosUl</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">todoLi</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+      <span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">;</span>
+      <span class="nx">todosUL</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Now if we add a new todo item to our todo list, then run <code>view.displayTodos();</code> we should see that todo item output to the screen.</p>
+<p>So to recap, in this line we are taking the <code>todoLi</code> element, accessing the <code>todoLi</code> element’s <code>textContent</code> property and setting it to the <code>todoText</code> property each of our todo objects. In other words we’re changing the value of <code>textContent</code> to the <code>todoText</code> property of each of our todo items in our todos array.</p>
+<h2 id="each-li-element-should-show-completed">Each li element should show .completed&nbsp;<a class="heading-anchor" href="#each-li-element-should-show-completed" aria-label="Anchor">#</a> </h2>
+<p>Now all of our todo items are showing but they don’t yet show the completed property. Next we need to show which items are completed and which are still to finish.</p>
+<p>We can write some comments in our code to plan this out. To start we can set up a variable to store the value of our todoText, but this time with completion data included. We can use an empty string for now as we will update this later.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// var todoTextWithCompletion = &#39;&#39;;
+</span></code></pre></div><p>Using an <code>if</code> statement we can set a condition that checks whether each todo completed, when the condition is <code>true</code>, at which point it will return <code>(x) todoText</code>. If the condition is false we can use an <code>else</code> statement to return <code>( ) todoText</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// var todoTextWithCompletion = &#39;&#39;;
+</span><span class="c1">// if (todo.completed === true)
+</span><span class="c1"></span>  <span class="c1">// (x) todoText
+</span><span class="c1">// else
+</span><span class="c1"></span>  <span class="c1">// ( ) todoText
+</span></code></pre></div><p>Once the <code>todoTextWithCompletion</code> variable is set–based on the <code>if</code> statement–we want to get the <code>todoLi</code> and set it  equal to the new value of <code>todoTextWithCompletion</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// var todoTextWithCompletion = &#39;&#39;;
+</span><span class="c1">// if (todo.completed === true)
+</span><span class="c1"></span>  <span class="c1">// (x) todoText
+</span><span class="c1">// else
+</span><span class="c1"></span>  <span class="c1">// ( ) todoText
+</span><span class="c1">// todoLi.textContent = todoTextWithCompletion;
+</span></code></pre></div><p>Now we have our comments we can use them to guide our code.
+To start we can set up the <code>todoTextWithCompletion</code> varibale. Eventually we will use this to store the completed value but for now we can set it to nothing. Next we need an <code>if</code> statement which checks whether <code>todo.completed</code> is true.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">()</span> <span class="p">{</span>
+
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>Before we set the condition we need to create a reference to <code>todo</code>. We can store this referece in new variable which gives us access to each todo item. This isn’t 100% necessary but it will save us having to write out the code each time.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">()</span> <span class="p">{</span>
+
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>Now we have a reference we can add the condition to our <code>if</code> statement. Then update <code>todoTextWithCompletion</code> if the condition is met. We can use the plus operator <code>+</code> to combine the completion string -<code>(x)</code> or <code>( )</code>- with the <code>todoText</code> string.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;(x) &#39;</span> <span class="o">+</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">todoText</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>The only difference in the <code>else</code> statement is we’re removing the <code>(x)</code> in favor of an empty set of parentheses.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;(x) &#39;</span> <span class="o">+</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">todoText</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;( ) &#39;</span> <span class="o">+</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">todoText</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>The final step is to set <code>textContent</code> on our <code>&lt;li&gt;’s</code> equal to the value of <code>todoTextWithCompletion</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="nx">todoList</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;(x) &#39;</span> <span class="o">+</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">todoText</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">todoTextWithCompletion</span> <span class="o">=</span> <span class="s1">&#39;( ) &#39;</span> <span class="o">+</span> <span class="nx">todo</span><span class="p">.</span><span class="nx">todoText</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoTextWithCompletion</span><span class="p">;</span>
+</code></pre></div><p>As <code>textContent</code> now contains the completion data we can remove the line below our code which shows our todo item. without the completion data.</p>
+<p><code>todoLi.textContent = todoList.todos[i].todoText;</code></p>
+<p>Now we can test our code out to see if it’s working.  Add a new todo then run <code>view.displayTodos();</code>. You should see your new item show on the page with empty parentheses. Hit the toggle Completed button then run <code>view.displayTodos();</code> again and you should see an <code>x</code> inside the parentheses.</p>
+<h2 id="escaping-the-console">Escaping the console&nbsp;<a class="heading-anchor" href="#escaping-the-console" aria-label="Anchor">#</a> </h2>
+<p>To escape the console completed we still need to find another way to run <code>view.displaytodos();</code>, so we don’t have to open the console each and every time we need to run the method.</p>
+<p>We really only need to display todos any time the data changes. That means anytime one of the buttons on the page is clicked by the user. We can do this by adding <code>view.displayTodos();</code> at the end of each method in our <code>handlers</code> object.</p>
+<p>Now that our todos display on the page when you click any of the buttons, our display todos button is redundant. So we can remove the display todos button code inside our HTML. As we no longer have a button, our <code>displayTodos</code> handler is also useless, so we can remove this too.</p>
+<p>We’re now displaying our todos directly to the DOM, so there’s also no need for <code>this.displayTodos();</code> on the methods inside the <code>todoList</code> object. As all this does is display the todos to the console. We can remove this line of code from each of the methods. Finally we can remove the entire <code>displayTodos</code> method from <code>todoList</code> as we’re now doing this in the DOM, via our new <code>view</code> object.</p>
+<p>Now <code>view</code> is the only part of our app concerned with displaying information. That’s why it’s called a view object.</p>
+<h2 id="review-v9">Review v.9&nbsp;<a class="heading-anchor" href="#review-v9" aria-label="Anchor">#</a> </h2>
+<p>Version 9 mostly involved DOM manipulation, which we did inside a new object called <code>view</code>. This <code>displayTodos</code> method is similar to our old one, the only differnce is we’re no longer working with the console but the DOM. So that’s why we needed to learn about creating and modifying DOM elements.</p>
+<p>In our HTML we added an unordered list element and removed the display todos button.</p>
+<p>We’re now using the <code>view.displayTodos</code> method inside every handler because each of the handlers can change data. That means when data changes we want to update what we show to the user.</p>
+<p>Finally, we refactored our <code>todoList</code> object, taking away the <code>displayTodos</code> method and the method calls associated with that method.</p>
+<p>Now <code>todoList</code> has a very specific purpose; it represents the data and has methods which change the data. Now we have all related methods on a single object. This pattern is the same for our other objects. We’re using <code>handlers</code> specifically for user interactions and <code>view</code> for showing users what the todo list looks like. All our code is organised into related methods inside objects which has a specific purpose.</p>
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Escape the Console" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

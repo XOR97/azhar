@@ -1,8 +1,8 @@
 ---
-title: "SEO in Hugo: Unique, Accurate Page Titles"
+title: "Hugo SEO: Unique, Accurate Page Titles"
 date: 2018-11-02T10:32:26+01:00
 slug: "hugo-seo-accurate-page-titles"
-description: "Unique, informative & descriptive page titles lead to higher rankings by helping search engines better understand the content on your site."
+description: "Unique, descriptive page titles lead to higher rankings by helping search engines better understand the content on your site."
 tags: ["Hugo"]
 ---
 
@@ -78,6 +78,8 @@ Then call the `Parmeter` in a meta tag in your `<head>`:
 ```
 <meta name="description" content="{{ $.Param "description" }}">
 ```
+
+Using some simple logic we can take this further still, [head over to github](https://github.com/harrycresswell/harry/blob/master/site/layouts/partials/head.html) if you’re interested in finding out how this works.
 
 There you have it. A couple of simple fixes to optimise your web pages and improve your chances of ranking higher in search engines.
 

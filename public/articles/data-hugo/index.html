@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Working with Data in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Working with Data in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Learn how to utilise Data in Hugo to keep your code clean and your projects well organised.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Working with Data in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Learn how to utilise Data in Hugo to keep your code clean and your projects well organised.">
+    <meta property="og:site_name" content="Working with Data in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/data-hugo/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/data-hugo/">
+    <meta property="twitter:title" content="Working with Data in Hugo - Azhar Khan">
+    <meta property="twitter:description" content=" Learn how to utilise Data in Hugo to keep your code clean and your projects well organised. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/data-hugo/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Working with Data in Hugo</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2018-07-18 14:35:58 &#43;0200 &#43;0200">Wed, Jul 18, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/hugo" class="p-category">Hugo</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p class="intro">
+    This articles demonstrates a practical use case of working with data files in Hugo. It will show you where to store your data and how to call your data into a template in order to render it on your site.
+</p>
+
+<p>Whilst front-end prototyping the design of a <a href="http://www.harrycresswell.co.uk/client/ain/ain-filters/">system of content search filters</a>, I found myself in a situation where I needed to list the major countries in each inhabited Continent. The countries would take the form of checkboxes in a filter dropdown.</p>
+<p>A basic solution might be to list each country manually in an unordered list on the page. But that sound like a time consuming task and unnecessarily repetitive. No one wants a cluttered template with a verbose amount of code.</p>
+<p>Ideally I could abstract the data away from the page and leave my template clean and concise. Instead, storing the data in a separate data file which I could call in my template wherever needed.</p>
+<p>Enter Data files.</p>
+<h2 id="data-files-and-the-data-folder">Data files and the data folder&nbsp;<a class="heading-anchor" href="#data-files-and-the-data-folder" aria-label="Anchor">#</a> </h2>
+<p>In Hugo, <a href="https://gohugo.io/templates/data-templates/">data files</a> are stored in the data folder. Think of the data folder as a mini database where you can keep lists of data to use in your pages.</p>
+<p>Inside the data folder you can organise files into any number of sub-folders.</p>
+<p>Hugo accepts <code>JSON</code>, <code>YAML</code> and <code>TOML</code> files, just like the front matter in your posts and pages.</p>
+<h3 id="data-structure">Data structure&nbsp;<a class="heading-anchor" href="#data-structure" aria-label="Anchor">#</a> </h3>
+<p>In my data folder I have a sub-folder called <code>countries</code> and inside that folder I have a another folder called <code>continent</code> where I keep 5 <code>YAML</code> files: <code>africaa.yaml</code>, <code>asia.yaml</code>, <code>europe.yaml</code>, <code>northamerica.yaml</code> and <code>southamerica.yaml</code>.</p>
+<p>For all the geography nerds out there; I combined Australia with Asia as it didn’t make sense to have a data file containing one country.</p>
+<pre><code>└── countries
+    └── continent
+        ├── africa.yaml
+        ├── asia.yaml
+        ├── europe.yaml
+        └── northamerica.yaml
+      	└── southamerica.yaml
+</code></pre><p>I called the top level sub-folder countries so the data type was clearly organised and easy to understand.</p>
+<h3 id="inside-the-data-file">Inside the data file&nbsp;<a class="heading-anchor" href="#inside-the-data-file" aria-label="Anchor">#</a> </h3>
+<p>Inside each continent <code>YAML</code> file, I listed the countries in that continent under <code>country</code>, using an object <code>name</code> where the value is the country name.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">country</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Algeria<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Angola<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Cameroon<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Comoros<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Gambia<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Ghana<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Ivory<span class="w"> </span>Coast<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Kenya<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Lesotho<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Madagascar<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Malawi<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Mauritius<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Morocco<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Nigeria<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Namibia<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Senegal<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Sierra<span class="w"> </span>Leone<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>South<span class="w"> </span>Africa<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Swaziland<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Tanzania<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Tunisia<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Uganda<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Zambia<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Zimbabwe<span class="w">
+</span></code></pre></div><h3 id="using-the-data">Using the data&nbsp;<a class="heading-anchor" href="#using-the-data" aria-label="Anchor">#</a> </h3>
+<p>By using the <a href="https://gohugo.io/functions/range/#readout">range</a> function you can loop through the content, accessing the data folder with <code>.Site.Data</code> followed by the name of the file and the nested data structure.</p>
+<p>To retrieve data from my <code>africa.yaml</code> data file I used the following code:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Site</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">countries</span><span class="p">.</span><span class="nx">continent</span><span class="p">.</span><span class="nx">africa</span><span class="p">.</span><span class="nx">country</span> <span class="p">}}</span>
+  <span class="p">&lt;</span><span class="nx">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nx">input</span> <span class="nx">class</span><span class="p">=</span><span class="s">&#34;material-icons&#34;</span> <span class="kd">type</span><span class="p">=</span><span class="s">&#34;checkbox&#34;</span> <span class="o">/</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nx">label</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">name</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="o">/</span><span class="nx">input</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="o">/</span><span class="nx">li</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>Where <code>{{ .name }}</code> prints out the name of the country.</p>
+<p>To see this in action <a href="http://www.harrycresswell.co.uk/client/ain/ain-filters/">check out this prototype</a> and hit the filter button above the search called <code>country</code>.</p>
+<p>If you are applying this to your own data be sure to update <code>countries.continent.africa.country</code> with your specific data structure.</p>
+<h2 id="conclusion">Conclusion&nbsp;<a class="heading-anchor" href="#conclusion" aria-label="Anchor">#</a> </h2>
+<p>Data files in Hugo make working with large amounts of data a whole lot less cumbersome. Abstracting repetitive code away from templates keeps file clean and lightweight and managing content a somewhat easier task.</p>
+<p>For more on data in Hugo head to the docs, where you can learn about “data-driven content” data features, which lets you load any <code>JSON</code> or <code>CSV</code> file from nearly any resource.</p>
+<h2 id="further-reading">Further reading&nbsp;<a class="heading-anchor" href="#further-reading" aria-label="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://novelist.xyz/tech/hugo-data-files/">How to use Data Files in Hugo: an example</a> by Peter Y. Chuang</li>
+<li><a href="https://gohugo.io/templates/data-templates/">Data Templates</a> fro the Hugo Docs</li>
+</ul>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Working with Data in Hugo" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

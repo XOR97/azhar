@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GraphQL on Azhar Khan</title>
+    <link>https://azharkhan.in/tags/graphql/</link>
+    <description>Recent content in GraphQL on Azhar Khan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
+    <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
+    <lastBuildDate>Tue, 17 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://azharkhan.in/tags/graphql/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+      <item>
+        <title>Filtering content in Gatsby by date and deadline</title>
+        <link>https://azharkhan.in/articles/filtering-content-in-gatsby-by-date-and-deadline/</link>
+        <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/filtering-content-in-gatsby-by-date-and-deadline/</guid>
+        <description>&lt;p&gt;On &lt;a href=&#34;https://www.jobs.angelinvestmentnetwork.co.uk/&#34;&gt;the jobs board prototype&lt;/a&gt; I’ve been working on, all jobs have a deadline. As you might expect, the idea is that whenever a deadline is reached, the job listing is no longer active and therefore should no longer display on the website.&lt;/p&gt;
+&lt;p&gt;This presents us with an interesting problem. We need a way to remove any piece of content (in this case a job) from the site that has reached it’s deadline.&lt;/p&gt;
+&lt;p&gt;But this isn’t a dynamic site built with PHP or whatever else, this is Gatsby, and for all the fun React-what-not used to build these sites, the output is still very much static HTML. So removing these jobs dynamically isn’t as easy as it sounds.&lt;/p&gt;
+&lt;p&gt;We could just remove this content manually. It’s a viable option for a small site. But as the site grows, which we expect it will, this will involve sifting through every single job post, checking to see whether the deadline has expired or not. Tedious stuff.&lt;/p&gt;
+&lt;p&gt;A better alternative is to create a filter at query time, that remove this content when we build the site. This filter will remove any content that has reached the deadline, by checking whether the deadline (set in the front matter of the document) exceeds the current date.&lt;/p&gt;
+&lt;p&gt;However, this still leaves us with one final problem. Running the build is still a manual process. Ideally, we’d like to automate this step, so that the site rebuilds itself every time a deadline expires. I have an idea for this, but let’s leave that until we get to it.&lt;/p&gt;
+&lt;p&gt;First things first. Let’s recap these steps, to get a clear picture of what we want to do.&lt;/p&gt;
+&lt;h2 id=&#34;steps-to-reproduce&#34;&gt;Steps to reproduce&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Step 1:&lt;/strong&gt; &lt;a href=&#34;#add-deadline-to-content-frontmatter&#34;&gt;Add deadline to content frontmatter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 2:&lt;/strong&gt; &lt;a href=&#34;#create-a-function-to-get-current-date&#34;&gt;Create a function to get current date&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 3:&lt;/strong&gt; &lt;a href=&#34;#pass-current-date-to-component-to-use-in-query&#34;&gt;Pass current date to component to use in query&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 4:&lt;/strong&gt; &lt;a href=&#34;#filter-content-where-deadline-is-greater-than-current-date&#34;&gt;Filter content where deadline is greater than current date&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 5:&lt;/strong&gt; &lt;a href=&#34;#build-site-to-run-query-and-update-output&#34;&gt;Build site to run query and update output&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step 6:&lt;/strong&gt; &lt;a href=&#34;#automate-the-build-process&#34;&gt;Automate the build process&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;add-deadline-to-content-frontmatter&#34;&gt;Add deadline to content frontmatter&lt;/h2&gt;
+&lt;p&gt;First, we need to add a &lt;code&gt;deadline&lt;/code&gt; to the front matter of every content markdown file that we might want to filter. Use a key value pair, where the value is a date.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;Marketing&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;Director&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;company&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;Buengo&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;slug&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;marketing-director-at-buengo&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;ld&#34;&gt;2019-12-03T13:00:00.000&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;+00&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;published&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;deadline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;ld&#34;&gt;2020-02-06T13:39:59Z&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;---&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we have a way to filter the document based on the deadline date. Easy enough.&lt;/p&gt;
+&lt;h2 id=&#34;create-a-function-to-get-current-date&#34;&gt;Create a function to get current date&lt;/h2&gt;
+&lt;p&gt;The next step is to create a function which grabs the current date. We’ll need to pass this to the page template, so we can use it in the query.&lt;/p&gt;
+&lt;p&gt;Luckily for us, &lt;a href=&#34;https://stevenmercatante.com/publish-posts-after-date-in-gatsby&#34;&gt;Steven Mercatante has written a great article&lt;/a&gt; where he does something similar, but in his case for scheduling posts. We can use Steven’s &lt;code&gt;getCurrentDate&lt;/code&gt; function, as it’s exactly what we need.&lt;/p&gt;
+&lt;p&gt;Full credit to Steven for this. Without his article I’d probably be scrounging around still looking for answers.&lt;/p&gt;
+&lt;p&gt;As Steven comments; the function “Returns the current date in YYYY-MM-DD format.” This is what we want.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// gatsby-node.js
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * Returns the current date in YYYY-MM-DD format
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;getCurrentDate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getMonth&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sb&#34;&gt;`0&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;month&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getDate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sb&#34;&gt;`0&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;day&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getFullYear&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;month&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;day&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We need to add this function to our &lt;em&gt;gatsby-node.js&lt;/em&gt; file, so it’s available to use as &lt;code&gt;context&lt;/code&gt; when we create content pages.&lt;/p&gt;
+&lt;h2 id=&#34;pass-current-date-to-component-to-use-in-query&#34;&gt;Pass current date to component to use in query&lt;/h2&gt;
+&lt;p&gt;Now we need to pass the &lt;code&gt;currentDate&lt;/code&gt; data to the page layout. We can do this using &lt;a href=&#34;https://www.gatsbyjs.org/docs/gatsby-internals-terminology/#pagecontext&#34;&gt;context object&lt;/a&gt;, which is created by calls to &lt;a href=&#34;https://www.gatsbyjs.org/docs/actions/#createPage&#34;&gt;createPage&lt;/a&gt;. This is what Gatsby uses to generate pages on the website.&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;context&lt;/em&gt; object is passed to GraphQL queries as the context parameter. But more on this later.&lt;/p&gt;
+&lt;p&gt;Depending on how your project is set up this might look slightly different. Perhaps you want to pass context to a different page layout. Either way, the process is the same. This is what it looks like in our case.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// gatsby-node.js
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;createPages&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;graphql&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;actions&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createPage&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;actions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;createPage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;frontmatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slug&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;/`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;component&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;./src/components/postLayout.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;slug&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;frontmatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slug&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;currentDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;getCurrentDate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice the value of &lt;code&gt;currentDate&lt;/code&gt; in the &lt;em&gt;context&lt;/em&gt; object is a call to the &lt;code&gt;getCurrentDate()&lt;/code&gt; function we created earlier.&lt;/p&gt;
+&lt;p&gt;This will pass &lt;code&gt;currentDate&lt;/code&gt; as a parameter to our &lt;em&gt;postLayout.js&lt;/em&gt; component, so we can use it in our GraphQL query.&lt;/p&gt;
+&lt;h2 id=&#34;filter-content-where-deadline-is-greater-than-current-date&#34;&gt;Filter content where deadline is greater than current date&lt;/h2&gt;
+&lt;p&gt;Now we’ve done the hard work, this step should be fairly easy.&lt;/p&gt;
+&lt;p&gt;We need to add the filter to our GraphQL query (found inside the page layout), to check if &lt;code&gt;deadline&lt;/code&gt; is &lt;em&gt;greater than or equal to&lt;/em&gt; the current date. Remember the current date is held in the &lt;code&gt;currentDate&lt;/code&gt; parameter, which we just passed into the component using the &lt;em&gt;context&lt;/em&gt; object.&lt;/p&gt;
+&lt;p&gt;Here’s the full query:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-graphql&#34; data-lang=&#34;graphql&#34;&gt;&lt;span class=&#34;kd&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$company&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$currentDate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;allMarkdownRemark&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;filter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;frontmatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;company&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$company&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;published&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;eq&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;deadline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;gte&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$currentDate&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;frontmatter___date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;order&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;DESC&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;edges&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;frontmatter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;company&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;formatString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;MMMM DD, YYYY&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;slug&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ok, let’s break this down.&lt;/p&gt;
+&lt;p&gt;The first part to pay close attention to is where it says &lt;code&gt;deadline: { gte: $currentDate }&lt;/code&gt;, found in the filter part of the query.&lt;/p&gt;
+&lt;p&gt;We’re using the &lt;a href=&#34;https://www.gatsbyjs.org/docs/graphql-reference/#complete-list-of-possible-operators&#34;&gt;gte operator&lt;/a&gt;, meaning ”greater than or equal to”, and passing in the current date parameter. We do this by setting it as the value of deadline.&lt;/p&gt;
+&lt;p&gt;In other words, we’re telling GraphQL to filter any content where &lt;code&gt;deadline&lt;/code&gt; is greater than or equal to the current date.&lt;/p&gt;
+&lt;p&gt;Makes sense.&lt;/p&gt;
+&lt;p&gt;The second thing we need to do is make sure we pass the parameter into the query itself. We do this by passing the query an argument: &lt;code&gt;$currentDate: Date!&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now we’re ready to rebuild our site and run the query.&lt;/p&gt;
+&lt;h2 id=&#34;build-site-to-run-query-and-update-output&#34;&gt;Build site to run query and update output&lt;/h2&gt;
+&lt;p&gt;Depending on how you’re set up, you should be able to build your site by running &lt;code&gt;gatsby build&lt;/code&gt; in the terminal.&lt;/p&gt;
+&lt;p&gt;Gatsby will rebuild the site, the query will run and any jobs where the deadline has expired will be filtered out of the content that’s returned.&lt;/p&gt;
+&lt;p&gt;Restart your local development server (usually &lt;code&gt;gatsby develop&lt;/code&gt;, &lt;code&gt;gatsby serve&lt;/code&gt; or &lt;code&gt;npm start&lt;/code&gt;), so you can see the changes.&lt;/p&gt;
+&lt;p&gt;Though nice and easy, this step is still very manual, at this stage. So the final part is to figure out how we can automate this process, so the site rebuilds itself when deadlines expire.&lt;/p&gt;
+&lt;h2 id=&#34;automate-the-build-process&#34;&gt;Automate the build process&lt;/h2&gt;
+&lt;p&gt;There are a bunch of ways to trigger a build, but the easiest way is using a Webhook.&lt;/p&gt;
+&lt;p&gt;If you’re using Netlify, this is straight forward. Head to &lt;a href=&#34;https://docs.netlify.com/configure-builds/build-hooks/&#34;&gt;Netlify’s site settings&lt;/a&gt; and select &lt;em&gt;Build &amp;amp; Deploy&lt;/em&gt;. Now scroll down to &lt;em&gt;Build Hooks&lt;/em&gt; and hit the &lt;em&gt;Add build hook&lt;/em&gt; button.&lt;/p&gt;
+&lt;p&gt;Give your new build hook a name – I called mine ”Filter expired deadlines” – then choose the branch (most likely master) that your site is deploying from.&lt;/p&gt;
+&lt;p&gt;Netlify will generate a unique URL, which you can use to send a POST request to, and trigger a deploy. Now to figure out a way to trigger this Webhook.&lt;/p&gt;
+&lt;p&gt;For this we can look to an automation tool called &lt;a href=&#34;https://ifttt.com/&#34;&gt;IFTTT&lt;/a&gt;, which connects different apps and services so they can pass data to one another.&lt;/p&gt;
+&lt;p&gt;IFTTT has a service called &lt;a href=&#34;https://ifttt.com/date_and_time&#34;&gt;Date &amp;amp; Time&lt;/a&gt; which we can set up to run on an hourly, daily, weekly, monthly or yearly basis. By choosing the daily option and setting the time to 12.00am, we can run our build at a time that makes sense.&lt;/p&gt;
+&lt;p&gt;Next we need to connect this to the &lt;a href=&#34;https://ifttt.com/maker_webhooks&#34;&gt;Webhook&lt;/a&gt; service, so we can provide IFTTT with our Webhook URL and trigger a build using the POST method.&lt;/p&gt;
+&lt;p&gt;You can even tell IFTTT to send you a notification when the automation completes. Not bad, it gets the job done.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://stevenmercatante.com/publish-posts-after-date-in-gatsby&#34;&gt;Publish Posts After a Date in Gatsby&lt;/a&gt; by Steven Mercatante&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/gatsby-internals-terminology/#pagecontext&#34;&gt;page.context&lt;/a&gt; from the Gatsby docs&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/actions/#createPage&#34;&gt;createPage&lt;/a&gt; from the Gatsby docs&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/graphql-reference/#complete-list-of-possible-operators&#34;&gt;Complete list of possible operators&lt;/a&gt; from the Gatsby docs&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;(https://docs.netlify.com/configure-builds/build-hooks/)&#34;&gt;Netlify Build hooks&lt;/a&gt; from the Netlify docs&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Formatting dates in Gatsby with GraphQL</title>
+        <link>https://azharkhan.in/notes/formatting-dates-gatsby/</link>
+        <pubDate>Thu, 16 Jan 2020 11:41:11 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/formatting-dates-gatsby/</guid>
+        <description>&lt;p&gt;Perhaps the easiest way to format dates in Gatsby is at query-time using Gatsby’s GraphQL layer.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-graphql&#34; data-lang=&#34;graphql&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;formatString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;MMMM Do, YYYY&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;cmd + click&lt;/code&gt; on the &lt;code&gt;formatString&lt;/code&gt; function in your query to open the schema documentation explorer.&lt;/p&gt;
+&lt;p&gt;You’ll see the date is formatted using Moment.js date tokens.&lt;/p&gt;
+&lt;p&gt;Head to &lt;a href=&#34;https://momentjs.com/docs/#/displaying/format/&#34;&gt;the MomentJS docs&lt;/a&gt; to see the various format options.&lt;/p&gt;
+&lt;p&gt;For a current project I’m using a fairly minimal config.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-graphql&#34; data-lang=&#34;graphql&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;formatString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;DD MMM&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Which prints out something along the lines of:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;25 Jul&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;adding-the-time&#34;&gt;Adding the time&lt;/h2&gt;
+&lt;p&gt;For another project I needed to grab the time, not just the date.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-graphql&#34; data-lang=&#34;graphql&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;py&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;formatString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;dddd MMMM Do, YYYY hh:mma&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This returns something along the lines of:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Thursday January 16th, 2020&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/graphql-concepts/#formatting-dates&#34;&gt;GraphQL Concepts – Formatting dates&lt;/a&gt; from Gatsby Docs.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/graphql-reference/#format&#34;&gt;GraphQL Reference - Dates&lt;/a&gt; from Gatsby Docs.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://momentjs.com/docs/#/displaying/format/&#34;&gt;Moment.js Display formats&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Query data from Sanity using GraphQL</title>
+        <link>https://azharkhan.in/notes/query-data-from-sanity-using-graphql-and-gatsby/</link>
+        <pubDate>Wed, 14 Aug 2019 09:32:35 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/query-data-from-sanity-using-graphql-and-gatsby/</guid>
+        <description>&lt;p&gt;I’m making 2 assumptions here, the first is that you have a Sanity project set up, you’ve added at least one content type and you’ve entered some content before &lt;a href=&#34;https://azharkhan.in/notes/til-03-deploy-graphql-api-sanity/&#34;&gt;deploying a GraphQL API&lt;/a&gt;. The second is that you’ve configured a Gatbsy project to work with Sanity, by installing the &lt;code&gt;gatsby-source-sanity&lt;/code&gt; plugin.&lt;/p&gt;
+&lt;p&gt;With those steps complete we can now run our site in development mode using &lt;code&gt;gatsby develop&lt;/code&gt;, then head to &lt;code&gt;http://localhost:8000/___graphql&lt;/code&gt; to launch GraphiQL and explore our schema.&lt;/p&gt;
+&lt;h2 id=&#34;writing-your-first-sanity-query-in-graphiql&#34;&gt;Writing your first Sanity query in GraphiQL&lt;/h2&gt;
+&lt;p&gt;Type &lt;code&gt;allSanity&lt;/code&gt; to launch the options and explore the available document schemas in your API.&lt;/p&gt;
+&lt;p&gt;One of the available options in my API is &lt;code&gt;allSanityEvent&lt;/code&gt; which contains all the data associated with a document type I have created called ‘Event’.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-GraphQL&#34; data-lang=&#34;GraphQL&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;allSanityEvent&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can make a basic query for an event title like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-GraphQL&#34; data-lang=&#34;GraphQL&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;allSanityEvent&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;edges&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;			&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;				&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;			&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;Tip: Hit &lt;code&gt;alt + space&lt;/code&gt; to see the available options at each level of your query&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the particular project I’m working on right now my full query grabs the title, excerpt, slug and image from all events. It looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+	allSanityEvent {
+		edges {
+			node {
+				title
+				excerpt
+				slug {
+					current
+				}
+				image {
+					asset {
+						fluid {
+							src
+						}
+					}
+				}
+			}
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And returns the following JSON object:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;allSanityEvent&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;#34;edges&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+          &lt;span class=&#34;nt&#34;&gt;&amp;#34;node&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;My second event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;excerpt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is the excerpt for the second event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;slug&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;current&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;my-second-event&amp;#34;&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;image&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;asset&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;#34;fluid&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;#34;src&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://cdn.sanity.io/images/k5nyspnm/production/20ef5df9ed8dac42c2ec50b474a46726143ceb4f-2250x1500.png?w=800&amp;amp;h=533&amp;amp;fit=crop&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+          &lt;span class=&#34;nt&#34;&gt;&amp;#34;node&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;My first event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;excerpt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is the excerpt for the first event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;slug&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;current&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;my-first-event&amp;#34;&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;image&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;asset&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;#34;fluid&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;#34;src&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://cdn.sanity.io/images/k5nyspnm/production/1c6f3cee364b6cf5bfcad46539b0a9cf82ace1c5-800x400.png?w=800&amp;amp;h=400&amp;amp;fit=crop&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;query-your-schema-in-gatsby&#34;&gt;Query your schema in Gatsby&lt;/h2&gt;
+&lt;p&gt;Now we have our query we want to show the content in our Gatsby site.&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;index.js&lt;/code&gt; first we need to import &lt;code&gt;graphql&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import { Link, graphql } from &#39;gatsby&#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next we can write our query and export it as a variable. Make sure you switch out the image &lt;code&gt;src&lt;/code&gt; for the ￼image fragment reference.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export const queryEvent = graphql`
+{
+	allSanityEvent {
+		edges {
+			node {
+				title
+				excerpt
+				slug {
+					current
+				}
+				image {
+					asset {
+						fluid {
+							...GatsbySanityImageFluid
+						}
+					}
+				}
+			}
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we can grab the data in our layout.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;const IndexPage = ({ data }) =&amp;gt; (
+&amp;lt;Layout&amp;gt;
+	&amp;lt;h1&amp;gt;Events&amp;lt;/h1&amp;gt;
+	&amp;lt;ul&amp;gt;
+		{data.allSanityEvent.edges.map(({ node: event }) =&amp;gt; (
+			&amp;lt;li key={event.slug.current}&amp;gt;
+				&amp;lt;h2&amp;gt;{event.title}&amp;lt;/h2&amp;gt;
+				&amp;lt;Image fluid={event.image.asset.fluid} alt={event.title} /&amp;gt;
+				&amp;lt;p&amp;gt;{event.excerpt}&amp;lt;/p&amp;gt;
+			&amp;lt;/li&amp;gt;
+		))}
+	&amp;lt;/ul&amp;gt;
+&amp;lt;/Layout&amp;gt;
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We now have a list of events on our page, including the event title, image and excerpt.&lt;/p&gt;
+&lt;p&gt;The next step will be to generate the single pages for each event.&lt;/p&gt;
+&lt;h2 id=&#34;further-resources&#34;&gt;Further resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/sourcing-from-sanity/&#34;&gt;Sourcing from Sanity&lt;/a&gt; in the Gatsby Docs.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SLGkyodumKI&#34;&gt;Build a portfolio site with Sanity and Gatsby&lt;/a&gt; from Jason Lengstorf.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Deploy a GraphQL API for a Sanity project</title>
+        <link>https://azharkhan.in/notes/deploy-graphql-api-sanity/</link>
+        <pubDate>Fri, 19 Jul 2019 10:38:59 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/deploy-graphql-api-sanity/</guid>
+        <description>&lt;p&gt;If you want to consume your Sanity dataset from a front-end the you will need to set up an API. You can do this using Sanity’s custom query language GROQ or GraphQL. These notes focus on the latter.&lt;/p&gt;
+&lt;p&gt;With an API set up you will be able to query your data in any application you create.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note: Anytime you make changes to your content schema, you will need to redeploy the GraphQL API&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;deploying-the-graphql-api&#34;&gt;Deploying the GraphQL API&lt;/h2&gt;
+&lt;p&gt;First make sure your running the latest version of Sanity:
+&lt;code&gt;sanity upgrade&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Run &lt;code&gt;sanity graphql deploy&lt;/code&gt; to deploy a GraphQL API for the dataset configured in &lt;code&gt;sanity.json&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You will then be asked the following:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Do you want to enable a GraphQL playground? (Y/n)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Hit &lt;code&gt;Y&lt;/code&gt; and you’ll be able to explore the Schema in a GraphQL Playground.&lt;/p&gt;
+&lt;h2 id=&#34;explore-the-schema-from-a-gatsby-project&#34;&gt;Explore the Schema from a Gatsby project&lt;/h2&gt;
+&lt;p&gt;Explore &lt;code&gt;￼http://localhost:8000/___graphql&lt;/code&gt; after running &lt;code&gt;gatsby develop&lt;/code&gt; to understand the created data and create a new query and checking available collections and fields by typing &lt;code&gt;CTRL + SPACE&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;further-resources&#34;&gt;Further Resources&lt;/h2&gt;
+&lt;p&gt;For more on this step &lt;a href=&#34;https://www.sanity.io/docs/data-store/graphql#deploying-the-graph-ql-api&#34;&gt;check out the docs&lt;/a&gt;.&lt;/p&gt;
+</description>
+      </item>
+      
+    
+  </channel>
+</rss>

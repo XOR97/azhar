@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Listing page content in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Listing page content in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="The ins and outs of listing content in Hugo. Breaking down the various functions and variables it takes to create lists of the different content types.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Listing page content in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="The ins and outs of listing content in Hugo. Breaking down the various functions and variables it takes to create lists of the different content types.">
+    <meta property="og:site_name" content="Listing page content in Hugo | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/listing-page-content-in-hugo/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/listing-page-content-in-hugo/">
+    <meta property="twitter:title" content="Listing page content in Hugo - Azhar Khan">
+    <meta property="twitter:description" content=" The ins and outs of listing content in Hugo. Breaking down the various functions and variables it takes to create lists of the different content types. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/listing-page-content-in-hugo/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Listing page content in Hugo</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2020-04-15 10:50:11 &#43;0100 &#43;0100">Wed, Apr 15, 2020</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/hugo" class="p-category">Hugo</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>In Hugo, <a href="https://bepsays.com/en/2016/12/19/hugo-018/">everything is a page</a>.</p>
+<p>A common thing to do with these pages is make lists of them. By doing so you make your content easily accessible to readers.</p>
+<p>A list of pages, at the very least, might look like a collection of page titles, which hyperlink to the pages themselves.</p>
+<p>In plain old HTML that might look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/page-1&#34;</span><span class="p">&gt;</span>Page #1<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/page-2&#34;</span><span class="p">&gt;</span>Page #2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/page-3&#34;</span><span class="p">&gt;</span>Page #3<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div><p>But that’s just the basics. You can create a list of any data associated with your content.</p>
+<p>In Hugo, unfortunately there’s no one size fits all approach to rending content.</p>
+<p>The context of the code you write changes depending on which template you’re working in. This can often produce unexpected results.</p>
+<p>In this piece we’ll learn about the specific functions and variables you can use to create lists of different content types and look at how context effects the content rendered on a page.</p>
+<p>Let’s start by considering how we create lists of data, from a technical perspective, when using a static site generator like Hugo.</p>
+<h2 id="what-does-it-mean-to-list-content">What does it mean to list content?&nbsp;<a class="heading-anchor" href="#what-does-it-mean-to-list-content" aria-label="Anchor">#</a> </h2>
+<p>When we programatically create a list of anything, essentially all we’re doing is iterating over a map of data.</p>
+<p>In other words, looping through an array – a list of items – which, in other programming languages, you might do with a for loop, or a map function.</p>
+<p>In Hugo, in the context of pages, you do this with the range function.</p>
+<h2 id="understanding-range">Understanding range&nbsp;<a class="heading-anchor" href="#understanding-range" aria-label="Anchor">#</a> </h2>
+<p>The <a href="https://gohugo.io/functions/range/">range</a> function provides an easy way to iterate over a map, array or slice of data. Think of it as grabbing a collection of pages, or a “range” of pages.</p>
+<p>Range is fundamental to templating in Hugo and it’s the only function we’ll need to return a lists of pages.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span> <span class="k">range</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>But using range alone won&rsquo;t return any data.</p>
+<p>To get hold of our pages, we need to pass a <a href="https://gohugo.io/variables/page/">page variable</a> to the range function. This variable will give you access to different collections of content, depending on which variable you pass in and which template you write the code in.</p>
+<p>There’s quite a few different variables you can choose from, but for now, let’s focus on some of the main ones.</p>
+<h2 id="combining-site-and-pages">Combining .Site and .Pages&nbsp;<a class="heading-anchor" href="#combining-site-and-pages" aria-label="Anchor">#</a> </h2>
+<p><a href="https://gohugo.io/variables/site/">.Site</a> gives you access to global values in your templates.</p>
+<p>So regardless of where you are writing your code, with <code>.Site</code> you can get hold of all site-wide variables. These are either defined in your site’s configuration or directly built-in to Hugo.</p>
+<p>In the interest of listing page content, we can combine <code>.Site</code> with a built-in variable called <code>.Pages</code> to access all pages across our website.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Site</span><span class="p">.</span><span class="nx">Pages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>The Hugo docs describe <a href="https://gohugo.io/variables/site/#site-pages">.Site.Pages</a> as a super set of everything.</p>
+<p>This means by passing <code>.Site.Pages</code> to the range function we can grab data associated with every single page on our site. It will return regular pages, collections, taxonomies, and so on.</p>
+<p>In the case above, we’re rendering all page titles, with a permalink to those pages.</p>
+<p>A few things to note.</p>
+<p><code>.Site.Pages</code> doesn’t care if you store your content in subdirectories, for example posts in <code>./content/posts</code> or pages inside <code>./content/pages</code>. It will render all content types regardless of your content directory structure.</p>
+<p><code>.Site.Pages</code> also doesn’t care which template you use it in. The object returned will always be the same.</p>
+<h2 id="pages-without-site">.Pages without .Site&nbsp;<a class="heading-anchor" href="#pages-without-site" aria-label="Anchor">#</a> </h2>
+<p><code>.Pages</code> can be used without <code>.Site</code>, but the content returned will be different, depending on where you use it.</p>
+<p>Where <code>.Site</code> gives you access to the global values in your templates, <code>.Pages</code> only returns a collection of regular pages and only first-level section pages under the current list page.</p>
+<p>To make sense of this let’s turn now to list templates, and talk a bit about what they are and how you can use them.</p>
+<h2 id="the-list-template">The list template&nbsp;<a class="heading-anchor" href="#the-list-template" aria-label="Anchor">#</a> </h2>
+<p>List templates are key part of rendering specific collections of pages. For the sake of clarity, let’s call these ”lists” of pages.</p>
+<p>The only <code>list.html</code> template you need to render a list of pages in Hugo is kept at <code>.layouts/_default/list.html</code>.</p>
+<p>This acts as the default template for all collections, sections, taxonomies and terms. It’s the first list template Hugo will look for when it tries to render lists.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ./layouts/_default/list.html
+</span><span class="c1"></span><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Pages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>Notice we’re no longer using <code>.Site.Pages</code>, but just <code>.Pages</code>. It will soon become clear why.</p>
+<p>Now let’s say you have a content collection at <code>./content/posts</code> and you want to create a specific list template for this collection, which renders the posts on the <code>/posts</code> page of your website.</p>
+<p>To do this you might want to override the default list template by adding another list template, using the exact same code, but this time located at <code>./layouts/posts/list.html</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ./layouts/posts/list.html
+</span><span class="c1"></span><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Pages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>Notice the location of this list template mirrors the content directory structure.</p>
+<p>Now we can customise the template however we like and Hugo will only return content from the corresponding folder at <code>./content/posts</code>. Whilst all other pages will continue to use the default list template.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ./layouts/posts/list.html
+</span><span class="c1"></span><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Pages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nx">p</span> <span class="nx">class</span><span class="p">=</span><span class="s">&#34;intro&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Summary</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">p</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>It’s important to note that if we used <code>.Site.Pages</code>, as we have done previously, Hugo will return an object of all our site pages, which isn’t what we want in this case.</p>
+<p>We’re specifically interesed in the collection of post pages, so we use the <code>.Page</code> variable in a new list template, kept in a directory which mirrors our content structure.</p>
+<p>Now we’re starting to see how context effects the results of the code we write.</p>
+<p>Let’s look at another example to make this absolutely clear.</p>
+<p>Say we have another template with the exact same code at <code>./layouts/notes/list.html</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ./layouts/notes/list.html
+</span><span class="c1"></span><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Pages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>This time <code>list.html</code> will only return content from the corresponding content folder located at <code>./content/notes</code> .</p>
+<p>We can see now that the context of <code>.Pages</code> changes, depending on the location of your list template. And it’s something to keep in mind, as it can be confusing at first.</p>
+<p>Ok, so how does Hugo know which template to use?</p>
+<p>Hugo picks the template it uses to render content based on something called the lookup order.</p>
+<p>Let’s get into that next.</p>
+<h2 id="the-lookup-order">The lookup order&nbsp;<a class="heading-anchor" href="#the-lookup-order" aria-label="Anchor">#</a> </h2>
+<p><a href="https://gohugo.io/templates/lookup-order/">The lookup order</a> is how Hugo decides which layout template to use for a given page, based on a well defined order of priority.</p>
+<p>The default list template (that one at <code>./layouts/_default/list.html</code>) will serve all content, unless it is overridden by another template, with a higher priority in the lookup order.</p>
+<p>This is what is happening with our list template at <code>./layouts/posts/list.html</code>.</p>
+<p>Understanding the lookup order, and how context changes, will help you understand which variables to use in certain situations and why the same variable can produce different results.</p>
+<p>Ok, let’s move on to a few other interesting things we can do.</p>
+<h2 id="using-the-first-function">Using the first function&nbsp;<a class="heading-anchor" href="#using-the-first-function" aria-label="Anchor">#</a> </h2>
+<p>Now let’s try something a bit different, this time with <a href="https://gohugo.io/functions/first/">the first function</a>.</p>
+<p>You can add the first function to range, to reduce the array of data returned to only the first N elements. Where N is the value you set.</p>
+<p>Think of first as an argument which you pass in alongside your page variables.</p>
+<p>Here we’re returning the first 10 pages across all our content.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span> <span class="k">range</span> <span class="nx">first</span> <span class="mi">10</span> <span class="p">.</span><span class="nx">Site</span><span class="p">.</span><span class="nx">Pages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>But what if you want to loop through a specific collection of content? Let’s use our example of a collection posts stored inside <code>./content/posts</code> again.</p>
+<p>Let’s say now we want to list our posts on the <code>index.html</code> page. We can’t just use <code>.Pages</code> in this case, as we’re no longer in our post specific <code>list.html</code> template.</p>
+<p>This is where <code>.Site.RegularPages</code> is helpful.</p>
+<h2 id="understanding-siteregularpages">Understanding .Site.RegularPages&nbsp;<a class="heading-anchor" href="#understanding-siteregularpages" aria-label="Anchor">#</a> </h2>
+<p>The <code>.Site.RegularPages</code> variable is similar to <code>.Site.Pages</code>, but instead of returning all pages, it returns all collections.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span> <span class="k">range</span> <span class="p">.</span><span class="nx">Site</span><span class="p">.</span><span class="nx">RegularPages</span> <span class="p">}}</span>
+	<span class="p">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="p">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Tite</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>In Hugo, collections are known as <a href="https://gohugo.io/content-management/types/">Content Types</a>, which basically means anything stored within the <code>./content</code> directory or inside subdirectories within.</p>
+<p>To give you an example, on this site I have three collections of content. <code>./content/articles</code>, <code>./content/notes</code> and <code>./content/projects</code>. Each directory contains pages created in markdown.</p>
+<p>Here, the <code>.Site.RegularPages</code> variable would return all pages from across these three collections, and ignore any else, such as pages inside <code>./content/pages</code> or taxonomy pages.</p>
+<p>But what if you only want to loop through your <code>./content/articles</code> collection? How might you handle this kind of behaviour?</p>
+<p>The <code>.Type</code> variable is useful in the scenario.</p>
+<h2 id="filtering-pages-by-type">Filtering pages by .Type&nbsp;<a class="heading-anchor" href="#filtering-pages-by-type" aria-label="Anchor">#</a> </h2>
+<p>As per the docs; “Hugo resolves the content type from either the type in front matter or, if not set, the first directory in the file path.” So what does this mean, exactly?</p>
+<p>It means that if we want to render specific content types, we have two options.</p>
+<p>We can either a), set <code>type</code> inline in the front matter of our pages, like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">title</span><span class="p">:</span><span class="w"> </span>My<span class="w"> </span>first<span class="w"> </span>post<span class="w">
+</span><span class="w"></span><span class="k">type</span><span class="p">:</span><span class="w"> </span>post<span class="w">
+</span></code></pre></div><p>Or b), make directories within <code>./content</code> to mirror how we want to filter our content, as we’ve already seen in the earlier examples.</p>
+<p>So for our post example, this approach means we have to keep our posts inside <code>./content/post</code> for it to work.</p>
+<p>Regardless of whether you go with a) the frontmatter method or b) the directory structure method, you use the same code to render the content.</p>
+<p>Consider the following example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span> <span class="k">range</span> <span class="nx">where</span> <span class="p">.</span><span class="nx">Pages</span> <span class="s">&#34;Type&#34;</span> <span class="s">&#34;post&#34;</span> <span class="p">}}</span>
+	<span class="p">{{</span> <span class="p">.</span><span class="nx">Title</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+</code></pre></div><p>Here we combine range with the conditional <a href="https://gohugo.io/functions/where/">where</a> function. This allows us to filter our array to only the elements containing a matching value of “type” <em>post</em>. In this case, only our posts will be returned.</p>
+<p>This is a useful snippet. The frontmatter approach is particular useful when you want to group together a selection of pages, perhaps as featured content.</p>
+<p>You’ll also find this approach useful when you want to render specific content outside of the context of a list template, for example on the homepage of your website, as we’ve imagined here.</p>
+<h2 id="wrapping-up">Wrapping up&nbsp;<a class="heading-anchor" href="#wrapping-up" aria-label="Anchor">#</a> </h2>
+<p>This was a quick introduction to the functions and variables in Hugo that help you list different pages of content, in different places on a Hugo website.</p>
+<p>At times it can be confusing to know which variable to use in a given situation to effectively render the content you wish. But with some practice it will start to sink in.</p>
+<p>I hope this has made things a bit clearer and given you a few ideas for your next project. We’ve only just scratched the surface, but what we’ve covered should help get you off to a good start, with a good idea of some of what’s possible.</p>
+<p>As always, if you spot any mistakes or something doesn’t look quite right, please let me know and I will make sure I make changes.</p>
+<p>I’m aiming to keep this post updated with new examples and scenarios, as I come across them and use them in my own projects. In the meantime, here’s a list of articles which should help give you a better understanding of what we’ve covered.</p>
+<h2 id="further-reading">Further reading&nbsp;<a class="heading-anchor" href="#further-reading" aria-label="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://gohugo.io/functions/range/">The Range Function</a> from the Hugo Docs</li>
+<li><a href="https://gohugo.io/templates/lists/">Lists of content in Hugo</a> from the Hugo Docs</li>
+<li><a href="https://gohugo.io/variables/page/">Page Variables</a> from the Hugo Docs</li>
+<li><a href="https://regisphilibert.com/blog/2018/02/hugo-the-scope-the-context-and-the-dot/">Hugo, the scope, the context and the dot</a> from Regis Philibert</li>
+<li><a href="https://gohugo.io/functions/first/">The First function</a> from the Hugo Docs</li>
+<li><a href="https://gohugo.io/content-management/types">Content types</a> from the Hugo Docs</li>
+<li><a href="https://gohugo.io/functions/where/">The Where function</a></li>
+<li><a href="%EF%BF%BChttps://gohugo.io/templates/homepage/%EF%BF%BC">Homepage Template</a></li>
+<li><a href="https://discourse.gohugo.io/t/different-page-types-without-organising-into-subdirectories/558/3">Different page types without organising into subdirectories</a> from Stiobhart</li>
+</ul>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Listing page content in Hugo" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

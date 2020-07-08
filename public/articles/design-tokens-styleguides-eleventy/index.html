@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Design tokens and styleguides with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Design tokens and styleguides with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="A simple workflow showing you how to use Eleventy and NPM scripts to take YAML design tokens and generate CSS custom properties and a styleguide.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Design tokens and styleguides with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="A simple workflow showing you how to use Eleventy and NPM scripts to take YAML design tokens and generate CSS custom properties and a styleguide.">
+    <meta property="og:site_name" content="Design tokens and styleguides with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/design-tokens-styleguides-eleventy/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/design-tokens-styleguides-eleventy/">
+    <meta property="twitter:title" content="Design tokens and styleguides with Eleventy - Azhar Khan">
+    <meta property="twitter:description" content=" A simple workflow showing you how to use Eleventy and NPM scripts to take YAML design tokens and generate CSS custom properties and a styleguide. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/design-tokens-styleguides-eleventy/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Design tokens and styleguides with Eleventy</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2020-06-05 09:50:37 &#43;0100 &#43;0100">Fri, Jun 5, 2020</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/eleventy" class="p-category">Eleventy</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>Lately I’ve been exploring the concept of <a href="https://24ways.org/2019/design-tokens-and-component-based-design/">design tokens</a> as a way to make design decisions more portable and easier to maintain.</p>
+<p>If you‘re new to design tokens, here’s <a href="https://css-tricks.com/what-are-design-tokens/">a good explanation from Robin Rendle</a>.</p>
+<blockquote>
+<p>”Design tokens are an agnostic way to store variables such as typography, color, and spacing so that your design system can be shared across platforms like iOS, Android, and regular ol’ websites.”</p>
+</blockquote>
+<p>There’s some great tools out there that help you generate design tokens. <a href="https://github.com/salesforce-ux/theo">Theo</a> used by the Salesforce team is a popular choice, as is <a href="https://github.com/ui-js/chromatic">Chromatic</a> and <a href="https://amzn.github.io/style-dictionary/#/">Style Dictionary</a>. However, for my particular needs, most of theses solutions are either overkill or not exactly what I was looking for.</p>
+<p>All I want to do start is with some basic tokens which are stored in their own file, independent of whatever will eventually consume them. Then I’d like to make these tokens accessible in my stylesheets and templates. By doing this I’ll be able to use my tokens to style the website and build a styleguide to visually represent them.</p>
+<p>When my tokens are updated at the source, I want these changes to cascade down to the styleguide template, SCSS styles and whatever else in the website uses them.</p>
+<p>I’m not interested in generating tokens for IOS or Android, like a lot of these existing tools offer. This is one of the reasons I decided to roll my own. All I’m after is a simple workflow that does the above with minimal fuss.</p>
+<p>All this should be possible with a few NPM packages, NPM scripts and Eleventy.</p>
+<h2 id="setting-up-the-project">Setting up the project&nbsp;<a class="heading-anchor" href="#setting-up-the-project" aria-label="Anchor">#</a> </h2>
+<p>First thing’s first. I need to create a new directory for my website, then initialise NPM from inside the directory, so I can use some NPM packages.</p>
+<pre><code>npm init -y
+</code></pre><p>I now have a <code>package.json</code> file at the root of my project.</p>
+<p>Next, I need to install Eleventy so I can process my templates when I add them. I won’t go through this in detail as I’ve already covered that in <a href="https://harrycresswell.com/articles/getting-started-with-eleventy/">Getting Started with Eleventy</a>.</p>
+<p>But here are a few reminders.</p>
+<p>Install Eleventy:</p>
+<pre><code>npm install --save-dev @11ty/eleventy
+</code></pre><p>Run Eleventy:</p>
+<pre><code>npx @11ty/eleventy
+</code></pre><p>Start a local web server:</p>
+<pre><code>npx @11ty/eleventy --serve
+</code></pre><p>You might want to add an <code>index.njk</code> file at the root of the project with some boilerplate code. This will give Eleventy something to process.</p>
+<h2 id="starting-with-yaml">Starting with YAML&nbsp;<a class="heading-anchor" href="#starting-with-yaml" aria-label="Anchor">#</a> </h2>
+<p>From what I’ve read it sounds like creating design tokens in YAML is a good place to start. Makes sense. YAML is easy to read and write by anyone, so I can see the benefits. Should also play nice with Forestry or Netlify CMS.</p>
+<p>Start by creating a file inside the project at <code>src/tokens/tokens.yaml</code>. This will be the source of truth, where I’ll write my design tokens and manage any future changes before they are generated.</p>
+<p>To keep things simple I‘ll add a few color tokens and a sizing scale to the file. This should be more than enough to get going with for now.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">colors</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">primary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;tomato&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;#f1f1f1&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">body</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;#333&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">size-scale</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">sm</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.8rem&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">md</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1rem&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">lg</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1.4rem&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">xl</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2rem&#34;</span><span class="w">
+</span></code></pre></div><p>I’ll return to this file later. Now I need to think about how to convert these tokens into a format that can be consumed from inside Eleventy templates.</p>
+<h2 id="converting-yaml-to-json">Converting YAML to JSON&nbsp;<a class="heading-anchor" href="#converting-yaml-to-json" aria-label="Anchor">#</a> </h2>
+<p>Eleventy works well with JSON. You can pass it to templates which is ideal. So next it makes sense to take these YAML tokens and convert them into JSON.</p>
+<p>You can do this with the <a href="https://www.npmjs.com/package/yamljs">YAMLJS</a> package.</p>
+<pre><code>npm install yamljs --save-dev
+</code></pre><p>Now inside <code>package.json</code> file, write a quick NPM script:</p>
+<pre><code>&quot;tokens:json&quot;: &quot;yaml2json src/tokens/tokens.yaml &gt; src/site/_data/tokens.json --pretty&quot;
+</code></pre><p>So what’s going on here? First, I’m telling Yaml2json the source folder of my tokens, then I specify the destination folder where the JSON output should be stored. I’m adding the <code>--pretty</code> flag to make the JSON easier to read.</p>
+<p>For this to work out I need to add a <code>_data</code> folder at <code>./src/data</code>, so that the script will run and generate a <code>tokens.json</code> file inside the folder.</p>
+<p>Now, when I type <code>npm run tokens:json</code> in the command line, YAMLJS will take my <code>tokens.yaml</code> file, process it as JSON, then chuck it in the <code>_data</code> folder.</p>
+<p>The <code>_data</code> folder is where Eleventy suggests storing data files by default, but you could easily store this wherever you like. Just change the data location in your config file to do so.</p>
+<h2 id="consuming-json-in-templates-to-crete-a-style-guide">Consuming JSON in templates to crete a style guide&nbsp;<a class="heading-anchor" href="#consuming-json-in-templates-to-crete-a-style-guide" aria-label="Anchor">#</a> </h2>
+<p>I now have a new file called <code>tokens.json</code> inside my <code>_data</code> folder that looks like this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;colors&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;primary&#34;</span><span class="p">:</span> <span class="s2">&#34;#542bff&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;background&#34;</span><span class="p">:</span> <span class="s2">&#34;#f1f1f1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;#333&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;size-scale&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;sm&#34;</span><span class="p">:</span> <span class="s2">&#34;0.8rem&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;md&#34;</span><span class="p">:</span> <span class="s2">&#34;1rem&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;lg&#34;</span><span class="p">:</span> <span class="s2">&#34;1.4rem&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>This is an exact representation of my tokens in JSON format. The next step is to consume these tokens in a template.</p>
+<p>You might want to do this for a number of reasons, but perhaps the most obvious one is to build a visual representation of your tokens. For the sake of simplicity, I’m refering to this as a styleguide.</p>
+<p>To keep things nice and modular, I start by creating a new file for my styleguide which I’ll be able to add to my index file (or wherverer I like) later as an include.</p>
+<pre><code>touch src/_includes/styleguide.njk
+</code></pre><p>Then I add the following code to loop through the JSON object, and return each item.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+  <span class="c">&lt;!-- Loop through JSON object --&gt;</span>
+  {% for key, item in tokens.colors %}
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;color&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;color-palette&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background-color: {{ item }}&#34;</span><span class="p">&gt;</span>Some space<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;color-hex&#34;</span><span class="p">&gt;</span>{{ item }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  {% endfor %}
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</code></pre></div><p>You can return a specific item value like this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- Grab the specific value --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background-color:{{ tokens.colors.primary }}&#34;</span><span class="p">&gt;</span>
+  {{ tokens.colors.primary }}
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><p>Pretty simple.</p>
+<h2 id="converting-json-to-scss">Converting JSON to SCSS&nbsp;<a class="heading-anchor" href="#converting-json-to-scss" aria-label="Anchor">#</a> </h2>
+<p>Now I need a way to consume my tokens from within CSS files. That means turning this JSON output into SCSS.</p>
+<p>You can use the conveniently named <a href="https://www.npmjs.com/package/json-to-scss">json-to-scss</a> package to make this happen.</p>
+<pre><code>npm install json-to-scss --save-dev
+</code></pre><p>With the package installed, write another NPM script inside the scripts object in <code>package.json</code>, underneath the last one.</p>
+<pre><code>&quot;json:scss&quot;: &quot;json-to-scss src/_data/tokens.json src/scss/_tokens.scss&quot;
+</code></pre><p>Here I’m telling <code>json-to-sass</code> the source folder and the destination for the sass variables.</p>
+<p>Now I can run <code>npm run json:scss</code> in the command line and <code>json-to-scss</code> will take our JSON, convert it to SCSS and chuck it in <code>src/scss/_tokens.scss</code> ready for my stylesheets to consume.</p>
+<p>Now I have a new file at <code>./src/scss/tokens.scss</code> containing a Sass map of my tokens.</p>
+<p>That look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-scss" data-lang="scss"><span class="nv">$tokens</span><span class="o">:</span> <span class="p">(</span>
+  <span class="n">colors</span><span class="o">:</span> <span class="p">(</span>
+    <span class="n">primary</span><span class="o">:</span> <span class="mh">#542bff</span><span class="o">,</span>
+    <span class="no">background</span><span class="o">:</span> <span class="mh">#f1f1f1</span><span class="o">,</span>
+    <span class="n">body</span><span class="o">:</span> <span class="mh">#333</span><span class="o">,</span>
+  <span class="p">)</span><span class="o">,</span>
+  <span class="no">size</span><span class="o">-</span><span class="n">scale</span><span class="o">:</span> <span class="p">(</span>
+    <span class="n">sm</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.8</span><span class="kt">rem</span><span class="o">,</span>
+    <span class="n">md</span><span class="o">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="o">,</span>
+    <span class="n">lg</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.4</span><span class="kt">rem</span><span class="o">,</span>
+  <span class="p">)</span><span class="o">,</span>
+<span class="p">);</span>
+</code></pre></div><p>So far so good.</p>
+<h2 id="mapping-through-scss-to-create-variables-and-styles">Mapping through SCSS to create variables and styles&nbsp;<a class="heading-anchor" href="#mapping-through-scss-to-create-variables-and-styles" aria-label="Anchor">#</a> </h2>
+<p>At this point I have a Sass map which stores my tokens. But I need to do something with the data so I can use it in my styles.</p>
+<p>It makes sense to extract the data and turn it into CSS custom properties. I’ll want to create a custom property for every single value in the map.</p>
+<p>Something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">--color-primary</span><span class="o">:</span> <span class="p">#</span><span class="nn">542bff</span><span class="o">;</span>
+<span class="nt">--color-background</span><span class="o">:</span> <span class="p">#</span><span class="nn">f1f1f1</span><span class="o">;</span>
+<span class="nt">--color-body</span><span class="o">:</span> <span class="p">#</span><span class="nn">333</span><span class="o">;</span>
+<span class="nt">--size-scale-sm</span><span class="o">:</span> <span class="nt">0</span><span class="p">.</span><span class="nc">8rem</span><span class="o">;</span>
+<span class="nt">--size-scale-md</span><span class="o">:</span> <span class="nt">1rem</span><span class="o">;</span>
+<span class="nt">--size-scale-lg</span><span class="o">:</span> <span class="nt">1</span><span class="p">.</span><span class="nc">4rem</span><span class="o">;</span>
+</code></pre></div><p>To do this I create a new Sass file at <code>src/scss/_config.scss</code>.</p>
+<p>From inside <code>_config.scss</code>, first I import the tokens map, then grab each property type in the array and assign each to a corresponding variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-scss" data-lang="scss"><span class="k">@import</span> <span class="s2">&#34;tokens&#34;</span><span class="p">;</span>
+
+<span class="nv">$colors</span><span class="o">:</span> <span class="nf">map-get</span><span class="p">(</span><span class="nv">$tokens</span><span class="o">,</span> <span class="s2">&#34;colors&#34;</span><span class="p">);</span>
+<span class="nv">$size-scale</span><span class="o">:</span> <span class="nf">map-get</span><span class="p">(</span><span class="nv">$tokens</span><span class="o">,</span> <span class="s2">&#34;size-scale&#34;</span><span class="p">);</span>
+</code></pre></div><p>Now to generate the custom properties.</p>
+<p>To do this I’ll loop through the map array, which can be done using the <a href="http://www.thesassway.com/intermediate/if-for-each-while#each">@each</a> directive. I want to create these properties on the <code>:root</code> element so I have them available throughout my website.</p>
+<p>There are a couple of methods you can use to make this happen.</p>
+<p>The first method:</p>
+<pre><code>:root {
+  @each $color-name, $color-value in $colors {
+    --color-#{$color-name}: #{$color-value};
+  }
+}
+</code></pre><p>The second method:</p>
+<pre><code>:root {
+  @each $color in $colors {
+    #{'--color-' + nth($color, 1)}: #{nth($color, 2)};
+  }
+}
+</code></pre><p>Both methods produce the same results, so choose whichever approach you are more comfortable with and make most sense of.</p>
+<p>You can do exactly the same thing for the size scale.</p>
+<pre><code>:root {
+  @each $size in $size-scale {
+    #{'--size-' + nth($size, 1)}: #{nth($size, 2)};
+  }
+}
+</code></pre><h2 id="compiling-scss-to-css">Compiling SCSS to CSS&nbsp;<a class="heading-anchor" href="#compiling-scss-to-css" aria-label="Anchor">#</a> </h2>
+<p>Now I want to compile my SCSS to CSS, so that the browser can make use of my styles and I can see a visual output of my tokens as CSS custom properties.</p>
+<p>To do this I’m installing the <a href="https://github.com/sass/node-sass">node-sass</a> package.</p>
+<pre><code>npm install node-sass --save-dev
+</code></pre><p>Then I’ll write a new NPM script to take the SCSS from <code>src/scss</code> and compile it to CSS inside <code>src/site/_includes/css</code> where Eleventy will be able to process it.</p>
+<pre><code>&quot;scss&quot;: &quot;node-sass --output-style expanded -o src/_includes/css src/scss&quot;
+</code></pre><p>If you want to get a better understanding of what’s happening here, I cover this in detail in <a href="https://harrycresswell.com/articles/getting-started-with-eleventy/#compiling-sass-to-css">Getting Started with Eleventy</a>.</p>
+<p>Before testing the script I need to add an entry point for my SCSS. So I create a <code>main.scss</code> file at <code>/src/scss/main.scss</code> and import the config file.</p>
+<pre><code class="language-csss" data-lang="csss">@import &quot;config&quot;;
+</code></pre><p>Now I can test the script by running:</p>
+<pre><code>npm run scss
+</code></pre><p>A new file has now been created at <code>src/_includes/css/main.css</code> containing my tokens as CSS custom properties.</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">:</span><span class="nd">root</span> <span class="p">{</span>
+  <span class="nv">--color-primary</span><span class="p">:</span> <span class="kc">tomato</span><span class="p">;</span>
+  <span class="nv">--color-background</span><span class="p">:</span> <span class="mh">#f1f1f1</span><span class="p">;</span>
+  <span class="nv">--color-body</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span>
+  <span class="nv">--size-sm</span><span class="p">:</span> <span class="mf">0.8</span><span class="kt">rem</span><span class="p">;</span>
+  <span class="nv">--size-md</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+  <span class="nv">--size-lg</span><span class="p">:</span> <span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span>
+  <span class="nv">--size-xl</span><span class="p">:</span> <span class="mi">2</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Exactly what I was after.</p>
+<h2 id="watching-files-for-changes">Watching files for changes&nbsp;<a class="heading-anchor" href="#watching-files-for-changes" aria-label="Anchor">#</a> </h2>
+<p>Theres a few final things left to do before this workflow is complete. The first thing is to set up a script that will watch for any changes made to SCSS files.</p>
+<p>When I make a change to my SCSS, I need a way to run the SCSS script I just wrote, so I don’t have to do it manually each time. You can use a package called <a href="https://www.npmjs.com/package/onchange">onchange</a> to make this happen.</p>
+<p>First install the package.</p>
+<pre><code>npm install onchange --save-dev
+</code></pre><p>Then write a script to run the SCSS script, when changes are made to SCSS files.</p>
+<pre><code>&quot;watch:css&quot;: &quot;onchange 'src/scss' -- npm run scss&quot;
+</code></pre><p>All we’re saying here is when <code>npm run watch:css</code> is run in the terminal, onchange will “watch” for changes in the <code>src/scss</code> directory, then run the <code>scss</code> script when it sees changes occur.</p>
+<p>Now there’s one final problem to solve. To get a development server running and the SCSS compiling to css onchange, right now you have to run two scripts: <code>watch:css</code> (the one we just created) and <code>eleventy --serve</code>.</p>
+<p>You can combine these into one script to make life easier, but first create a simple serve script.</p>
+<pre><code>&quot;serve&quot;: &quot;eleventy --serve&quot;,
+</code></pre><p>Nice. That simplifies the Eleventy serve command. Now I need to install one final package and we’re good to go.</p>
+<h2 id="run-all-scripts-in-parallel">Run all scripts in parallel&nbsp;<a class="heading-anchor" href="#run-all-scripts-in-parallel" aria-label="Anchor">#</a> </h2>
+<p><a href="https://www.npmjs.com/package/npm-run-all">npm-run-all</a> will help you run <code>serve</code> and <code>watch:css</code> in parallel, alongside our other two scripts; <code>tokens:json</code> and <code>json:scss</code>.</p>
+<p>First install the package.</p>
+<pre><code>npm install npm-run-all --save-dev
+</code></pre><p>Then write a start script which runs all the scripts at the same time.</p>
+<pre><code>&quot;start&quot;: &quot;run-p tokens:json json:scss serve watch:css&quot;
+</code></pre><p>Now you should be able to run <code>npm start</code> in the terminal and everything should work as expected.</p>
+<p>One thing to note, if you make changes in your <code>tokens.yaml</code> you will need to stop the server and re-run <code>npm start</code> for the changes to propagate.</p>
+<p>If you wish you could write one another script to tell onchange to watch for changes to your YAML tokens.</p>
+<h2 id="wrapping-up">Wrapping up&nbsp;<a class="heading-anchor" href="#wrapping-up" aria-label="Anchor">#</a> </h2>
+<p>So that’s pretty much it. How to take a simple set of YAML design tokens, convert them into JSON so they can be consumed inside Eleventy templates, then generate SCSS to use to style your website.</p>
+<p>Since writing this, Heydon published <a href="https://heydonworks.com/article/design-tokens-in-eleventy/">Easily Use Design Tokens In Eleventy</a> which is well worth reading if you’re looking for a simple dependency free approach to a very similar problem.</p>
+<p>Haydon’s article shows you how to turn JSON tokens into CSS by using Nunjucks templating and setting a permalink in your <code>theme.njk</code> template to <code>theme.css</code>. It’s very elegant and you could easily adapted it to convert YAML to JSON.</p>
+<p>Haydon’s approach may well be a better way to go about all this, but I’ll leave that for you to decide.</p>
+<p class="Message">
+    
+You can find all the code from this article over on <a href="https://github.com/harrycresswell/design-tokens-eleventy">Github.com</a>
+
+</p>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Design tokens and styleguides with Eleventy" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

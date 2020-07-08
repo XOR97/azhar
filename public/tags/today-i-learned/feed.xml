@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Today I Learned on Azhar Khan</title>
+    <link>https://azharkhan.in/tags/today-i-learned/</link>
+    <description>Recent content in Today I Learned on Azhar Khan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
+    <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
+    <lastBuildDate>Tue, 20 Aug 2019 10:57:26 +0200</lastBuildDate>
+    
+        <atom:link href="https://azharkhan.in/tags/today-i-learned/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+      <item>
+        <title>Real-time updates with Sanity watch mode</title>
+        <link>https://azharkhan.in/notes/real-time-updates-sanity-watch-mode/</link>
+        <pubDate>Tue, 20 Aug 2019 10:57:26 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/real-time-updates-sanity-watch-mode/</guid>
+        <description>&lt;p&gt;Watch mode allows you to see realtime updates without having to manually restart the build process.&lt;/p&gt;
+&lt;p&gt;Set &lt;code&gt;watchMode: true&lt;/code&gt; in your &lt;code&gt;gatsby-sanity-source&lt;/code&gt; plugin options, to set up a listener which watches your project for changes.&lt;/p&gt;
+&lt;p&gt;Take it further by setting &lt;code&gt;overlayDrafts: true&lt;/code&gt; to immediately apply any changes you make to draft content.&lt;/p&gt;
+&lt;p&gt;You will then need to generate a token from the Sanity manage console.&lt;/p&gt;
+&lt;p&gt;Navigate to &lt;code&gt;manage.sanity.io&lt;/code&gt; &amp;gt; settings &amp;gt; API &amp;gt; Add New Token.&lt;/p&gt;
+&lt;p&gt;Create a Read token called Gatsby and add to your &lt;code&gt;gatsby-config.js.&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;gatsby-source-sanity&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;projectId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;your_project_id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;dataset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;your_dataset_name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;overlayDrafts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;watchMode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;token&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;your_token_id&amp;#39;&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Restart &lt;code&gt;gatsby develop&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now when you edit content in the Studio CMS you will see changes occur in Gatsby in realtime.&lt;/p&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Query data from Sanity using GraphQL</title>
+        <link>https://azharkhan.in/notes/query-data-from-sanity-using-graphql-and-gatsby/</link>
+        <pubDate>Wed, 14 Aug 2019 09:32:35 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/query-data-from-sanity-using-graphql-and-gatsby/</guid>
+        <description>&lt;p&gt;I’m making 2 assumptions here, the first is that you have a Sanity project set up, you’ve added at least one content type and you’ve entered some content before &lt;a href=&#34;https://azharkhan.in/notes/til-03-deploy-graphql-api-sanity/&#34;&gt;deploying a GraphQL API&lt;/a&gt;. The second is that you’ve configured a Gatbsy project to work with Sanity, by installing the &lt;code&gt;gatsby-source-sanity&lt;/code&gt; plugin.&lt;/p&gt;
+&lt;p&gt;With those steps complete we can now run our site in development mode using &lt;code&gt;gatsby develop&lt;/code&gt;, then head to &lt;code&gt;http://localhost:8000/___graphql&lt;/code&gt; to launch GraphiQL and explore our schema.&lt;/p&gt;
+&lt;h2 id=&#34;writing-your-first-sanity-query-in-graphiql&#34;&gt;Writing your first Sanity query in GraphiQL&lt;/h2&gt;
+&lt;p&gt;Type &lt;code&gt;allSanity&lt;/code&gt; to launch the options and explore the available document schemas in your API.&lt;/p&gt;
+&lt;p&gt;One of the available options in my API is &lt;code&gt;allSanityEvent&lt;/code&gt; which contains all the data associated with a document type I have created called ‘Event’.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-GraphQL&#34; data-lang=&#34;GraphQL&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;allSanityEvent&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can make a basic query for an event title like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-GraphQL&#34; data-lang=&#34;GraphQL&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;allSanityEvent&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;edges&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;			&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;				&lt;/span&gt;&lt;span class=&#34;py&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;			&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;Tip: Hit &lt;code&gt;alt + space&lt;/code&gt; to see the available options at each level of your query&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the particular project I’m working on right now my full query grabs the title, excerpt, slug and image from all events. It looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+	allSanityEvent {
+		edges {
+			node {
+				title
+				excerpt
+				slug {
+					current
+				}
+				image {
+					asset {
+						fluid {
+							src
+						}
+					}
+				}
+			}
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And returns the following JSON object:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;allSanityEvent&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;#34;edges&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+          &lt;span class=&#34;nt&#34;&gt;&amp;#34;node&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;My second event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;excerpt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is the excerpt for the second event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;slug&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;current&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;my-second-event&amp;#34;&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;image&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;asset&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;#34;fluid&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;#34;src&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://cdn.sanity.io/images/k5nyspnm/production/20ef5df9ed8dac42c2ec50b474a46726143ceb4f-2250x1500.png?w=800&amp;amp;h=533&amp;amp;fit=crop&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+          &lt;span class=&#34;nt&#34;&gt;&amp;#34;node&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;My first event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;excerpt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;This is the excerpt for the first event&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;slug&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;current&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;my-first-event&amp;#34;&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;#34;image&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;#34;asset&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;#34;fluid&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;#34;src&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://cdn.sanity.io/images/k5nyspnm/production/1c6f3cee364b6cf5bfcad46539b0a9cf82ace1c5-800x400.png?w=800&amp;amp;h=400&amp;amp;fit=crop&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;query-your-schema-in-gatsby&#34;&gt;Query your schema in Gatsby&lt;/h2&gt;
+&lt;p&gt;Now we have our query we want to show the content in our Gatsby site.&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;index.js&lt;/code&gt; first we need to import &lt;code&gt;graphql&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import { Link, graphql } from &#39;gatsby&#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next we can write our query and export it as a variable. Make sure you switch out the image &lt;code&gt;src&lt;/code&gt; for the ￼image fragment reference.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export const queryEvent = graphql`
+{
+	allSanityEvent {
+		edges {
+			node {
+				title
+				excerpt
+				slug {
+					current
+				}
+				image {
+					asset {
+						fluid {
+							...GatsbySanityImageFluid
+						}
+					}
+				}
+			}
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now we can grab the data in our layout.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;const IndexPage = ({ data }) =&amp;gt; (
+&amp;lt;Layout&amp;gt;
+	&amp;lt;h1&amp;gt;Events&amp;lt;/h1&amp;gt;
+	&amp;lt;ul&amp;gt;
+		{data.allSanityEvent.edges.map(({ node: event }) =&amp;gt; (
+			&amp;lt;li key={event.slug.current}&amp;gt;
+				&amp;lt;h2&amp;gt;{event.title}&amp;lt;/h2&amp;gt;
+				&amp;lt;Image fluid={event.image.asset.fluid} alt={event.title} /&amp;gt;
+				&amp;lt;p&amp;gt;{event.excerpt}&amp;lt;/p&amp;gt;
+			&amp;lt;/li&amp;gt;
+		))}
+	&amp;lt;/ul&amp;gt;
+&amp;lt;/Layout&amp;gt;
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We now have a list of events on our page, including the event title, image and excerpt.&lt;/p&gt;
+&lt;p&gt;The next step will be to generate the single pages for each event.&lt;/p&gt;
+&lt;h2 id=&#34;further-resources&#34;&gt;Further resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/docs/sourcing-from-sanity/&#34;&gt;Sourcing from Sanity&lt;/a&gt; in the Gatsby Docs.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SLGkyodumKI&#34;&gt;Build a portfolio site with Sanity and Gatsby&lt;/a&gt; from Jason Lengstorf.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Set up a Gatsby project with Sanity</title>
+        <link>https://azharkhan.in/notes/new-gatsby-site-sanity-cms/</link>
+        <pubDate>Mon, 05 Aug 2019 11:32:35 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/new-gatsby-site-sanity-cms/</guid>
+        <description>&lt;h2 id=&#34;step-1-create-new-gatsby-project&#34;&gt;Step 1: Create new Gatsby project&lt;/h2&gt;
+&lt;p&gt;Create new folder for new Gatsby site.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir gatsby-sanity-frontend&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Move into that folder and create a fresh Gatsby project using the default Gatsby starter.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd gatsby-sanity-frontend &amp;amp;&amp;amp; gatsby new .&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-2-install-sanity-dependency&#34;&gt;Step 2: Install Sanity dependency&lt;/h2&gt;
+&lt;p&gt;Install Gatsby Source Sanity plugin to your project.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm install --save gatsby-source-sanity&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Inside &lt;code&gt;gatsby-config.js&lt;/code&gt; add plugin:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;gatsby-source-sanity&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;projectId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;yourProjectId&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;dataset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;yourDatasetName&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will find your &lt;code&gt;projectId&lt;/code&gt; and &lt;code&gt;dataset&lt;/code&gt; inside &lt;code&gt;sanity.json&lt;/code&gt; found within your studio project.&lt;/p&gt;
+&lt;p&gt;If you chose to make your dataset private you will also need to add a permissions token like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;gatsby-source-sanity&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;projectId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;yourProjectId&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;dataset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;yourDatasetName&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;// a token with read permissions is required
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;c1&#34;&gt;// if you have a private dataset
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;nx&#34;&gt;token&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;process&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;env&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MY_SANITY_TOKEN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-3-optional-enable-gatsby-watch-mode-for-drafts&#34;&gt;Step 3: (optional) Enable Gatsby watch mode for drafts&lt;/h2&gt;
+&lt;p&gt;Sanity has a cool feature which allows for realtime content updates in local development. So if you have your content studio and front end side-by-side in two different browser windows, you will see any changes you make to the content in the studio change in realtime in Gatsby.&lt;/p&gt;
+&lt;p&gt;To get this set up correctly&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;go to &lt;code&gt;manage.sanity.io&lt;/code&gt; and find your project (or run the command &lt;code&gt;sanity manage&lt;/code&gt; in the studio folder).&lt;/li&gt;
+&lt;li&gt;Head to &lt;code&gt;Settings &amp;gt; API&lt;/code&gt;, then scroll down to the Tokens section&lt;/li&gt;
+&lt;li&gt;Add a new token and give it read privileges.&lt;/li&gt;
+&lt;li&gt;Back in the root of your &lt;code&gt;/web&lt;/code&gt; project locate &lt;code&gt;.env.development.template&lt;/code&gt; and rename it to &lt;code&gt;.env.development&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Add your new token to the key: &lt;code&gt;SANITY_READ_TOKEN=&amp;quot;&amp;lt;token here&amp;gt;&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Inside &lt;code&gt;gatsby-config.js&lt;/code&gt; make sure you have &lt;code&gt;token: process.env.SANITY_READ_TOKEN,&lt;/code&gt; as one of the options in your &lt;code&gt;gatsby-source-sanity&lt;/code&gt; plugin config.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Restart your development environment for the changes to propagate. Make some changes in your studio and watch them appear in realtime in Gatsby.&lt;/p&gt;
+&lt;h2 id=&#34;further-resources&#34;&gt;Further resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/blog/2019-01-25-blazing-fast-development-with-gatsby-and-sanity-io/&#34;&gt;Blazing fast development with Gatsby and Sanity.io&lt;/a&gt; from Knut Melvær.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sanity-io/example-company-website-gatsby-sanity-combo#enable-gatsby-watch-mode-for-drafts&#34;&gt;Enable Gatsby Watchmode for Drafts&lt;/a&gt; from Sanity.io&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Deploy a GraphQL API for a Sanity project</title>
+        <link>https://azharkhan.in/notes/deploy-graphql-api-sanity/</link>
+        <pubDate>Fri, 19 Jul 2019 10:38:59 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/deploy-graphql-api-sanity/</guid>
+        <description>&lt;p&gt;If you want to consume your Sanity dataset from a front-end the you will need to set up an API. You can do this using Sanity’s custom query language GROQ or GraphQL. These notes focus on the latter.&lt;/p&gt;
+&lt;p&gt;With an API set up you will be able to query your data in any application you create.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note: Anytime you make changes to your content schema, you will need to redeploy the GraphQL API&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;deploying-the-graphql-api&#34;&gt;Deploying the GraphQL API&lt;/h2&gt;
+&lt;p&gt;First make sure your running the latest version of Sanity:
+&lt;code&gt;sanity upgrade&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Run &lt;code&gt;sanity graphql deploy&lt;/code&gt; to deploy a GraphQL API for the dataset configured in &lt;code&gt;sanity.json&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You will then be asked the following:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Do you want to enable a GraphQL playground? (Y/n)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Hit &lt;code&gt;Y&lt;/code&gt; and you’ll be able to explore the Schema in a GraphQL Playground.&lt;/p&gt;
+&lt;h2 id=&#34;explore-the-schema-from-a-gatsby-project&#34;&gt;Explore the Schema from a Gatsby project&lt;/h2&gt;
+&lt;p&gt;Explore &lt;code&gt;￼http://localhost:8000/___graphql&lt;/code&gt; after running &lt;code&gt;gatsby develop&lt;/code&gt; to understand the created data and create a new query and checking available collections and fields by typing &lt;code&gt;CTRL + SPACE&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;further-resources&#34;&gt;Further Resources&lt;/h2&gt;
+&lt;p&gt;For more on this step &lt;a href=&#34;https://www.sanity.io/docs/data-store/graphql#deploying-the-graph-ql-api&#34;&gt;check out the docs&lt;/a&gt;.&lt;/p&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Content schema in Sanity</title>
+        <link>https://azharkhan.in/notes/content-schema-in-sanity/</link>
+        <pubDate>Thu, 18 Jul 2019 11:17:25 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/content-schema-in-sanity/</guid>
+        <description>&lt;p&gt;This is the bit where you define your data model, meaning the way you structure your content.&lt;/p&gt;
+&lt;p&gt;The Sanity team recommend “you start by modelling your data logically, without thinking too much about how it&amp;rsquo;s going to be presented.”&lt;/p&gt;
+&lt;p&gt;When modelling your data try and think about your content not as ‘pages’ but as content ‘types’ and establish what fields each of those content types will need.&lt;/p&gt;
+&lt;p&gt;So instead of creating a content type called &lt;code&gt;Homepage&lt;/code&gt;, think about the type of content that might exist &lt;em&gt;on&lt;/em&gt; your homepage, and potentially elsewhere on your site.&lt;/p&gt;
+&lt;p&gt;For example, your homepage might feature latest posts and you might also have a dedicated page for these posts too. In this case it makes sense to create a content type called &lt;code&gt;post&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Next we need to consider the fields associated with our new content type. Think of these as the data attached to the content type. Things like &lt;code&gt;title&lt;/code&gt;, &lt;code&gt;slug&lt;/code&gt;, &lt;code&gt;excerpt&lt;/code&gt; and &lt;code&gt;publishedAt&lt;/code&gt; are fairly typical requirements for a post.&lt;/p&gt;
+&lt;p&gt;It’s also worth thinking about the relationships between different data types and modelling your content according to what they mean.&lt;/p&gt;
+&lt;p&gt;For example the &lt;code&gt;post&lt;/code&gt; content type may also have an author and perhaps a category attached to it. Maybe in the future you decide to add another content type called &lt;code&gt;note&lt;/code&gt;, which also requires an author and a category. This is a good reason to create a content type for both &lt;code&gt;author&lt;/code&gt; and &lt;code&gt;category&lt;/code&gt; and make a reference it from both content types.&lt;/p&gt;
+&lt;p&gt;Thinking about your content in this way creates a more flexible data model, as you’re not associating content too tightly to the presentation layer.&lt;/p&gt;
+&lt;p&gt;It’s worth reading &lt;a href=&#34;https://www.sanity.io/docs/the-schema/donts-and-dos&#34;&gt;Dont’s and Dos&lt;/a&gt; in the Sanity docs for more on this. Next we’ll put this into practice in a Sanity project.&lt;/p&gt;
+&lt;h2 id=&#34;understanding-schemajs&#34;&gt;Understanding schema.js&lt;/h2&gt;
+&lt;p&gt;To begin, fire open &lt;code&gt;schemas/schema.js&lt;/code&gt; from inside your Sanity project. The first import you see is the &lt;code&gt;createSchema&lt;/code&gt; function which allows us to create a schema.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import createSchema from &#39;part:@sanity/base/schema-creator
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next you’ll see &lt;code&gt;schemaTypes&lt;/code&gt; which imports any schema types required from plugins. To see what plugins are used head to &lt;code&gt;sanity.json&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The part we’re most concerned with is the &lt;code&gt;createSchema&lt;/code&gt; object. The array inside this object called &lt;code&gt;types&lt;/code&gt; is where we define content types.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createSchema&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// We name our schema
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// Then proceed to concatenate our document type
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// to the ones provided by any plugins that are installed
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;schemaTypes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;concat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// The following are document types which will appear
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// in the studio.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;author&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;category&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// When added to this list, object types can be used as
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// { type: &amp;#39;typename&amp;#39; } in other document schemas
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;blockContent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;]),&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can see we have 3 content types &lt;code&gt;post&lt;/code&gt;, &lt;code&gt;author&lt;/code&gt;, and &lt;code&gt;category&lt;/code&gt;. As we started this project using the Blog template these are already defined. If you started with a blank template you won’t see any content types defined.&lt;/p&gt;
+&lt;p&gt;Above this block of code you’ll see each content type is stored in an external file and then imported. As our schema grows this will keep our project well organised.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// We import object and document schemas
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;blockContent&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;./blockContent&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;category&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;./category&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;post&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;./post&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;./author&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The comment tell us that we are importing both &lt;code&gt;object&lt;/code&gt; and &lt;code&gt;document&lt;/code&gt; schemas. We’ll get to this next.&lt;/p&gt;
+&lt;h2 id=&#34;building-a-basic-schema&#34;&gt;Building a basic schema&lt;/h2&gt;
+&lt;p&gt;Let’s create a new content type for notes. Create a new file &lt;code&gt;schemas/note.js&lt;/code&gt; and create a new object. We’ll also need to export the object so we can use it elsewhere.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next we need to name our content type and define what type of content it is. In this case it’s a &lt;code&gt;document&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;document&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we need to import our new content type to the &lt;code&gt;schema.js&lt;/code&gt; file and add it to the types array so Sanity can see it.&lt;/p&gt;
+&lt;p&gt;Back in &lt;code&gt;schema.js&lt;/code&gt; add the following below the &lt;code&gt;author&lt;/code&gt; import:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;import note from &#39;./note&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Then we need to update the types array to include the &lt;code&gt;note&lt;/code&gt; content type:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createSchema&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// We name our schema
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// Then proceed to concatenate our document type
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// to the ones provided by any plugins that are installed
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;schemaTypes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;concat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// The following are document types which will appear
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// in the studio.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;author&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;category&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;note&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// When added to this list, object types can be used as
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// { type: &amp;#39;typename&amp;#39; } in other document schemas
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;blockContent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;]),&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now run the studio locally, head to the browser and you’ll notice a few errors. We need a title for our new content type and an array of fields.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;document&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[],&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Our notes will need a &lt;code&gt;title&lt;/code&gt;, which will be a basic text string type and of course a title so we can identity the field in the studio.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;document&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;string&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hit save and studio should reload and we can now see our new content type. We can create a new Note and fill in the note Title field.&lt;/p&gt;
+&lt;h2 id=&#34;referencing-other-document-content-types&#34;&gt;Referencing other document content types.&lt;/h2&gt;
+&lt;p&gt;Earlier I mentioned creating relationships between content types. The &lt;code&gt;reference&lt;/code&gt; type make this possible.&lt;/p&gt;
+&lt;p&gt;Inside &lt;code&gt;note.js&lt;/code&gt; let’s add a reference that points to the &lt;code&gt;author&lt;/code&gt; content type, &lt;code&gt;author&lt;/code&gt; should already exist if you started with the Blog template.&lt;/p&gt;
+&lt;p&gt;To specific what content type we want author to reference we can use the &lt;code&gt;to&lt;/code&gt; field. This takes one rule, that the type is &lt;code&gt;author&lt;/code&gt;. Now author will only allow references to the author content type.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;document&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Note&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;string&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;author&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Author&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;reference&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;to&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;author&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}],&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Back in Sanity studio we can see a new field titled Author which allows us to select an Author. If you haven’t added an author yet you’ll need to do this in the Author type first.&lt;/p&gt;
+&lt;h2 id=&#34;further-resources&#34;&gt;Further resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.sanity.io/docs/content-studio/the-schema&#34;&gt;The Schema&lt;/a&gt; from the Sanity Docs&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Starting a new Sanity project</title>
+        <link>https://azharkhan.in/notes/new-sanity-project/</link>
+        <pubDate>Tue, 09 Jul 2019 15:11:58 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/notes/new-sanity-project/</guid>
+        <description>&lt;p&gt;&lt;a href=&#34;https://www.sanity.io/&#34;&gt;Sanity.io&lt;/a&gt; is a headless CMS that allows you to structure your content by building custom schemas and deliver it as a flexible API, which you can then query using the front-end technology of your choice.&lt;/p&gt;
+&lt;h2 id=&#34;install-sanity&#34;&gt;Install Sanity&lt;/h2&gt;
+&lt;p&gt;Install Sanity studio globally:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install -g @sanity/cli
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This will allow you to use the &lt;code&gt;sanity&lt;/code&gt; CLI and scaffold new projects directly from the command line.&lt;/p&gt;
+&lt;h2 id=&#34;create-a-new-project&#34;&gt;Create a new project&lt;/h2&gt;
+&lt;p&gt;To start a new project create a new project directory and move into it:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkdir new-project &amp;amp;&amp;amp; cd new-project
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Run &lt;code&gt;sanity init&lt;/code&gt; to log in Sanity, set up a dataset, and generate the files needed to run the editing environment locally.&lt;/p&gt;
+&lt;p&gt;If this is your first project choose &lt;code&gt;Create new project&lt;/code&gt;, then give your project a name and name your dataset, this can be anything you like. If you leave blank it will be given the default name &lt;code&gt;production&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Next select dataset visibility, choose the output path and select a template. It’s a good idea to choose &lt;code&gt;blog&lt;/code&gt; if this is your first project as it will give you a clue how to structure your schema. You can always delete the default schema later.&lt;/p&gt;
+&lt;p&gt;Sanity will resolve dependencies then you will be ready to start the project.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;Launch the project in VSCode, using &lt;code&gt;code .&lt;/code&gt; from the root directory, then use &lt;code&gt;sanity start&lt;/code&gt; to run a locally instance of the studio in your browser.&lt;/p&gt;
+&lt;p&gt;Now you‘re ready to start building your content schema.&lt;/p&gt;
+&lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.sanity.io/docs/introduction/getting-started&#34;&gt;Getting started with Sanity&lt;/a&gt; from the Sanity Docs.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+  </channel>
+</rss>

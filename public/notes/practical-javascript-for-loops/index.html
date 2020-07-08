@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Loops for Logic | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Loops for Logic | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Build a todo app with Javascript, learn about using for loops for logic">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Loops for Logic | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Build a todo app with Javascript, learn about using for loops for logic">
+    <meta property="og:site_name" content="Loops for Logic | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-for-loops/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-for-loops/">
+    <meta property="twitter:title" content="Loops for Logic - Azhar Khan">
+    <meta property="twitter:description" content=" Build a todo app with Javascript, learn about using for loops for logic Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-for-loops/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Loops for Logic</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Thu, Nov 8, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>This is Part 5 of my notes on Gordon Zhu’s <a href="https://watchandcode.com/p/practical-javascript">Practical JavaScript</a>. In this part we changed the structure of an array from a text value to an object, modify a method to work with a text property and learn about Booleans.</p>
+<h2 id="building-a-todo-app-v50">Building a todo app v.5.0&nbsp;<a class="heading-anchor" href="#building-a-todo-app-v50" aria-label="Anchor">#</a> </h2>
+<p>Using <code>for</code> loops and <code>if else</code> statements.</p>
+<h2 id="understanding-the-for-loop">Understanding the for loop&nbsp;<a class="heading-anchor" href="#understanding-the-for-loop" aria-label="Anchor">#</a> </h2>
+<p>The <code>for</code> loop allows you to repeat a certain amount of code, any number of times. For example, if you wanted to tell a computer in english to say “hey” 3 times, this is how you might do it in 3 steps:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nx">Say</span> <span class="s2">&#34;hey&#34;</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span>
+<span class="nx">Increase</span> <span class="nx">i</span> <span class="nx">by</span> <span class="mi">1</span>
+</code></pre></div><p>So whats going on here?</p>
+<ul>
+<li>Keep track of variable called <code>i</code>, which is zero first</li>
+<li>say “hey” if <code>i</code> is less than 3</li>
+<li>After that, increase <code>i</code> by 1</li>
+</ul>
+<p>This might result in the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="mi">0</span> <span class="s2">&#34;hey&#34;</span>
+<span class="mi">1</span> <span class="s2">&#34;hey&#34;</span>
+<span class="mi">2</span> <span class="s2">&#34;hey&#34;</span>
+<span class="mi">3</span>
+</code></pre></div><h3 id="whats-going-on-here">Whats going on here?&nbsp;<a class="heading-anchor" href="#whats-going-on-here" aria-label="Anchor">#</a> </h3>
+<ul>
+<li>“hey” because zero is less than 3</li>
+<li>Then it would increase <code>i</code> by 1, and return 1 followed by “hey”, because 1 is still less than 3</li>
+<li>Then <code>i</code> would increase again by 1 and return 2, followed by “hey”, as 2 is still less than 3</li>
+<li>When <code>i</code> is increased by 1 and the value is 3, the computer stops returning “hey”, as <code>i</code> is no longer less than 3, it’s now equal to 3</li>
+</ul>
+<h3 id="in-javascript-these-steps-have-specific-names">In Javascript these steps have specific names&nbsp;<a class="heading-anchor" href="#in-javascript-these-steps-have-specific-names" aria-label="Anchor">#</a> </h3>
+<p>In Javascript, the 3 steps outlined above have specific names.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span>                  <span class="c1">// Initialization
+</span><span class="c1"></span><span class="nx">Say</span> <span class="s2">&#34;hey&#34;</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span>     <span class="c1">// Condition
+</span><span class="c1"></span><span class="nx">Increase</span> <span class="nx">i</span> <span class="nx">by</span> <span class="mi">1</span>        <span class="c1">// Final-expression
+</span></code></pre></div><p>The first step is the <strong>Initialization</strong>, this is essentially a variable we create to keep track of how many times we want to do something. In this case we use zero to keep track of how many times we want to print “hey”.</p>
+<p>The second step is known as the <strong>Condition</strong>. For example, if this is true, then keep going, otherwise stop. In the code above, the condition is “if <code>i</code> is less than 3”.</p>
+<p>The third step is the <strong>Final Expression</strong>, this is what happens after each round. So after saying “hey” the first time, we’ll increase <code>i</code> by 1, after we increase <code>i</code> the second time, increase <code>i</code> by 1 and so on.</p>
+<h3 id="structuring-in-code">Structuring in code&nbsp;<a class="heading-anchor" href="#structuring-in-code" aria-label="Anchor">#</a> </h3>
+<p>We can use the <code>for</code> loop to make this work in code:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="nx">initialization</span><span class="p">;</span> <span class="nx">condition</span><span class="p">;</span> <span class="kr">final</span> <span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hey&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>With our steps from before, this looks something like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hey&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>As it’s a common occurrence in Javascript, we can shorthand the final expression to <code>i++</code>, meaning <code>i = i + 1</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hey&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="looping-over-arrays">Looping over Arrays&nbsp;<a class="heading-anchor" href="#looping-over-arrays" aria-label="Anchor">#</a> </h2>
+<p>Carrying on with the example from the last video, instead of printing “hey”, with <code>console.log</code>, we can actually just <code>console.log</code> our variable. In this case, <code>i</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Now our code will return the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+</code></pre></div><p>Next, let’s create a new array:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">testArray</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;item 1&#39;</span><span class="p">,</span> <span class="s1">&#39;item 2&#39;</span><span class="p">,</span> <span class="s1">&#39;item 3&#39;</span><span class="p">]</span>
+</code></pre></div><p>Remember, you can access specific items in an array using the square brackets:</p>
+<p><code>testArray[0]</code>, for the first item, <code>testArray[1]</code> for the second, and so on. We can use this inside our <code>for</code> loop.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">testArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div><p>By console logging our <code>testArray</code> with <code>i</code> as the parameter, we can loop through the 3 items in the array:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">item</span> <span class="mi">1</span>
+<span class="nx">item</span> <span class="mi">2</span>
+<span class="nx">item</span> <span class="mi">3</span>
+</code></pre></div><p>The problem now is that using 3 in our <code>for</code> loop condition will only return the first 3 items.</p>
+<p>It would be better to make the condition dynamic and return as many items as are in our array. We can do this with the <code>.length</code> property. <code>Length</code> will tell us how many items are in the array.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">testArray</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">testArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div><p>Now if we add an item to <code>testArray</code>, so there’s 4 items in the array, it will be returned. If we kept using 3 as the condition, the fourth item wouldn’t be returned.</p>
+<p>For example, add a new item with <code>testArray.push('extra item');</code>. Then run the original code and <code>extra item</code> will not be returned.</p>
+<p>However run the updated code with <code>testArray.length</code> instead of the value 3 and <code>length</code> will check the number of items then return those items.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">item</span> <span class="mi">1</span>
+<span class="nx">item</span> <span class="mi">2</span>
+<span class="nx">item</span> <span class="mi">3</span>
+<span class="nx">extra</span> <span class="nx">item</span>
+</code></pre></div><p>Now, our code will work with <code>testArray</code> no matter how many items are in the array.</p>
+<h2 id="requirements">Requirements&nbsp;<a class="heading-anchor" href="#requirements" aria-label="Anchor">#</a> </h2>
+<p>Version 5 will put into practice what we’ve learnt about <code>for</code> loops to fix our <code>displayTodos</code> method and make it a lot better.</p>
+<ul>
+<li><code>.displayTodos</code> should show <code>.todoText</code></li>
+<li><code>.displayTodos</code> should tell you if <code>.todos</code> is empty</li>
+<li><code>.displayTodos</code> should show <code>.completed</code></li>
+</ul>
+<h2 id="step-1-displaytodods-should-show-todotext">Step 1: displayTodods should show .todoText&nbsp;<a class="heading-anchor" href="#step-1-displaytodods-should-show-todotext" aria-label="Anchor">#</a> </h2>
+<p>The first requirement is that our <code>displayTodos</code> todos method should show the <code>todoText</code> property on each object in the <code>todos</code> array.</p>
+<p>As we have to do some processing on each object in the array, we can use the <code>for</code> loop, as we want to repeat some code for every item in the array.</p>
+<h3 id="adding-the-for-loop-to-our-code">Adding the for loop to our code&nbsp;<a class="heading-anchor" href="#adding-the-for-loop-to-our-code" aria-label="Anchor">#</a> </h3>
+<p>We can write the structure the <code>for</code> loop inside the <code>displayTodos</code> method, as we learnt before:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">);</span>  
+  <span class="k">for</span> <span class="p">(</span><span class="nx">initialization</span><span class="p">;</span> <span class="nx">condition</span><span class="p">;</span> <span class="kr">final</span><span class="o">-</span><span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>This time, instead of using <code>testArray</code> which doesn’t make much sense now, we can use our <code>todos</code> array.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="making-the-for-loop-work">Making the for loop work&nbsp;<a class="heading-anchor" href="#making-the-for-loop-work" aria-label="Anchor">#</a> </h3>
+<p>Say for example, <code>this.todos</code> has 3 items, in that case, the first time <code>i = 0</code>, the second <code>i = 1</code>, the third <code>i = 2</code>, then it will stop as <code>i</code> will equal 3 and the condition is no longer true. 3 is not less than 3 so the loop will end.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// this.todos.length has 3 items
+</span><span class="c1"></span>    <span class="c1">// i = 0
+</span><span class="c1"></span>    <span class="c1">// i = 1
+</span><span class="c1"></span>    <span class="c1">// i = 2
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>We can use the values of <code>i</code> to access specific items in the array. Remember, when you have an array you can get to a specific item using brackets, like this <code>this.todo[]</code>.</p>
+<p>We can use <code>i</code> as the value inside the brackets to loop through the items.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// this.todos.length has 3 items
+</span><span class="c1"></span>    <span class="c1">// i = 0
+</span><span class="c1"></span>    <span class="c1">// i = 1
+</span><span class="c1"></span>    <span class="c1">// i = 2
+</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>In our app we want to access the <code>todoText</code> property, which we can do using dot notation:</p>
+<p><code>this.todos[i].todoText</code></p>
+<p>By putting our code inside a <code>console.log</code> statement, we can display the items on the console:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// this.todos.length has 3 items
+</span><span class="c1"></span>    <span class="c1">// i = 0
+</span><span class="c1"></span>    <span class="c1">// i = 1
+</span><span class="c1"></span>    <span class="c1">// i = 2
+</span><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Finally we can remove <code>this.todos</code> from the first <code>console.log</code> statement, as this prints out objects to the console, which isn’t particularly useful.</p>
+<p>Our final code (with comments removed) will look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos:&#39;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Before moving on, try adding a couple of todo items to see how these new changes work.</p>
+<p>Add <code>todoList.addTodo('first');</code>, then <code>todoList.addTodo('second');</code></p>
+<p>This will return:</p>
+<pre><code>My Todos:
+first
+second
+</code></pre><h2 id="step-2-displaytodos-should-tell-you-if-todos-is-empty">Step 2: displayTodos should tell you if .todos is empty&nbsp;<a class="heading-anchor" href="#step-2-displaytodos-should-tell-you-if-todos-is-empty" aria-label="Anchor">#</a> </h2>
+<p>Next we want <code>displayTodos</code> to tell us if the todos array is empty.</p>
+<p>We can do this by adding some logic using an <code>if else</code> statement. This might work something like this:</p>
+<pre><code>// if there are no todos
+  // console.log('Your todo list is empty!');
+// else 
+  // print todos as normal
+</code></pre><p>We can make this more specific:</p>
+<pre><code>// if there are no todos
+// if this.todos.length is equal to 0
+  // console.log('Your todo list is empty!');
+// else
+  // print todos as normal
+</code></pre><p>And more specific still:</p>
+<pre><code>// if there are no todos
+// if this.todos.length is equal to 0
+// if this.todos.length === 0  
+  // console.log('Your todo list is empty!');
+// else  
+  // print todos as normal
+</code></pre><p>Notice we’re using triple equals (<code>===</code>). This is the strictest form of comparison in Javascript. It’s the most consistent way of comparing values and the recommended way. You’ll sometimes see double equals (<code>==</code>) but it’s not that consistent so avoid using it for now.</p>
+<h3 id="translating-this-logic-into-javascript">Translating this logic into Javascript&nbsp;<a class="heading-anchor" href="#translating-this-logic-into-javascript" aria-label="Anchor">#</a> </h3>
+<p>We can use the <code>if</code> keyword and then test a condition:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="c1">// run code here if the statement is true
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>For our purposes, that would look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Your todo list is empty!&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Then we can add the <code>else</code> statement if the condition is <code>false</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Your todo list is empty!&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// print todos as normal
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>For our <code>else</code> statement we can use the code we wrote in step 1:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Your todo list is empty!&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos:&#39;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>  
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>So now our <code>displayTodos</code> method should look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">displayTodos</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Your todo list is empty!&#39;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos:&#39;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span> 
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="testing-our-work-in-the-console">Testing our work in the console&nbsp;<a class="heading-anchor" href="#testing-our-work-in-the-console" aria-label="Anchor">#</a> </h3>
+<p>Next, head to the console to test everything is working correctly.</p>
+<p><code>todoList.displayTodos();</code> should now return <code>Your todo list is empty!</code></p>
+<p>Try adding a new todo, <code>todoList.addTodo('an item')</code> will return:</p>
+<pre><code>My Todos:
+an item
+</code></pre><p>Next, delete the todo with <code>todoList.deleteTodo(0);</code> to return <code>Your todo list is empty!</code> once again.</p>
+<h3 id="understanding-the-code">Understanding the code&nbsp;<a class="heading-anchor" href="#understanding-the-code" aria-label="Anchor">#</a> </h3>
+<p>By adding some logic to our program we can check to see if this case is <code>true</code>, then run some code, otherwise run this code. with can do this with an <code>if</code> statement. The <code>if</code> statement uses the keyword <code>if</code> followed by a condition.</p>
+<p>In our case, we’re using <code>if</code> to check to see if <code>this.todos.length</code> is equal to 0, which will be the case if there are no items in our todo list. If the case is true we will run the code <code>Your todo list is empty!</code>.
+If the length is not 0, we will print our todos as normal. We can achieve this with the <code>else</code> statement using the <code>for</code> loop we wrote in Step 1.</p>
+<h3 id="more-on-if-statements-and-else">More on if statements and else&nbsp;<a class="heading-anchor" href="#more-on-if-statements-and-else" aria-label="Anchor">#</a> </h3>
+<p>You can use <code>if</code> without else:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// code that runs if condition is true
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>But with <code>else</code> it looks like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// code that runs if condition is true
+</span><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// code that runs if condition is false
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>You can have as many <code>if</code> statements as you like.</p>
+<h2 id="step-3-displaytodos-should-show-completed">Step 3: displayTodos should show .completed&nbsp;<a class="heading-anchor" href="#step-3-displaytodos-should-show-completed" aria-label="Anchor">#</a> </h2>
+<p>The final requirement for v5 is for <code>displayTodos</code> to show whether a todo has been completed or not.</p>
+<p>We could represent that like this:</p>
+<pre><code>( ) item 1
+(x) item 2
+( ) item 3
+</code></pre><p>Where a parentheses containing an x; <code>(x)</code> represents a complete todo item and an empty parentheses; <code>( )</code> represents a todo which is incomplete.</p>
+<p>We can do this inside our <code>for</code> loop:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>
+  <span class="c1">// check if .completed is true       
+</span><span class="c1"></span>    <span class="c1">// print with (x)   
+</span><span class="c1"></span>  <span class="c1">// else      
+</span><span class="c1"></span>    <span class="c1">// print with ( )
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><h3 id="translating-this-to-javascript">Translating this to Javascript&nbsp;<a class="heading-anchor" href="#translating-this-to-javascript" aria-label="Anchor">#</a> </h3>
+<p>We can translate our notes into JavaScript like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>      
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>     
+  <span class="c1">// check if .completed is true     
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">completed</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>       
+    <span class="c1">// print with (x)   
+</span><span class="c1"></span>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>       
+    <span class="c1">// print with ( )  
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span> 
+</code></pre></div><p>In the first part we check if <code>this.todos</code>.</p>
+<p>Using <code>i</code>, we can look at the specific todo in this iteration of the loop.</p>
+<p>Then, we check the completed property, to see if it’s <code>true</code>. We can use the triple equals to do this.</p>
+<h3 id="representing-complete-and-incomplete-todos">Representing complete and incomplete todos&nbsp;<a class="heading-anchor" href="#representing-complete-and-incomplete-todos" aria-label="Anchor">#</a> </h3>
+<p>Lastly we need to print out the todo text for the specific object, with an <code>(x)</code> if completed is <code>true</code> and <code>( )</code> when completed is <code>false</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">completed</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;(x)&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;( )&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">todoText</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>To do this we can <code>console.log(this.todos[i].todotext)</code>, just like we did at the top of the <code>for</code> loop.</p>
+<p>We’ll just need to add the string values before hand. <code>(x)</code> for the first instance and the empty parenthesises; <code>( )</code>, in the <code>else</code> statement.</p>
+<p>Now we can get rid of <code>console.log(this.todos[i].todotext)</code> at the top of the <code>for</code> loop as we’re now doing this work inside the <code>if else</code> statement.</p>
+<h3 id="testing-our-work-in-the-console-1">Testing our work in the console&nbsp;<a class="heading-anchor" href="#testing-our-work-in-the-console-1" aria-label="Anchor">#</a> </h3>
+<p>Now we can add a few todos.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoList</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">);</span>
+<span class="nx">todoList</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">);</span>
+<span class="nx">todoList</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">(</span><span class="s1">&#39;third&#39;</span><span class="p">);</span>
+</code></pre></div><p>You should see these print out with an empty parenthesises as none of them have been completed.</p>
+<pre><code>My Todos:
+( ) first
+( ) second
+( ) third
+</code></pre><p>Now we can use <code>toggleCompleted</code> to see if we can change some of our todo items to complex.</p>
+<p>To toggle our second todo we can use:</p>
+<p><code>todoList.toggleCompleted(1);</code></p>
+<p>Which will return:</p>
+<pre><code>My Todos:
+( ) first
+(x) second
+( ) third
+</code></pre><p>We can toggle it again by repeating the same step.</p>
+<p><code>todoList.toggleCompleted(1);</code> will now return:</p>
+<pre><code>My Todos:
+( ) first
+( ) second
+( ) third
+</code></pre><h3 id="interesting-observations">Interesting observations&nbsp;<a class="heading-anchor" href="#interesting-observations" aria-label="Anchor">#</a> </h3>
+<p>This step combined <code>for</code> loops with <code>if else</code> statements.</p>
+<p>For each <code>for</code> loop we used logic to check if <code>todo.completed</code> is <code>true</code> – in which case we do one thing – or if it’s <code>false</code>, in which case we do something else.</p>
+<h2 id="v50-review">v.5.0 Review&nbsp;<a class="heading-anchor" href="#v50-review" aria-label="Anchor">#</a> </h2>
+<p><code>.displayTodos</code> now shows <code>todoText</code> and not just the objects like before. It also tells us if our todo list is empty with a helpful message. And whether or not a todo has been completed.</p>
+<p>We wrote all our code in this version inside one method, <code>displayTodos</code>.</p>
+<p>We combined <code>for</code> loops with <code>if</code> statements, so we can use logic in our program.</p>
+<h2 id="next-steps">Next Steps&nbsp;<a class="heading-anchor" href="#next-steps" aria-label="Anchor">#</a> </h2>
+<p>Head over to <a href="https://watchandcode.com/">Watchandcode.com</a> to take the course that these notes are based on.</p>
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Loops for Logic" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

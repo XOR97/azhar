@@ -11,10 +11,10 @@ pygmentsCodeFences = true
 # pygmentsCodefencesGuessSyntax = true
 
 [params]
-  keywords = "Product Design, UX Design, UI Design, Front-end Web Development, Small businesses, Automation, Typography"
+  keywords = "Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product"
   description = "Blog posts on code and design by github.com/XOR97"
   strapline = "Azhar Khan is an independent data engineer and developer from Ottawa, Canada."
-  location = "London, UK"
+  location = "Ottawa, CA"
 
   # Set Cloudinary URL for image hosting
   cloudinary_url = "https://res.cloudinary.com/azhar932/image/upload"
@@ -23,7 +23,7 @@ pygmentsCodeFences = true
 [author]
   name = "Azhar Khan"
   email = "azhar932@icloud.com"
-  twitter = "https://twitter.com/AzhrCan"
+  twitter = "https://twitter.com/Azhr_K_"
   github = "https://github.com/XOR97"
   linkedin = "https://www.linkedin.com/in/azhar93/"
 
@@ -48,11 +48,6 @@ pygmentsCodeFences = true
 enableEmoji = true
 
 [[menu.main]]
-  name = "Projects"
-  url = "/projects/"
-  weight = 5
-
-[[menu.main]]
   name = "Articles"
   url = "/articles/"
   weight = 10
@@ -66,16 +61,6 @@ enableEmoji = true
   name = "Tags"
   url = "/tags/"
   weight = 20
-
-[[menu.main]]
-  name = "Likes"
-  url = "/likes/"
-  weight = 25
-
-[[menu.footer]]
-  name = "Projects"
-  url = "/projects/"
-  weight = 5
 
 [[menu.footer]]
   name = "Articles"
@@ -91,8 +76,3 @@ enableEmoji = true
   name = "Tags"
   url = "/tags/"
   weight = 20
-
-[[menu.footer]]
-  name = "Likes"
-  url = "/likes/"
-  weight = 25

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Getting started with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Getting started with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Setting up an Eleventy website with a simple Sass pipeline using NPM scripts.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Getting started with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Setting up an Eleventy website with a simple Sass pipeline using NPM scripts.">
+    <meta property="og:site_name" content="Getting started with Eleventy | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/getting-started-with-eleventy/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/getting-started-with-eleventy/">
+    <meta property="twitter:title" content="Getting started with Eleventy - Azhar Khan">
+    <meta property="twitter:description" content=" Setting up an Eleventy website with a simple Sass pipeline using NPM scripts. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/getting-started-with-eleventy/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Getting started with Eleventy</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2020-05-08 07:56:50 &#43;0100 &#43;0100">Fri, May 8, 2020</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/eleventy" class="p-category">Eleventy</a>
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p class="Message">
+    
+You can find all the code from this article over on <a href="https://github.com/harrycresswell/eleventy-starter">Github.com</a>
+
+</p>
+<p>This article will get you up and running with a simple <a href="https://www.11ty.dev/">Eleventy</a> powered website and Sass pipeline. It’s 100% beginner friendly and should give you a good introduction to working with this lightweight JavaScript based static site generator.</p>
+<p>We’ll cover templating, working with data, setting up collections, and compiling Sass to CSS using NPM Scripts. By the end you should have a solid foundation, ready to build upon for your next project.</p>
+<p>So what’s the big deal with Eleventy and why is it becoming so popular? You may be wondering why we even need another static site generator (SSG) when there’s literally hundreds of SSG’s out there. I had these questions too, so before we get into it I’ll do my best to answer some of them.</p>
+<h2 id="why-eleventy">Why Eleventy?&nbsp;<a class="heading-anchor" href="#why-eleventy" aria-label="Anchor">#</a> </h2>
+<p><a href="https://twitter.com/zachleat/">Zach Leatherman</a> built Eleventy in 2017 as a JavaScript alternative to Jekyll. So it will appeal, if like me, you’d rather write JavaScript than Ruby, and you’re more familiar with the NPM package library than with Ruby Gems.</p>
+<p>Eleventy is extremely simple. Zach describes Eleventy as more of a utility, than a framework. At it’s core, all it does is take templates and outputs HTML. And it takes very few files and very little code to get all this working.</p>
+<p>Perhaps the biggest sell with Eleventy is flexibility. Eleventy is, by default, zero config. Which means you don’t need a config file or in fact need to do anything much to build a website.</p>
+<p>Unlike with many other SSG’s Eleventy holds no opinions about how your project should be structured. Just initiate Eleventy inside an existing project directory and Eleventy will start building your files. You tell Eleventy where your content lives and how you prefer to structure your project.</p>
+<p>Another cool feature of Eleventy is templating. Unlike most other SSG’s with Eleventy you can choose your own engine or mix and match as many as you wish. HTML, Liquid, Markdown, Nunjucks, Handlebars, moustache, EJS, Haml, Pug, JavaScript Template Literals – you decide.</p>
+<p>But it would be wrong to think of Eleventy as just another JavaScript framework, as fundamentally it isn’t one. There’s no Eleventy-specific client-side JavaScript. Eleventy only uses JavaScript to transform your template files into static content. Everything is pre-rendered, so in that sense it’s a true SSG.</p>
+<p>Ok, enough of the talk, the best way to learn about Eleventy is to build something with it. So let’s do that now.</p>
+<p>First up we need to install the required dependencies.</p>
+<h2 id="install-dependencies">Install dependencies&nbsp;<a class="heading-anchor" href="#install-dependencies" aria-label="Anchor">#</a> </h2>
+<p>Before you can do anything with Eleventy you’ll need <a href="https://nodejs.org/en/">node.js</a> (version 8 or higher) installed on your machine.</p>
+<p>With Node comes Node Package Manager (NPM), which we’ll use to install Eleventy.</p>
+<h2 id="getting-started">Getting started&nbsp;<a class="heading-anchor" href="#getting-started" aria-label="Anchor">#</a> </h2>
+<p>Unlike other static site generators, which often scaffold a project when you create a new site, Eleventy requires you to make a new project directory first, then install Eleventy into that directory. Doing this will turn your directory into an Eleventy powered website.</p>
+<p>Start by making a new project directory wherever you like to keep your websites and call it something descriptive.</p>
+<pre><code>mkdir eleventy-blog
+cd eleventy-blog
+</code></pre><h3 id="initialise-the-project-and-install-eleventy">Initialise the project and install Eleventy&nbsp;<a class="heading-anchor" href="#initialise-the-project-and-install-eleventy" aria-label="Anchor">#</a> </h3>
+<p>From inside your new project directory, create a <code>package.json</code> file.</p>
+<pre><code>npm init -y
+</code></pre><p>Now install Eleventy into the directory.</p>
+<pre><code>npm install --save-dev @11ty/eleventy
+</code></pre><p>At this point you should have a <code>package.json</code> file, a <code>package-lock.json</code> file and a <code>node_modules</code> folder in the directory.</p>
+<h3 id="run-eleventy">Run Eleventy&nbsp;<a class="heading-anchor" href="#run-eleventy" aria-label="Anchor">#</a> </h3>
+<p>Next, using npx run Eleventy by typing:</p>
+<pre><code>npx @11ty/eleventy
+</code></pre><p>If Eleventy installed correctly, you should see a single line returned in your terminal similar to this:</p>
+<pre><code>Wrote 0 files in 0.01 seconds
+</code></pre><p>Everything seems to be working as expected. We don’t have any files yet, so nothing builds and <code>Wrote 0 files</code> checks out.</p>
+<h3 id="create-an-index-page">Create an index page&nbsp;<a class="heading-anchor" href="#create-an-index-page" aria-label="Anchor">#</a> </h3>
+<p>Now create an <code>index.njk</code> file at the root of your project.</p>
+<pre><code>touch index.njk
+</code></pre><p>Whilst it’s perfectly fine to create HTML templates with the <code>.html</code> extension, for the scope of this tutorial we’ll be using <code>.njk</code>, which is the extension for the Nunjucks templating language.</p>
+<p>Nunjucks is basically Liquid, but for JavaScript. So make sure you use the <code>.njk</code> extension if you want to follow along.</p>
+<p>Inside our <code>index.njk</code> we’ll add some basic boilerplate HTML.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>My new Eleventy Blog<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>To set this up I used the <code>! + Tab</code> in VSCode. This tells the <a href="https://code.visualstudio.com/docs/editor/emmet">Emmet extension</a> to scaffold a basic HTML document.</p>
+<p>I then updated the page title and added <code>&lt;p&gt;Hello World!&lt;/p&gt;</code> to the body, so we have something visible on the page.</p>
+<p>Now Eleventy has something to build. So from back in the terminal restart Eleventy to generate the template.</p>
+<pre><code>npx @11ty/eleventy
+Wrote 1 file in 0.04 seconds
+</code></pre><p>This time Eleventy builds 1 file and outputs it to a new folder called <code>_site</code> in the root directory.</p>
+<p>It looks like everything is working correctly.</p>
+<h3 id="start-local-web-server">Start local web server&nbsp;<a class="heading-anchor" href="#start-local-web-server" aria-label="Anchor">#</a> </h3>
+<p>To see our site in the browser we need to start the server. This will start hot-reloading our pages anytime we make changes to our code. We can do this by adding the <code>--serve</code> flag to our original command.</p>
+<pre><code>npx @11ty/eleventy --serve
+</code></pre><p>Now the server is running you should see <code>Hello World!</code> in the browser when you navigate to <code>http://localhost:8080</code> in a web browser.</p>
+<p>Nice. We have a website up and running.</p>
+<p>Anytime you need to stop Eleventy from serving your website, type <code>ctrl + c</code> in the command line to exit the server.</p>
+<h2 id="project-structure-and-configuration">Project structure and configuration&nbsp;<a class="heading-anchor" href="#project-structure-and-configuration" aria-label="Anchor">#</a> </h2>
+<p>As mentioned, Eleventy is zero config by default. As we just discovered, this means you don&rsquo;t actually need a configuration file for Eleventy to work.</p>
+<p>However, if you want to organise your files in a custom folder structure, you’ll need to tell Eleventy where to find those files. To do this we’ll need to add a config file.</p>
+<p>Before we create our config file, let’s make a <code>src</code> directory in the root of the project.</p>
+<pre><code>mkdir src
+</code></pre><p>This is the “source“ directory where we’ll store all our development related code. When we’re working on our project this is where we will spend most of our time. It’s the code Eleventy will build into html templates, ready for the web.</p>
+<p>From the project root, make another directory inside <code>src</code> called <code>site</code>:</p>
+<pre><code>mkdir src/site
+</code></pre><p>Now move your <code>index.njk</code> file from the root into the newly created <code>src/site</code> directory.</p>
+<p>Next create a new file called <code>.eleventy.js</code> at the root of your project. This is our config file which we’ll use to tell Eleventy where to locate our files and directories.</p>
+<p>From the project root type:</p>
+<pre><code>touch .eleventy.js
+</code></pre><p>Now we have a new <code>.eleventy.js</code> file at the project root.</p>
+<p>Inside <code>.eleventy.js</code> add custom input and output options to reflect the changes we just made to our directory structure.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">dir</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">input</span><span class="o">:</span> <span class="s2">&#34;src/site&#34;</span><span class="p">,</span>
+      <span class="nx">output</span><span class="o">:</span> <span class="s2">&#34;_site&#34;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div><p>So what’s going on here? First we create a function as an exportable module, then we pass in a config argument and return the current configuration data as an object.</p>
+<p>By setting input to <code>src/site</code>, we’re telling Eleventy to find our files in the <code>src/site</code> directory. If we don’t do this, then Eleventy won’t process any of our files. The input location can be anywhere you like, providing you set the location in your <code>eleventy.js</code> config.</p>
+<p>The output directory is set to <code>_site</code>, so Eleventy will build the project to this folder. However you could easily change this to something like <code>public</code> or <code>dist</code> if you prefer, and Eleventy will build the project there instead. This is totally optional and more a personal preference than anything else.</p>
+<p>Next restart the server by running the following:</p>
+<pre><code>npx @11ty/eleventy --serve
+</code></pre><p>This will re-build the project and serve it in the browser.</p>
+<p>If all went well you should still see “Hello World” in the browser at <a href="http://localhost:8080">http://localhost:8080</a>.</p>
+<p>Currently our website is just a simple single page site. So, let’s make some improvements by building our first template.</p>
+<h2 id="building-a-layout-template">Building a layout template&nbsp;<a class="heading-anchor" href="#building-a-layout-template" aria-label="Anchor">#</a> </h2>
+<p>Making a base layout template for our website is a good place to start. Our base template will act as the default layout for all the pages we create. In other words, it will store any code that will be globally applied to every page of our website.</p>
+<p>By creating this template we’re saving ourselves from having to manually copy and paste code each time we create a new page, which is one of the main advantages of creating templates.</p>
+<p>To set up a base template, first create a new directory called <code>_includes</code> inside the <code>src/site</code> folder. Then. inside <code>_includes</code>, create another new directory called <code>layouts</code>.</p>
+<p>You can do this from the project root by running:</p>
+<pre><code>mkdir src/site/_includes src/site/_includes/layouts
+</code></pre><p>Change directory into the layouts directory and create a file called <code>base.njk</code>.</p>
+<pre><code>cd src/site/_includes/layouts
+touch base.njk
+</code></pre><p>Next, move the contents of <code>index.njk</code> into <code>base.njk</code>. Your base file should now look like this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>My new Eleventy Blog<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>Now replace <code>&lt;p&gt;Hello World!&lt;/p&gt;</code> in the body with the <code>{{ content | safe }}</code> variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>My new Eleventy Blog<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    {{ content | safe }}
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>This tells Eleventy where we want the content from markdown files and other data sources to display in our template. Now we can use <code>base.njk</code> as the template for any other page we create.</p>
+<p>Back inside <code>.eleventy.js</code> we can update our directory structure to include the location of our includes folder:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">dir</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">input</span><span class="o">:</span> <span class="s2">&#34;src/site&#34;</span><span class="p">,</span>
+      <span class="nx">includes</span><span class="o">:</span> <span class="s2">&#34;_includes&#34;</span><span class="p">,</span>
+      <span class="nx">output</span><span class="o">:</span> <span class="s2">&#34;_site&#34;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div><p>As we’re using the default location for our includes folder, this step isn’t 100% necessary and everything will work fine without adding the directory to our config.</p>
+<p>However should we wish to change the location in the future, we can now simple head into our config and update the directory.</p>
+<h2 id="updating-the-homepage">Updating the homepage&nbsp;<a class="heading-anchor" href="#updating-the-homepage" aria-label="Anchor">#</a> </h2>
+<p>Now we have our base template, but our <code>index.njk</code> file is empty, as we moved all the content into the template.</p>
+<p>Back inside <code>index.njk</code>, we can use front matter to add useful data to the page.</p>
+<p>If you’re new to front matter, think of it as data associated with the document in which it resides. Front matter takes the form of key value pairs set between two sets of triple dashes, at the top of the file.</p>
+<p>Here’s an example:</p>
+<pre><code>---
+data: this is front matter!
+---
+</code></pre><p>In our front matter, we can use the layout property to tell Eleventy which template to use for our <code>index.njk</code> page. In this case we want to use our new <code>base.njk</code> template.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
+</span><span class="w"></span><span class="k">layout</span><span class="p">:</span><span class="w"> </span>layouts/base.njk<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w">
+</span></code></pre></div><p>Next add some content to the page.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">---
+layout: layouts/base.njk
+---
+
+<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to my new Eleventy Blog!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div><p>If you are still in the layouts directory, move back up to the project root by typing:</p>
+<pre><code>cd ../../../../
+</code></pre><p>Now from the project root, restart the server using <code>npx @11ty/eleventy --serve</code>.</p>
+<p>If everything worked correctly, you should see the following in the browser:</p>
+<pre><code>Welcome to my new Eleventy Blog!
+Hello World!
+</code></pre><p>That means <code>index.njk</code> is now using the <code>base.njk</code> template for its layout. This is exactly what we want.</p>
+<p>Now let’s look at some other sources of data.</p>
+<h2 id="working-with-data-collections">Working with data collections&nbsp;<a class="heading-anchor" href="#working-with-data-collections" aria-label="Anchor">#</a> </h2>
+<p>Collections provide a way to group content together.</p>
+<p>There are two ways to create collections of documents in Eleventy. You can either use the <code>tag</code> property in the front matter of content files, or you can create collections programatically, via the config file. We’ll use the latter approach.</p>
+<p>Let’s add a collection of posts, by creating a new directory called posts inside the <code>src/site</code> directory.</p>
+<pre><code>mkdir src/site/posts
+</code></pre><p>Next, create a new markdown file for your first post. We’ll use markdown as it’s a simple format for long-form written content.</p>
+<pre><code>touch src/site/posts/my-first-post.md
+</code></pre><p>Inside the post file, add front matter data for a title, date and layout. We’ll use the base layout as we did before.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
+</span><span class="w"></span><span class="k">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;This is my first post&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">date</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2020-05-08&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">layout</span><span class="p">:</span><span class="w"> </span>layouts/base.njk<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w">
+</span></code></pre></div><p>Now we need to add some content to the file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
+</span><span class="w"></span><span class="k">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;This is my first post&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">date</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2019-08-24&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">layout</span><span class="p">:</span><span class="w"> </span>layouts/base.njk<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span>This<span class="w"> </span>is<span class="w"> </span>my<span class="w"> </span>first<span class="w"> </span>paragraph.<span class="w">
+</span></code></pre></div><p>We can render front matter data in the post content by specifying the variable name that stores the data.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
+</span><span class="w"></span><span class="k">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;This is my first post&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">date</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2019-08-24&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">layout</span><span class="p">:</span><span class="w"> </span>layouts/base.njk<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c"># {{ title }}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>This<span class="w"> </span>is<span class="w"> </span>my<span class="w"> </span>first<span class="w"> </span>paragraph.<span class="w">
+</span></code></pre></div><p>In this case <code>{{ title }}</code> will render our title in our post. We’re using the <code>#</code> markdown symbol to set the title as a top level <code>h1</code> heading.</p>
+<p>For more on writing markdown check out Adam Pritchard’s <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a>.</p>
+<p>Before you continue, create a few more posts, so you have more than one post in your collection. You can do this by duplicating the first post and updating the file name and post title. This will help us render a list of posts a bit later on.</p>
+<h2 id="register-a-collection">Register a collection&nbsp;<a class="heading-anchor" href="#register-a-collection" aria-label="Anchor">#</a> </h2>
+<p>Now we have a post collection we need to return to our <code>.eleventy.js</code> config and register the collection. Doing this will allow us to render the content somewhere on our website.</p>
+<p>We can register the post collection by adding a collection called posts onto the config object and using the <code>addCollection</code> function.</p>
+<p>Pass in the collection name (in this case “posts”), which takes a new <code>collection</code> function.</p>
+<p>Now we need to return the collection object and add a method called <code>getFilteredByGlob</code>. This provides us with a way to specify the path in our source directory where the post markdown files can be found.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">addCollection</span><span class="p">(</span><span class="s2">&#34;posts&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">collection</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">getFilteredByGlob</span><span class="p">(</span><span class="s2">&#34;src/site/posts/*.md&#34;</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">dir</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">input</span><span class="o">:</span> <span class="s2">&#34;src/site&#34;</span><span class="p">,</span>
+      <span class="nx">includes</span><span class="o">:</span> <span class="s2">&#34;_includes&#34;</span><span class="p">,</span>
+      <span class="nx">output</span><span class="o">:</span> <span class="s2">&#34;_site&#34;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div><p>Notice we’re using the universal <code>*</code> selector to look for all markdown files inside the posts directory.</p>
+<p>With our new posts collection registered, next we’ll want to render the posts somewhere on our website, so we can actually see them in the browser.</p>
+<p>But before we do that, make sure you re-run the server to propagate the changes we just made to our configuration.</p>
+<pre><code>npx @11ty/eleventy --serve
+</code></pre><p>Anytime you make a change to your <code>eleventy.js</code> config file you will need to restart the server to propagate the changes.</p>
+<h2 id="list-a-collection-on-the-homepage">List a collection on the homepage&nbsp;<a class="heading-anchor" href="#list-a-collection-on-the-homepage" aria-label="Anchor">#</a> </h2>
+<p>Back in our <code>index.njk</code> file, we’ll use Nunjucks templating syntax and a <code>for</code> loop to iterate over all of the posts in our posts collection.</p>
+<p>Then inside the for loop we can add <code>{{ post.data.title }}</code> to target the title in the front matter and render it on the page.</p>
+<pre><code>{% for post in collections.posts %}
+	{{ post.data.title }}
+{% endfor %}
+</code></pre><p>Next we can add some HTML tags to semantically style our code, adding <code>| reverse</code> to make sure the loop displays the most recent posts first.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  {% for post in collections.posts | reverse %}
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    {{ post.data.title }}
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  {% endfor %}
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div><p>Now we have a list of our posts, but we need a way to click through to each individual post. To do this we can add an anchor tag and add <code>{{ post.url }}</code> to the <code>href</code> attribute.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  {% for post in collections.posts %}
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ post.url }}&#34;</span><span class="p">&gt;</span>{{ post.data.title }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  {% endfor %}
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div><p>Now when you open the browser you should see your posts rendered on the homepage. You can also click on the post titles to open the corresponding post pages.</p>
+<p>Seeing as we now have more than one page it’s might be a good idea to add a navigation, so we don’t have to use the browser back button the whole time.</p>
+<h2 id="include-a-navigation">Include a navigation&nbsp;<a class="heading-anchor" href="#include-a-navigation" aria-label="Anchor">#</a> </h2>
+<p>We want our navigation to consistently feature on every page of our website, so we can either add it directly to the <code>base.njk</code> template. Or create a partial file called <code>nav.njk</code> and include it in our <code>base.njk</code>.</p>
+<p>Personally I prefer the second method as it’s more modular and keeps files small and simple. The advantages of doing this will become apparent as your website grows, or as you create different projects and want to re-use your code.</p>
+<p>Make a new file called <code>nav.njk</code> in the includes directory.</p>
+<pre><code>touch src/site/_includes/nav.njk
+</code></pre><p>Inside <code>nav.njk</code> create a <code>nav</code> element and add an anchor tag that links to the homepage.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">nav</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+</code></pre></div><p>Now back in <code>base.njk</code>, use the include syntax to render your new navigation file in the template.</p>
+<pre><code>{% include &quot;nav.njk&quot; %}
+</code></pre><p>Your base template should now look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>My new Eleventy Blog<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+      {% include &#34;nav.njk&#34; %}
+    <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+
+    {{ content | safe }}
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>And if all went well your navigation should now display on each page in the browser.</p>
+<p>You can apply the exact same process when creating other include files such as a <code>footer.njk</code> or a <code>sidebar.njk</code>. But that’s for you to decide.</p>
+<p>Now let’s take a look at working with some other types of data.</p>
+<h2 id="working-with-globally-scoped-data-files">Working with globally scoped data files&nbsp;<a class="heading-anchor" href="#working-with-globally-scoped-data-files" aria-label="Anchor">#</a> </h2>
+<p>So far we’ve looked at scoping data locally by using front matter in our post pages and on our index page.</p>
+<p>Front matter data is directly associated with the page or template in which it resides, so it’s quite specific in that sense.</p>
+<p>However, sometimes we may want to scope data globally and expose data to all of our template files. This is useful for data associated with our entire website. We can store this type of data in a data directory and work with either JSON data or JavaScript.</p>
+<p>To see this in action, lets create a new file called <code>site.json</code> in <code>.src/site/_data</code> and define some site wide variables which we can use globally across our website.</p>
+<p>First create the directory and file:</p>
+<pre><code>mkdir src/site/_data &amp;&amp; touch src/site/_data/site.json
+</code></pre><p>To keep things simple, start by adding a title and description for your website to the new <code>site.json</code> file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;My first Eleventy Blog&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;A simple website built with Eleventy&#34;</span>
+<span class="p">}</span>
+</code></pre></div><p>This data can now be accessed in any template by using the file name followed by one of the object keys.</p>
+<p>To demonstrate this, let’s change the site title in our base template to use the data from our new <code>site.json</code> file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1.0&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{{ site.title }}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+      {% include &#34;nav.njk&#34; %}
+    <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+
+    {{ content | safe }}
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>You can see we are now using <code>{{ site.title }}</code> to render the site title from the JSON object stored in <code>_data/site.json</code>.</p>
+<p>What you decide to store in this file is very much up to you, but consider things like site language, url, repository, navigation items and social links as a few possible ideas.</p>
+<p>Now we have our basic site up and running let’s take a look at a building an assets pipeline with NPM Scripts so we can work with Sass and automate some parts of our workflow.</p>
+<h2 id="npm-scripts">NPM Scripts&nbsp;<a class="heading-anchor" href="#npm-scripts" aria-label="Anchor">#</a> </h2>
+<p>NPM Scripts provide a simple way to write commands that will run functions from NPM packages. By installing certain packages and writing a script, we can automate certain tasks such as watching for changes to our code or compiling Sass styles to regular CSS.</p>
+<p>Unlike other build tools such as Gulp or Grunt, which require a dedicated file and their own dependencies, NPM Scripts work natively with NPM and run directly from the scripts object within a <code>package.json</code> file.</p>
+<p>Further down the line we can use NPM scripts to perform other tasks such as minifying JavaScript and automating an assets pipeline, but let’s not get ahead of ourselves just yet.</p>
+<h3 id="compiling-sass-to-css">Compiling Sass to CSS&nbsp;<a class="heading-anchor" href="#compiling-sass-to-css" aria-label="Anchor">#</a> </h3>
+<p>Let’s start by installing the <a href="https://github.com/sass/node-sass">node-sass</a> dependency which will compile any <code>.scss</code> file to regular CSS.</p>
+<pre><code>npm install node-sass --save-dev
+</code></pre><p>We include the <code>--save-dev</code> flag with our command to list our new package under <strong>devDependencies</strong> in <em>package.json</em>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="s2">&#34;devDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;@11ty/eleventy&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.8.3&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;node-sass&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.13.0&#34;</span><span class="p">,</span>
+  <span class="p">}</span>
+</code></pre></div><p>Now the package is installed we need to write a script to compile our Sass to CSS. We do this in the <em>scripts</em> object inside our <em>package.json</em> file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;scripts&#34;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&#34;scss&#34;</span><span class="o">:</span> <span class="s2">&#34;node-sass --output-style compressed -o src/site/_includes/css src/scss&#34;</span>
+  <span class="p">}</span>
+</code></pre></div><p>So what’s going on here?</p>
+<p>First we give our script a name, in this case <em>scss</em>. We’ll use the name when we write the command in the terminal, for example <code>npm run scss</code>.</p>
+<p>Next we specify the package that our script will use, in this case that’s <code>node-sass</code> (the one we just installed). Then we set some parameters, using the <code>--</code> flag notation. First we tell <em>node-sass</em> that we want the output style compressed`, as we want our final CSS file size as small as possible.</p>
+<p>Next we add the output directory, <code>src/site/_includes/css</code>. This is where <em>node-sass</em> will auto-generate our CSS. Finally we specify the source directory. This is where our Sass will live and where we will spend our time writing our styles.</p>
+<p>At this point, running the command won’t do much. To change that we’ll need write some Sass, so that <em>node-sass</em> has something to compile and compress.</p>
+<p>So let’s make a new directory for our Sass and add a source file so we can write some styles.</p>
+<pre><code>mkdir src/scss &amp;&amp; touch src/scss/main.scss
+</code></pre><p>Inside <em>main.scss</em> add some basic styles so we have something to compile:</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="kc">sans-serif</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">tomato</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Now run:</p>
+<pre><code>npm run scss
+</code></pre><p>You should now see a file called <em>main.css</em> at <code>src/site/_includes/css</code>, which contains your minified styles.</p>
+<p>It’s worth pointing out that we’re using the source includes folder as the destination for our compiled CSS so we can make use of Eleventy’s built-in features.</p>
+<p>Remember, we set <code>includes: &quot;_includes&quot;</code> inside our config file, so Eleventy will watch this folder for changes and process any files it finds inside, before it live reloads the page.</p>
+<p>By doing this we avoid the need to install further NPM packages such as <a href="https://www.browsersync.io/">Browsersync</a> and keep our dependencies to a minimum.</p>
+<h3 id="watching-for-changes">Watching for changes&nbsp;<a class="heading-anchor" href="#watching-for-changes" aria-label="Anchor">#</a> </h3>
+<p>Although Eleventy will watch for changes to our CSS, we still need a way to watch for changes to our SCSS, so we don’t have to run our <em>scss</em> script every single time we add styles or make a change.</p>
+<p>Essentially, we want to do two things. First, watch our <code>src/scss</code> folder for changes, then run our <em>scss</em> script when those changes occur.</p>
+<p>Let’s start by installing <a href="https://www.npmjs.com/package/onchange">onchange</a>, a helpful package that will watch file sets and run a command when anything is added, changed or deleted.</p>
+<p>From the project root run:</p>
+<pre><code>npm install onchange --save-dev
+</code></pre><p>You should now see something like <code>&quot;onchange&quot;: &quot;^6.1.0&quot;</code> listed in the <strong>devDependencies</strong> object inside <em>package.json</em>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="s2">&#34;devDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;@11ty/eleventy&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.8.3&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;node-sass&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.13.0&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;onchange&#34;</span><span class="o">:</span> <span class="s2">&#34;^6.1.0&#34;</span>
+  <span class="p">}</span>
+</code></pre></div><p>Now we need to write a script to watch for our Sass changes and run our <em>scss</em> script:</p>
+<pre><code>&quot;watch:css&quot;: &quot;onchange 'src/scss' -- npm run scss&quot;,
+</code></pre><p>We can now run the following command in the terminal:</p>
+<pre><code>npm run watch:css
+</code></pre><p>By doing so, <em>onchange</em> will watch our <code>src/scss</code> directory for changes, then run our <em>scss</em> script any time we make a change to a SCSS file. This will then compiling our Sass to CSS.</p>
+<p>This is great and exactly what we want. But now we have a new problem. We want to run the server at the same time, so we can reload the page and see those changes as and when they happen in real-time, without having to manually reload the browser.</p>
+<h3 id="running-scripts-in-parallel">Running scripts in parallel&nbsp;<a class="heading-anchor" href="#running-scripts-in-parallel" aria-label="Anchor">#</a> </h3>
+<p>If you remember, we can run the server with the command <code>npx @11ty/eleventy --serve</code> or <code>eleventy --serve</code>. Let’s first create a script to make this easier.</p>
+<p>Inside the scripts object in <em>package.json</em> create a new script called <em>serve</em> which runs the command.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;scripts&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;scss&#34;</span><span class="o">:</span> <span class="s2">&#34;node-sass --output-style compressed -o src/site/_includes/css src/scss&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;watch:css&#34;</span><span class="o">:</span> <span class="s2">&#34;onchange &#39;src/scss&#39; -- npm run scss&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;serve&#34;</span><span class="o">:</span> <span class="s2">&#34;eleventy --serve&#34;</span><span class="p">,</span>
+  <span class="p">},</span>
+</code></pre></div><p>Now we have two scripts that we want to run at the same time, <em>serve</em> to run the server and <em>watch:css</em> to compile our Sass to CSS. Doing this will allow us to see changes we make to our Sass appear in real-time in the browser.</p>
+<p>To do this we can install one more script called <a href="https://www.npmjs.com/package/npm-run-all">npm-run-all</a> which will allow us to run two scripts in parallel.</p>
+<pre><code>npm install npm-run-all --save-dev
+</code></pre><p>Inside your <code>package.json</code> file you should now see <em>npm-run-all</em> listed under the <em>devDependecies</em>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="s2">&#34;devDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;@11ty/eleventy&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.8.3&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;node-sass&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.13.0&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;npm-run-all&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.1.5&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;onchange&#34;</span><span class="o">:</span> <span class="s2">&#34;^6.1.0&#34;</span>
+  <span class="p">}</span>
+</code></pre></div><p>Next, create another script and call it <em>start</em>. We’ll run this script whenever we start development. The <em>npm-run-all</em> package has an option called <code>run-p</code> which stands for ‘run-parallel‘. We can use it to run both scripts at the same time.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;scripts&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;scss&#34;</span><span class="o">:</span> <span class="s2">&#34;node-sass --output-style compressed -o src/site/_includes/css src/scss&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;watch:css&#34;</span><span class="o">:</span> <span class="s2">&#34;onchange &#39;src/scss&#39; -- npm run scss&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;serve&#34;</span><span class="o">:</span> <span class="s2">&#34;eleventy --serve&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;start&#34;</span><span class="o">:</span> <span class="s2">&#34;run-p serve watch:css&#34;</span>
+  <span class="p">},</span>
+</code></pre></div><p>Now when we run <code>npm start</code> everything is working as intended. Our site is served locally in the browser and Eleventy will live reload the page anytime we make changes to our Sass.</p>
+<p>We’re almost there.</p>
+<h2 id="clean-and-build">Clean and build&nbsp;<a class="heading-anchor" href="#clean-and-build" aria-label="Anchor">#</a> </h2>
+<p>Now we need a way to build a fresh production version of the site ready to publish on the web. To do this, first we want to remove the existing contents of <code>_site</code>, so that nothing is unintentionally carried over from a previous build.</p>
+<p>Let’s write a <em>clean</em> script and use the <a href="https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/r_commands/rm.html">rm</a> command, which removes the entries for the specified file parameter from a directory.</p>
+<pre><code>&quot;clean&quot;: &quot;rm -rf _site/*&quot;,
+</code></pre><p>Notice we’re using the <code>-rf</code> flag, where <code>r</code> permits recursive removal of directories and <code>f</code> prevents a prompt before removing a write-protected file. Next we specify the folder name, <code>_site/</code> and use the global operator, <code>*</code>, to target all files.</p>
+<p>Now we have our <em>clean</em> script which removed the contents of our <code>_site</code> folder, the final thing left to do is create a <em>build</em> script which runs our <em>clean</em> script, then builds our production ready site.</p>
+<pre><code>&quot;build&quot;: &quot;npm run clean &amp;&amp; eleventy&quot;
+</code></pre><p>Our scripts object now looks like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;scripts&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;scss&#34;</span><span class="o">:</span> <span class="s2">&#34;node-sass --output-style compressed -o src/site/_includes/css src/scss&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;watch:css&#34;</span><span class="o">:</span> <span class="s2">&#34;onchange &#39;src/scss&#39; -- npm run scss&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;serve&#34;</span><span class="o">:</span> <span class="s2">&#34;eleventy --serve&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;start&#34;</span><span class="o">:</span> <span class="s2">&#34;run-p serve watch:css&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;clean&#34;</span><span class="o">:</span> <span class="s2">&#34;rm -rf _site/*&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="s2">&#34;npm run clean &amp;&amp; eleventy&#34;</span>
+  <span class="p">},</span>
+</code></pre></div><p>Now we have six scripts, however in most cases we’ll only ever need to run our <em>start</em> and <em>build</em> script, as these act as the entry point to the others.</p>
+<p>We can now use the command <code>npm run build</code> anytime we want to build a fresh copy of the site to the <code>_site</code> folder.</p>
+<h2 id="adding-the-finishing-touches">Adding the finishing touches&nbsp;<a class="heading-anchor" href="#adding-the-finishing-touches" aria-label="Anchor">#</a> </h2>
+<p>Before we finish we still need to do a couple of things. If you haven’t already done so, you will want to initiate Git, so you can keep track of changes in your project and push your work to Github.</p>
+<pre><code>git init
+</code></pre><p>Next let’s add a <code>.gitignore</code> file at the project root. Inside the file add the following two lines:</p>
+<pre><code>node_modules
+_site
+</code></pre><p>The first line will prevent Git from tracking our <em>node modules</em> directory. Our project only requires dev dependencies, which help us with the development stage of our our website, so we don’t want to accidentally upload them to the server when the time comes to upload our site.</p>
+<p>Likewise we don’t want to upload our <em>_site</em> directory to Github as this will be created when we run our scripts or automated by a deployment tool such as Netlify. So the second line takes care of that.</p>
+<p>Finally, let’s create a <a href="https://github.com/harrycresswell/eleventy-starter/blob/master/README.md">README.md</a> file. This acts as helpful documentation, both for us – so we remember how to install and use our project – and for other developers who might want to <a href="https://github.com/harrycresswell/eleventy-starter">clone a copy from Github</a> and build something with it.</p>
+<h2 id="conclusion">Conclusion&nbsp;<a class="heading-anchor" href="#conclusion" aria-label="Anchor">#</a> </h2>
+<p>What we’ve built here is far from a complete website, but the concepts covered, such as templating, working with data, setting up collections and building a Sass pipeline should provide a good starting point to help you hit the ground running with Eleventy powered websites.</p>
+<p>What I love most about Eleventy is it’s simplicity and lack of opinion. Structuring your project however you wish and not having to rely on a framework to do it is satisfying. While writing HTML, CSS and JavaScript, in conjunction with your preferred templating language feels like the way it should be.</p>
+<p>With the addition of a few NPM Scripts we can maintain a minimal build process which relies on very few dependencies. As our project matures this should hopefully mean less time spent fixing broken dependencies and more time improving our website.</p>
+<p>Until recently <a href="https://gohugo.io/">Hugo</a> has been my go-to SSG of choice, primarily because it’s super fast and has zero dependencies, which makes it a solid choice. But writing JavaScript over Go is certainly appealing, and perhaps the more familiar language for many of us.</p>
+<p>Web development has become increasingly complex over the years, but it doesn’t have to be. There are some great tools out there to help you <a href="https://harrycresswell.com/articles/intentions-2020/#keep-it-simple">keep it simple</a> and Eleventy sure fits that bill.</p>
+<h2 id="further-reading-and-credits">Further reading and credits&nbsp;<a class="heading-anchor" href="#further-reading-and-credits" aria-label="Anchor">#</a> </h2>
+<p>I wanted to add this last part to give credit where credit is due. Most of what I know about Eleventy I’ve learnt from the following resources.</p>
+<ul>
+<li><a href="https://www.zachleat.com/web/introducing-eleventy/">Introducing Eleventy</a> by Zach Letherman</li>
+<li><a href="https://www.11ty.io/docs/">Official Eleventy Docs</a> by Zach Letherman</li>
+<li><a href="https://daverupert.com/2019/08/what-i-like-about-eleventy/">What I like about Eleventy</a> from Dave Rupert</li>
+<li><a href="https://keepinguptodate.com/pages/2019/06/creating-blog-with-eleventy/">Creating a blog with Eleventy</a> from Jon Keeping</li>
+<li><a href="https://24ways.org/2018/turn-jekyll-up-to-eleventy/">Turn Jekyll up to Eleventy</a> from Paul Lloyd</li>
+</ul>
+<p>I also found Brian Robinson’s video series <a href="https://www.youtube.com/watch?v=p7TkCS01lI8&amp;t=1358s">Building a Static Site with Eleventy</a> helpful, and generally just poking around in a ton of Git repos to see how things are done.</p>
+<p>There’s a great list of <a href="https://www.11ty.io/docs/sites/">sites using Eleventy</a> in the docs. Some include links to their source code, so make sure you check a few out.</p>
+<p>My understanding of NPM Scripts and the script workflow I used was heavily inspired by two fantastic articles:</p>
+<ul>
+<li><a href="https://css-irl.info/a-modern-front-end-workflow-part-1/">A modern front-end workflow</a> by Michelle Barker</li>
+<li><a href="https://css-tricks.com/why-npm-scripts/">Why NPM Scripts</a> by Damon Bauer</li>
+</ul>
+<p><em>I’ve done my best to crosscheck everything in this article, but if you spot any mistakes or have any issues <a href="mailto:studio@harrycresswell.com">please let me know</a> and I will endeavor to make the necessary changes or help you out where I can.</em></p>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Getting started with Eleventy" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

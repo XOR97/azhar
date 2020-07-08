@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Data Types and Comparisons | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Data Types and Comparisons | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Learn about the difference between objects and primatives in JavaScript.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Data Types and Comparisons | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Learn about the difference between objects and primatives in JavaScript.">
+    <meta property="og:site_name" content="Data Types and Comparisons | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-data-types-comparisons/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-data-types-comparisons/">
+    <meta property="twitter:title" content="Data Types and Comparisons - Azhar Khan">
+    <meta property="twitter:description" content=" Learn about the difference between objects and primatives in JavaScript. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-data-types-comparisons/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Data Types and Comparisons</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Thu, Nov 22, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>In JavaScript there are 2 categories of data types:</p>
+<ul>
+<li>Objects</li>
+<li>Primitives</li>
+</ul>
+<h2 id="objects">Objects&nbsp;<a class="heading-anchor" href="#objects" aria-label="Anchor">#</a> </h2>
+<p>Objects can be as complicated as you want. Objects use curly braces.</p>
+<ul>
+<li><code>{} // todoList, arrays, functions</code></li>
+</ul>
+<h2 id="primitives">Primitives&nbsp;<a class="heading-anchor" href="#primitives" aria-label="Anchor">#</a> </h2>
+<p>Primitives are the simple building blocks of JavaScript, they only have 1 form. You can’t make them complicated.</p>
+<ul>
+<li>String (formal name for text, in between quotes, very limited data type) // ‘This is a string!’</li>
+<li>Number (same as in math) // 1, 2, 3, 4 …</li>
+<li>Boolean (super limited data type) // true, false</li>
+<li>Undefined // Value that hasn’t yet been set</li>
+<li>Null // ‘Nothing’</li>
+</ul>
+<h3 id="difference-between-undefined-and-null">Difference between &lsquo;undefined&rsquo; and &lsquo;null&rsquo;&nbsp;<a class="heading-anchor" href="#difference-between-undefined-and-null" aria-label="Anchor">#</a> </h3>
+<p>Undefined is simply a value which hasn’t yet been set, whereas null literally means nothing. For example if you have a variable but haven’t given it a value yet it will be <code>undefined</code>.</p>
+<p>Null can be used to represent say a variable for someones test score, where the score is marked from 0-100, but they haven’t yet taken the test. In this case the test score would be equal to <code>null</code>. Null means explicitly nothing.</p>
+<h2 id="is-it-a-primitive-or-an-object">Is it a primitive or an object?&nbsp;<a class="heading-anchor" href="#is-it-a-primitive-or-an-object" aria-label="Anchor">#</a> </h2>
+<p>If you’re unsure if something is an Object or a Primitive, ask yourself it it fits into one of the primitive categories above. If it doesn’t then it’s an Object.</p>
+<h2 id="comparisons-with-primitive-data-types">Comparisons with primitive data types&nbsp;<a class="heading-anchor" href="#comparisons-with-primitive-data-types" aria-label="Anchor">#</a> </h2>
+<p>Primitive comparisons work just like in Math. General rule, if they look the same they probably are the same.</p>
+<h3 id="comparisons-with-strings">Comparisons with Strings&nbsp;<a class="heading-anchor" href="#comparisons-with-strings" aria-label="Anchor">#</a> </h3>
+<p>For example:</p>
+<ul>
+<li><code>'harry' === 'harry'</code> would return <code>true</code> they are the same thing</li>
+<li><code>'harry1' === 'harry'</code> would return <code>false</code>, they are different</li>
+</ul>
+<h3 id="comparisons-with-numbers">Comparisons with Numbers&nbsp;<a class="heading-anchor" href="#comparisons-with-numbers" aria-label="Anchor">#</a> </h3>
+<p>For example:</p>
+<ul>
+<li><code>0 &lt; 10</code> is <code>true</code>.</li>
+<li><code>0 = 0</code> is the same thing so it’s also <code>true</code></li>
+<li><code>1 === 1</code> is <code>true</code></li>
+<li>Whereas <code>1 === 2</code> would return <code>false</code>.</li>
+<li><code>100 === 100</code> would return <code>true</code></li>
+</ul>
+<p>Number comparisons work as you would expect.</p>
+<h3 id="comparisons-with-booleans">Comparisons with Booleans&nbsp;<a class="heading-anchor" href="#comparisons-with-booleans" aria-label="Anchor">#</a> </h3>
+<p>For example:</p>
+<ul>
+<li><code>true === true</code> returns <code>true</code></li>
+<li><code>true === false</code> returns <code>false</code></li>
+<li><code>false === false</code> returns <code>true</code></li>
+</ul>
+<h3 id="comparisons-of-undefined-and-null">Comparisons of Undefined and Null&nbsp;<a class="heading-anchor" href="#comparisons-of-undefined-and-null" aria-label="Anchor">#</a> </h3>
+<p>For example:</p>
+<ul>
+<li><code>undefined === undefined</code> will return <code>true</code></li>
+<li><code>null === null</code> will also return <code>true</code></li>
+</ul>
+<p>To summarise, primitive comparisons work exactly as you would expect.</p>
+<h2 id="comparisons-with-object-data-types">Comparisons with Object data types&nbsp;<a class="heading-anchor" href="#comparisons-with-object-data-types" aria-label="Anchor">#</a> </h2>
+<p>Comparisons with Objects works completely different from primitive comparisons, the behaviour is unexpected.</p>
+<p>For example, the comparison between 2 empty objects returns false:</p>
+<p><code>{} === {}</code> returns <code>false</code></p>
+<p>As does the comparison of 2 arrays which appear the same:</p>
+<p><code>[1, 2, 3] === [1, 2, 3]</code> returns <code>false</code>.</p>
+<h3 id="understanding-why-object-comparisons-behave-differently">Understanding why Object comparisons behave differently&nbsp;<a class="heading-anchor" href="#understanding-why-object-comparisons-behave-differently" aria-label="Anchor">#</a> </h3>
+<p>In object comparisons JavaScript is actually comparing the addresses it assigns to the objects.</p>
+<p>In our example from before, imagine our 2 empty objects are actually houses:</p>
+<p><code>{} === {}</code></p>
+<p>JavaScript sees these as 2 separate houses in 2 different locations; <code>house1</code> and <code>house2</code>. Much like houses in the real world have different addresses, these are actuallu 2 separate objects, with 2 separate addresses. Although they might look the same they in fact different.</p>
+<p>When you create an object in JavaScript, it saves that object at unique location in memory.</p>
+<p>In this case, 3 objects – all identical in the fact they are empty – are saved at different memory addresses.</p>
+<pre><code>{}  // Memory Address 1
+{}  // Memory Address 2
+{}  // Memory Address 3
+</code></pre><p>When JavaScript is comparing the first object to the second, it’s actually comparing the memory addresses. It’s doing this to understand if we’re looking at the exact same object or 2 separate objects.</p>
+<p>A general rule of thumb, if you’re comparing 2 objects it will be <code>false</code>. The only time you can have an object comparison equal is if you assign the object to a variable and compare those variables.</p>
+<p>'&rsquo; var houseA = {}; houseA === houseA true</p>
+<p>As you see in the example above, this comparison returns <code>true</code>.</p>
+<h2 id="comparisons-review">Comparisons review&nbsp;<a class="heading-anchor" href="#comparisons-review" aria-label="Anchor">#</a> </h2>
+<p>Primitive comparisons work just as you expect.</p>
+<p><code>2 == 2</code> returns <code>true</code>, because 2 is 2. JavaScript is comparing the value of the data. It doesn’t care about the memory address or location of where its stored.</p>
+<p>Objects are references, memory addresses of where an object is saved. When you save an Object, Javascript is not looking at the values between the curly brackets, it’s actually saving a reference so it can refer to the value.</p>
+<p>So although the value might appear the same, JavaScript is actually looking at the memory address which is different.</p>
+<p>So remember, when you’re comparing objects you’re actually comparing 2 memory addresses.</p>
+<h2 id="code-example-1">Code example 1&nbsp;<a class="heading-anchor" href="#code-example-1" aria-label="Anchor">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">myPrimitive</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myObject</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;harry&#39;</span><span class="p">};</span>
+</code></pre></div><p>Let’s try and understand what’s going on in the example above. In line 1, JavaScript creates the variable <code>myPrimitive</code>, then stores the number <code>10</code> as the value inside the variable.</p>
+<p>In line 2, first we’re telling JavaScript creates the variable <code>myObject</code>. Then we tell JavaScript to create a new object with the name property <code>harry</code>. JavaScript creates the new object and gives it a memory address. It’s that memory address thats actually stored inside the <code>myObject</code> variable.</p>
+<p>The diagram below should help illustrate how this works.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1542885381/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-1.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542885381/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-1.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542885381/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-1.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1542885381/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-1.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Understanding how data is stored in objects example 1</figcaption>
+  </figure>
+  
+</div>
+
+<h2 id="code-example-2">Code example 2&nbsp;<a class="heading-anchor" href="#code-example-2" aria-label="Anchor">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">myHouse</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">};</span>
+<span class="nx">myHouse</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
+</code></pre></div><p>In line 1 of the example above, JavaScript starts by creating a variable called <code>myHouse</code>. Then it creates an object which has the color property equal to <code>blue</code>. Once it’s created it’ll have a memory address which is stored inside the variable.</p>
+<p>In line 2, we’re modifying the color property on the <code>myHouse</code> object.</p>
+<p>First JavaScript looks at <code>myHouse</code>, it sees there’s a memory address, so it travels to that memory address and finds the <code>myHouse</code> object. The next thing we’re doing is telling JavaScript to look at the <code>color</code> property. That completes the left hand side of line 2.</p>
+<p>On the right hand side of line 2, we’re telling JavaScript to change the value of the color property on the <code>myHouse</code> object to <code>'red'</code>.</p>
+<p>The diagram below should help illustrate how this works.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1542887659/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-2.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542887659/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-2.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542887659/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-2.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1542887659/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-2.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Understanding how data is stored in objects example 2</figcaption>
+  </figure>
+  
+</div>
+
+<h2 id="code-example-3">Code example 3&nbsp;<a class="heading-anchor" href="#code-example-3" aria-label="Anchor">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">myHouse</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">myHouse</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+<span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
+</code></pre></div><p>Here in line 1, we’re telling JavaScript to create a variable called <code>myHouse</code>. Then we’re creating an object with the color property value of blue. Next JavaScript will create a memory address and store that in the variable.</p>
+<p>In line 2, we’re creating another variable, this time called <code>color</code>, and telling JavaScript to look at the color property on the <code>myHouse</code> object. JavaScript sees the memory address stored in the <code>myHouse</code> variable, travels to the object, and finds the color property. JavaScript then stores the value of the color property; in this case <code>'blue</code>, inside the <code>color</code> variable.</p>
+<p>In line 3, all we’re doing is telling JavaScript to change the value store in the <code>color</code> variable to <code>'red'</code>.</p>
+<p>The diagram below should help illustrate how this works.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1542888475/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-3.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542888475/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-3.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542888475/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-3.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1542888475/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-3.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Understanding how data is stored in objects example 3</figcaption>
+  </figure>
+  
+</div>
+
+<h2 id="code-example-4">Code example 4&nbsp;<a class="heading-anchor" href="#code-example-4" aria-label="Anchor">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">myHouse1</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">myHouse2</span> <span class="o">=</span> <span class="nx">myHouse1</span><span class="p">;</span>
+<span class="nx">myHouse2</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
+</code></pre></div><p>In this example, on the left of line 1 JavaScript creates a variable called <code>myHouse1</code>. On the right side JavaScript creates an object that has the color property blue. JavaScript then saves a memory address pointing to the object inside the variable <code>myHouse1</code>.</p>
+<p>In line 2, we create a new variable called <code>myHouse2</code>, and set the value to the same value stored in the <code>myHouse1</code> variable. In this case; the same memory address which leads to the object created in line 1.</p>
+<p>In line 3, on the left side we’re telling JavaScript to go to the <code>myHouse2</code> variable. In the <code>myHouse2</code> variable JavaScript finds the memory address, follows the memory address to the object associated with that memory address.</p>
+<p>On the right side, we’re telling JavaScript to update the value it finds in the object to <code>red</code>.</p>
+<p>The diagram below should help illustrate how this works.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1542888888/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-4.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542888888/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-4.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542888888/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-4.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1542888888/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-4.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Understanding how data is stored in objects example 4</figcaption>
+  </figure>
+  
+</div>
+
+<h3 id="code-example-5">Code example 5&nbsp;<a class="heading-anchor" href="#code-example-5" aria-label="Anchor">#</a> </h3>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">myHouse1</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">myHouse2</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">};</span>
+<span class="nx">myHouse2</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
+</code></pre></div><p>In this final example, line 1 creates a variable called <code>myHouse1</code>. Then we create an object with the color property <code>‘blue’</code>. Then JavaScript creates a memory address associated with this object and stores it in the variable <code>myHouse1</code>.</p>
+<p>In line 2, we create a new variable called <code>myHouse2</code>. Then we create another object with the color property <code>blue</code>. Javascript then stores a new memory address inside <code>myHouse2</code>. This time leading to the second object.</p>
+<p>We now have 2 objects and 2 memory addresses.</p>
+<p>In line 3, on the left side we’re telling JavaScript to look at the value stored inside <code>myHouse2</code>. In this case that’s the memory address leading to our second object.
+JavaScript follows this memory address and finds the color property <code>blue</code>. In the right side of line 3 we’re telling JavaScript to change the value of this color property to <code>red</code>.</p>
+<p>The diagram below should help illustrate how this works.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1542889069/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-5.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542889069/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-5.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1542889069/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-5.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1542889069/hc/practical-javascript-data-types-comparisons-harry-cresswell-example-5.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Understanding how data is stored in objects example 4</figcaption>
+  </figure>
+  
+</div>
+
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Data Types and Comparisons" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

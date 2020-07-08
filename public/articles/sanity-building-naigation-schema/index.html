@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Building a navigation schema with Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Building a navigation schema with Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="How to create a modular navigation builder. Modular, because you’ll be able to use it to create any number of navigations to use in your website or app.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Building a navigation schema with Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="How to create a modular navigation builder. Modular, because you’ll be able to use it to create any number of navigations to use in your website or app.">
+    <meta property="og:site_name" content="Building a navigation schema with Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/sanity-building-naigation-schema/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/sanity-building-naigation-schema/">
+    <meta property="twitter:title" content="Building a navigation schema with Sanity - Azhar Khan">
+    <meta property="twitter:description" content=" How to create a modular navigation builder. Modular, because you’ll be able to use it to create any number of navigations to use in your website or app. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/sanity-building-naigation-schema/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Building a navigation schema with Sanity</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2020-03-25 06:40:37 &#43;0000 UTC">Wed, Mar 25, 2020</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/sanity" class="p-category">Sanity</a>
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p><a href="https://www.sanity.io/">Sanity</a> is a platform for structured content, built in React. It’s headless, meaning your content is decoupled from whatever front-end you decide to choose.</p>
+<p>Sanity stores your content and compiles it to an API, which you can then query and render on the front-end of your website using <a href="/tags/graphql">GraphQL</a> or Sanity’s own query language GROQ.</p>
+<p>Unlike many monolithic CMS’, Sanity holds no opinions about your content. So, to create content, you first have to build a schema. This means you have to tell Sanity how your content should be structured. This is known as <a href="https://www.sanity.io/docs/content-modelling">Content Modelling</a>.</p>
+<p>Content modeling happens in <a href="https://www.sanity.io/docs/sanity-studio">Sanity Studio</a>, which is basically Sanity’s content management system (CMS). For most projects, you’ll find yourself building a content schema from scratch by writing JSON objects. How your content is structured is very much up to you. You are in full control of the content types — and fields associate with those types — that will appear in the CMS.</p>
+<p>If you’re new to modelling data in Sanity, make sure you read the <a href="https://www.sanity.io/docs/content-modelling">the documentation</a>, it’s detailed and well thought out. For my take on modelling content, read my notes; <a href="/notes/til-02-content-schema-in-sanity/">Content schema in Sanity</a>. This will help you hit the ground running.</p>
+<p>In this article we’ll build a content schema for a modular navigation. Modular, because you’ll be able to use this content type to create any number of navigations, to use in a website or application. In a later article we’ll query the navigation we create, and render it on a Gatsby powered front-end.</p>
+<p>To begin, let’s consider the content schema, so we know what we’re building.</p>
+<h2 id="understanding-the-schema-structure">Understanding the schema structure&nbsp;<a class="heading-anchor" href="#understanding-the-schema-structure" aria-label="Anchor">#</a> </h2>
+<p>Before we jump in, we need to figure out how best to structure our content schema. To figure this out, it makes sense to understand the project requirements. So, what functionality do we want in our navigation?</p>
+<p>We want the ability to:</p>
+<ul>
+<li>Create multiple navigations (e.g. main, footer, etc)</li>
+<li>Add any number of items (links) to each navigation</li>
+<li>Add either internal or external links to navigation items</li>
+</ul>
+<p>In Sanity, the ”document” content type allows you to create repeatable content. Much like a post or a page. This will give us the ability to create multiple navigations.</p>
+<p>That’s our first requirement sorted.</p>
+<p>If we want to add any number of “nav items” to the navigations we create, we could do this by creating an array of links. More on this later.</p>
+<p>For each nav item in the array, we then need a way to set whether or not the link is an internal link or an external link.</p>
+<p>The reason we need to determine the source of the link is because the code in our front-end will be different, depending on the source of the link. We can use Sanity’s built in boolean type (essentially a toggle switch), which provides a simple way to make something <code>true</code> or <code>false</code>. This will allow us to write a condition in the front-end (when we get to it), to render the correct code.</p>
+<p>Now we understand what we’re trying to build, let’s get on and build the schema.</p>
+<h2 id="building-the-schema">Building the schema&nbsp;<a class="heading-anchor" href="#building-the-schema" aria-label="Anchor">#</a> </h2>
+<p>Assuming you have a Sanity project on the go (you can try out <a href="https://www.sanity.io/docs/starters-on-sanity-io-create">a starter project</a> if you haven’t), open your project in your text editor and locate the studio directory.</p>
+<p>Within <code>schemas/documents</code> create a new document type called <code>Navigation.js</code>, or <code>Nav.js</code>, for something short but descriptive.</p>
+<p>Inside this file, we want to export a default object with three key value pairs: a <em>name</em>, a <em>type</em> and a <em>title</em>. Make sure you provide a descriptive name, reflective of the file name. In this case “nav”. This will determine how our API is structured later.</p>
+<p>Next make sure <em>type</em> is set to “document”. This tells Sanity that our navigation is a top level content type, so it will appear in the Studio under Content. Finally, <em>title</em> is the text we will actually see in Sanity Studio. In our case it will say “Navigation.”</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;nav&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Navigation&#34;</span>
+<span class="p">};</span>
+</code></pre></div><p>Now we can head to <code>schema.js</code>, and register our new content type, by importing our document schema and passing it to the builder.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// First, we must import the schema creator
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">createSchema</span> <span class="nx">from</span> <span class="s2">&#34;part:@sanity/base/schema-creator&#34;</span><span class="p">;</span>
+
+<span class="c1">// Then import schema types from any plugins that might expose them
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">schemaTypes</span> <span class="nx">from</span> <span class="s2">&#34;all:part:@sanity/base/schema-type&#34;</span><span class="p">;</span>
+
+<span class="c1">// document schemas
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">post</span> <span class="nx">from</span> <span class="s2">&#34;./documents/post&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">page</span> <span class="nx">from</span> <span class="s2">&#34;./documents/page&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">siteSettings</span> <span class="nx">from</span> <span class="s2">&#34;./documents/siteSettings&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">nav</span> <span class="nx">from</span> <span class="s2">&#34;./documents/nav&#34;</span><span class="p">;</span>
+
+<span class="c1">// Object types
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">bodyPortableText</span> <span class="nx">from</span> <span class="s2">&#34;./objects/bodyPortableText&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">bioPortableText</span> <span class="nx">from</span> <span class="s2">&#34;./objects/bioPortableText&#34;</span><span class="p">;</span>
+
+<span class="c1">// Then we give our schema to the builder and provide the result to Sanity
+</span><span class="c1"></span><span class="kr">export</span> <span class="k">default</span> <span class="nx">createSchema</span><span class="p">({</span>
+  <span class="c1">// We name our schema
+</span><span class="c1"></span>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span>
+  <span class="c1">// Then proceed to concatenate our our document type
+</span><span class="c1"></span>  <span class="c1">// to the ones provided by any plugins that are installed
+</span><span class="c1"></span>  <span class="nx">types</span><span class="o">:</span> <span class="nx">schemaTypes</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span>
+    <span class="c1">// The following are document types which will appear
+</span><span class="c1"></span>    <span class="c1">// in the studio.
+</span><span class="c1"></span>    <span class="nx">siteSettings</span><span class="p">,</span>
+    <span class="nx">page</span><span class="p">,</span>
+    <span class="nx">post</span><span class="p">,</span>
+    <span class="nx">nav</span>
+
+    <span class="c1">// When added to this list, object types can be used as
+</span><span class="c1"></span>    <span class="c1">// { type: &#39;typename&#39; } in other document schemas
+</span><span class="c1"></span>  <span class="p">])</span>
+<span class="p">});</span>
+</code></pre></div><p>When you save the file with the development server running, Sanity Studio will refresh in the browser and you should now see “Navigation” listed under the Content panel.</p>
+<p>Right now, our content type isn&rsquo;t much use. We need some fields, so we can give the navigations we create a <code>title</code> and <code>id</code>. The <em>title</em> is for our own reference, so we can easily identify the navigations we build. We’ll use the <em>id</em> when we query the data in the front-end.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;nav&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Navigation&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Title&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;id&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Id&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div><p>Now we have an input field in Sanity Studio to provide a <em>title</em> and an <em>id</em> for a navigation. But we still need a way to add our nav item links.</p>
+<p>If we give it some thought, a nav item is essentially another very simple object type with a few fields. One field for <code>text</code> — what our nav item says — and another field for a <code>link</code> — the source of the content.</p>
+<p>Don’t forget, we also need a boolean switch. This will give our friends managing content an easy way to specify whether the link is linking to an internal page, or to a page somewhere else on the web.</p>
+<p>Now create a new schema inside <code>schemas/objects</code> called <code>navItem.js</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItem&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;NavItem&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Text&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItemUrl&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;link&#34;</span><span class="p">,</span> <span class="c1">// references link object
+</span><span class="c1"></span>      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Nav Item URL&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div><p>Let’s break down what’s going on here.</p>
+<p>We’ve given <em>type</em> the value of <code>object</code>, as this schema will only ever be a reference from a document, in this case our <code>nav.js</code> document. And we’ve set a descriptive <em>name</em>, and <em>title</em> to identify our object in Sanity.</p>
+<p>We’re also adding two fields. The first has the <em>name</em> <code>text</code>. This is a <em>string</em> set to <code>type</code>, which gives us a text input field so we can name each nav item.</p>
+<p>The other has the <em>name</em> <code>navItemUrl</code>, and it has a <em>type</em> of <code>link</code>. I’ve added a comment to make it clear exactly what this is. Link is actually a reference to another object type called <code>link</code>.</p>
+<p>Ok, we’re going all Inception here, but we’ll thank ourselves later. Let’s create this link object now, so we have something to&hellip; um&hellip; link to.</p>
+<p>Create a new file called <code>link.js</code> inside <code>schemas/objects</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;link&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Link&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;externalContent&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Content is from an external source&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;boolean&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;linkUrl&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Link URL&#34;</span><span class="p">,</span>
+      <span class="nx">description</span><span class="o">:</span>
+        <span class="s2">&#34;Use this field to add a link to the source. For external links use full url e.g. ‘https://google.com/’. For internal links use the page path e.g. ‘companies’&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div><p>As you can see, our link object takes care of the boolean (a switch to set whether the link is external or not) via a field named <code>externalContent</code>, which has a <em>type</em> with the value <code>boolean</code>. It also handles the <code>linkUrl</code>, which is the URL our nav item will link to. This can be any link, internal or external.</p>
+<p>Now we could have handled the link complexity directly in our <code>navItem</code> object, but by creating a new link object, we’ve made our schema modular. We can now use our link object in other documents and object types, should be wish to.</p>
+<p>Ok, we’re almost there. All that’s left to do now is to register our new object types in <code>schema.js</code>, and add our new <code>navItem</code> object to our <code>navigation.js</code> document type. Let’s don that now.</p>
+<p>Head back to <code>schema.js</code> and register <code>navItem</code> and <code>link</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// First, we must import the schema creator
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">createSchema</span> <span class="nx">from</span> <span class="s2">&#34;part:@sanity/base/schema-creator&#34;</span><span class="p">;</span>
+
+<span class="c1">// Then import schema types from any plugins that might expose them
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">schemaTypes</span> <span class="nx">from</span> <span class="s2">&#34;all:part:@sanity/base/schema-type&#34;</span><span class="p">;</span>
+
+<span class="c1">// document schemas
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">post</span> <span class="nx">from</span> <span class="s2">&#34;./documents/post&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">page</span> <span class="nx">from</span> <span class="s2">&#34;./documents/page&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">siteSettings</span> <span class="nx">from</span> <span class="s2">&#34;./documents/siteSettings&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">nav</span> <span class="nx">from</span> <span class="s2">&#34;./documents/nav&#34;</span><span class="p">;</span>
+
+<span class="c1">// Object types
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">bodyPortableText</span> <span class="nx">from</span> <span class="s2">&#34;./objects/bodyPortableText&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">bioPortableText</span> <span class="nx">from</span> <span class="s2">&#34;./objects/bioPortableText&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">navItem</span> <span class="nx">from</span> <span class="s2">&#34;./objects/navItem&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">link</span> <span class="nx">from</span> <span class="s2">&#34;./objects/link&#34;</span><span class="p">;</span>
+
+<span class="c1">// Then we give our schema to the builder and provide the result to Sanity
+</span><span class="c1"></span><span class="kr">export</span> <span class="k">default</span> <span class="nx">createSchema</span><span class="p">({</span>
+  <span class="c1">// We name our schema
+</span><span class="c1"></span>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;blog&#34;</span><span class="p">,</span>
+  <span class="c1">// Then proceed to concatenate our our document type
+</span><span class="c1"></span>  <span class="c1">// to the ones provided by any plugins that are installed
+</span><span class="c1"></span>  <span class="nx">types</span><span class="o">:</span> <span class="nx">schemaTypes</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span>
+    <span class="c1">// The following are document types which will appear
+</span><span class="c1"></span>    <span class="c1">// in the studio.
+</span><span class="c1"></span>    <span class="nx">siteSettings</span><span class="p">,</span>
+    <span class="nx">page</span><span class="p">,</span>
+    <span class="nx">post</span><span class="p">,</span>
+    <span class="nx">nav</span><span class="p">,</span>
+    <span class="nx">navItem</span><span class="p">.</span><span class="nx">link</span>
+
+    <span class="c1">// When added to this list, object types can be used as
+</span><span class="c1"></span>    <span class="c1">// { type: &#39;typename&#39; } in other document schemas
+</span><span class="c1"></span>  <span class="p">])</span>
+<span class="p">});</span>
+</code></pre></div><p>Now, inside <code>nav.js</code> we can add a new field for our <code>navItems</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;nav&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Navigation&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Title&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;id&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Id&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItems&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;array&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Navigation items&#34;</span><span class="p">,</span>
+      <span class="k">of</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;navItem&#34;</span> <span class="p">}]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div><p>Notice we’ve given <em>type</em> the value of <code>array</code>, as we want to be able to create what’s essentially a list of nav items.</p>
+<p>Finally we need to use the <code>of</code> keyword to set <em>type</em> to <code>navItem</code>. This is a reference to our <code>navItem.js</code> object type and tells our <code>nav.js</code> object to use it.</p>
+<h2 id="taking-it-further">Taking it further&nbsp;<a class="heading-anchor" href="#taking-it-further" aria-label="Anchor">#</a> </h2>
+<p>Now our navigation schema is set up and usable. But there are a few things we can do to our schema, to help clarify it’s purpose and make it visually identifiable.</p>
+<p>The first is to add an icon to our document type, and the second is to configure the preview. This will change how Sanity renders our document type and navigation items in the studio.</p>
+<h3 id="adding-an-icon">Adding an icon&nbsp;<a class="heading-anchor" href="#adding-an-icon" aria-label="Anchor">#</a> </h3>
+<p>The easiest way to add an icon to a document type in Sanity Studio is by using the NPM package <a href="https://react-icons.netlify.com/#/">React Icons</a>. This will allow you to use SVG icons from many of the most popular icon libraries.</p>
+<p>Inside the root of your Sanity Studio project run <code>yarn add react-icons</code> to add React Icons to your <code>package.json</code>.</p>
+<p>Now you can <a href="https://react-icons.netlify.com/#/">choose the icon you wish to use</a> and import the icon at the top of your component file.</p>
+<p>Make sure to specify the library name and the icon name. For example <code>md</code> from material design and <code>navigation</code> for the icon name.</p>
+<p>In this case we want to import an icon to our <code>nav.js</code> document. Use the key value pair <em>icon</em> and <code>ICON_IMPORT_NAME</code> to render the icon in the Studio.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">Nav</span> <span class="nx">from</span> <span class="s2">&#34;react-icons/lib/md/navigation&#34;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItem&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;NavItem&#34;</span><span class="p">,</span>
+  <span class="nx">icon</span><span class="o">:</span> <span class="nx">Nav</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Text&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItemUrl&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;link&#34;</span><span class="p">,</span> <span class="c1">// references link object
+</span><span class="c1"></span>      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Nav Item URL&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div><p>For more on icons in Sanity read up on <a href="https://www.sanity.io/docs/the-schema/icons-for-data-types">Icons for data types</a>.</p>
+<h3 id="configure-the-preview">Configure the preview&nbsp;<a class="heading-anchor" href="#configure-the-preview" aria-label="Anchor">#</a> </h3>
+<p>A content preview is the representation of a document or object type in Sanity studio. Sanity will try to render the preview by default, based on the fields used in your content type. But you also have the option to customise which fields should be used to generate the preview.</p>
+<p>You can do this using the <code>preview</code> key.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">Nav</span> <span class="nx">from</span> <span class="s2">&#34;react-icons/lib/md/navigation&#34;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItem&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;NavItem&#34;</span><span class="p">,</span>
+  <span class="nx">icon</span><span class="o">:</span> <span class="nx">Nav</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Text&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItemUrl&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;link&#34;</span><span class="p">,</span> <span class="c1">// references link object
+</span><span class="c1"></span>      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Nav Item URL&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nx">preview</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">select</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+      <span class="nx">subtitle</span><span class="o">:</span> <span class="s2">&#34;navItemUrl&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>Back in Sanity, we can see that the title is no longer undefined, but now rendering the value of <code>text</code>. Likewise, the subtitle is rendering the <code>navItemUrl</code>. We follow the same pattern for our navigation document.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;nav&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Navigation&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Title&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;id&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Id&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;navItems&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;array&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Navigation items&#34;</span><span class="p">,</span>
+      <span class="k">of</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;navItem&#34;</span> <span class="p">}]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nx">preview</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">select</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+      <span class="nx">subtitle</span><span class="o">:</span> <span class="s2">&#34;id&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>For more on content previews check out <a href="https://sanity.io/docs/the-schema/previews-list-views">Previews / List Views</a>.</p>
+<h2 id="wrapping-up">Wrapping up&nbsp;<a class="heading-anchor" href="#wrapping-up" aria-label="Anchor">#</a> </h2>
+<p>We now have a schema set up which allows us to build any number of custom navigations in Sanity Studio, and add nav items that allow for both internal and external linking.</p>
+<p>In a follow up article we’ll take a look at building the front-end, and learn how to query our navigation schema, grab the data for a navigation we’ve created and render it on a website. For this part we’ll use <a href="/tags/gatsby">Gatsby</a> and <a href="/tags/graphql">GraphQL</a>.</p>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Building a navigation schema with Sanity" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>
