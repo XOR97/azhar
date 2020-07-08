@@ -1,26 +1,27 @@
 +++
 title = "Things I’ve made"
 date = "2019-02-20T22:30:25Z"
-description = "Things on the internet made by Azhar Khan"
-draft = "false"
+description = "Things on the internet made by Harry Cresswell"
+draft = "true"
 url = "/things/"
 +++
 
-A curated list of projects that I have contributed to or have made during my university days. More of my work can be found out over at my [Github](https://github.com/XOR97) profile.
+[Local London](https://locallondon.life) is a directory of London food & drink suppliers who deliver to your door. I’m working on the project with my friend Rozzy in response to the Covid-19 lockdown, to help support local Londoners and local suppliers.
 
+[Remote Cards](https://remote.cards/) is a fun card generator tool for promoting live streaming events. I built this with my brother [Ben](https://benmclaren.xyz/) during the first week of the Covid-19 lockdown.
 
-[Movie Recommender System](https://github.com/azkh93/Movie-Recommender-System). A recommender system implemented through collaborative filtering using PySpark.
+[Albion Cycling](http://www.albioncycling.com/). A Wordpress build with custom theme, Shopify integration and custom weather app. I designed the site in collaboration with [Luke Harvey](https://lukeharvey.co.uk/). [Read the full case study](/projects/albion/) to find out the process.
 
-[Stock Price Prediction](https://github.com/azkh93/Stock-Price-Prediction). Worked on past stock data extracted from Google finance website and trained a neural network to predict the price for tomorrow of that particular stock.
+[AIN Jobs](https://jobs.angelinvestmentnetwork.co.uk). A Gatsby site which generates it’s content directly from markdown files. Simple as it gets with Gatsby and React.
 
-[Twitter Sentiment Analysis](https://github.com/azkh93/Twitter-Sentiment-Analysis). Real-time streaming sentiment analysis tool built using [Dash](https://plot.ly/products/dash/).
+[In Detail](https://indtl.com/). An engagememnt ring concierge service which started life as a jewellery blog. I co-founded the project back in 2011, with [Beanie Major](http://blake-ldn.com/journal/2016/11/8/blake-woman-beanie-major).
 
-[Spam Classifier](https://github.com/azkh93/Spam-Ham-Classifier). General purpose spam classifier implemented using Naive Bayes probability approach.
+[SeedTribe Hub](https://hub.seedtribe.com/). An Impact focused content site built in React using Gatsby. The data layer makes use of [Sanity](/tags/sanity/), an API based headless CMS. This project is currently a work in progress.
 
-[Packet-Sniffer](https://github.com/azkh93/Packet-Sniffer). A program to get access to the data flowing through your router/ethernet.
+[OPM](https://opm.london/). A simple Hugo site with a Git based CMS. Designed and built for a London based music, sound and visual agency. The site uses Forestry CMS, Cloudinary for media and Netlify for hosting.
 
-[Web Crawler](https://github.com/azkh93/Web-Crawler). A multi-threaded bot written in Python.
+[Type Services](https://typeservices.co/) is a small type foundry I set up in 2017 with a focus on hand drawn type and imperfection in type design.
 
-[Chat Client](https://github.com/azkh93/Chat-Client). A multi-threaded client/server chat application implemented using Java™ Socket programming.
+[Mood](https://mood.harrycresswell.com/) is is a visual aid for creative projects – a moodboard of things I like. None of the content is my own. Built with Hugo, hosted with Netlify.
 
-[Shell Shocker](https://github.com/azkh93/Shell-Shocker). A shell which can access information about any remote server.
+[Dark Sky](https://soundcloud.com/dark-sky) is an electronic music project by Matt Benyayer. Since 2012 we’ve collaborated on artwork for most of Matts releases. You’ll find the music and artwork on [my Soundcloud page](https://soundcloud.com/harrycresswell).

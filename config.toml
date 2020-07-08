@@ -11,21 +11,21 @@ pygmentsCodeFences = true
 # pygmentsCodefencesGuessSyntax = true
 
 [params]
-  keywords = "Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product"
-  description = "Azhar Khan is a professional developer and data engineer from Ottawa, ON. I write articles and notes on Data Engineeering with a little bit of Product Management sprinkled in between."
-  strapline = "Data Engineering, Viz & Product Management"
-  location = "Ottawa, ON"
+  keywords = "Product Design, UX Design, UI Design, Front-end Web Development, Small businesses, Automation, Typography"
+  description = "Harry Cresswell is a professional designer and front-end web developer from London, England. Read technical articles and notes on designing and coding websites."
+  strapline = "Design and front-end web development"
+  location = "London, UK"
 
   # Set Cloudinary URL for image hosting
-  cloudinary_url = "https://res.cloudinary.com/azhar932/image/upload"
-  author = "Azhar Khan"
+  cloudinary_url = "https://res.cloudinary.com/harrycresswell/image/upload"
+  author = "Harry Cresswell"
 
 [author]
-  name = "Azhar Khan"
-  email = "akhan@azharkhan.in"
-  twitter = "https://twitter.com/AzharCan"
-  github = "https://github.com/XOR97"
-  linkedin = "https://www.linkedin.com/in/Azhar93/"
+  name = "Harry Cresswell"
+  email = "studio@harrycresswell.com"
+  twitter = "https://twitter.com/harrycresswell"
+  github = "https://github.com/harrycresswell"
+  linkedin = "https://linkedin.com/in/harrycresswell/"
 
 [taxonomies]
   tag = "tags"
@@ -48,6 +48,11 @@ pygmentsCodeFences = true
 enableEmoji = true
 
 [[menu.main]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 5
+
+[[menu.main]]
   name = "Articles"
   url = "/articles/"
   weight = 10
@@ -62,6 +67,16 @@ enableEmoji = true
   url = "/tags/"
   weight = 20
 
+[[menu.main]]
+  name = "Likes"
+  url = "/likes/"
+  weight = 25
+
+[[menu.footer]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 5
+
 [[menu.footer]]
   name = "Articles"
   url = "/articles/"
@@ -76,3 +91,8 @@ enableEmoji = true
   name = "Tags"
   url = "/tags/"
   weight = 20
+
+[[menu.footer]]
+  name = "Likes"
+  url = "/likes/"
+  weight = 25
