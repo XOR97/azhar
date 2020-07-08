@@ -12,20 +12,20 @@ pygmentsCodeFences = true
 
 [params]
   keywords = "Product Design, UX Design, UI Design, Front-end Web Development, Small businesses, Automation, Typography"
-  description = "Harry Cresswell is a professional designer and front-end web developer from London, England. Read technical articles and notes on designing and coding websites."
-  strapline = "Design and front-end web development"
+  description = "Blog posts on code and design by github.com/XOR97"
+  strapline = "Azhar Khan is an independent data engineer and developer from Ottawa, Canada."
   location = "London, UK"
 
   # Set Cloudinary URL for image hosting
-  cloudinary_url = "https://res.cloudinary.com/harrycresswell/image/upload"
-  author = "Harry Cresswell"
+  cloudinary_url = "https://res.cloudinary.com/azhar932/image/upload"
+  author = "Azhar Khan"
 
 [author]
-  name = "Harry Cresswell"
-  email = "studio@harrycresswell.com"
-  twitter = "https://twitter.com/harrycresswell"
-  github = "https://github.com/harrycresswell"
-  linkedin = "https://linkedin.com/in/harrycresswell/"
+  name = "Azhar Khan"
+  email = "azhar932@icloud.com"
+  twitter = "https://twitter.com/AzhrCan"
+  github = "https://github.com/XOR97"
+  linkedin = "https://www.linkedin.com/in/azhar93/"
 
 [taxonomies]
   tag = "tags"
