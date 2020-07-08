@@ -1,10 +1,12 @@
 ---
-title: "Audentes fortuna iuvat"
+title: "“The more you know, the more you realize you know nothing.”
+— Socrates"
 date: "2016-10-24T17:23:17+01:00"
-description: "Azhar Khan is a professional data engineer & developer from Ottawa, ON. Read technical articles and notes on design and code."
-intro: "Hey, I’m Azhar Khan, a data engineer and developer from Ottawa, ON."
+description: "Data Engineering, Design, Product Management, User Experience, Software Development"
 draft: false
+intro: ""
 ---
+
 {{< pullImage src="v1580172324/M1/maxresdefault_rc9tep.jpg" alt="Azhar Khan – Data & Design" >}}
 
 ## Hi. I’m Azhar.
@@ -25,5 +27,6 @@ When not writing code or building design prototypes, I can be found playing foot
 
 ## Where to go next
 
+You can find out [what I'm up to right now](/now/). Alternatively, take a look at [my CV](pdf/Azhar_CV_20Jun.pdf) to get a bit more idea of my experience and also check out a few [things I’ve made](/things/).
 
 Find me on [Github](https://github.com/XOR97), [Twitter](https://twitter.com/Azhr_K_) and [LinkedIn](https://www.linkedin.com/in/azhar93/) if you have questions.

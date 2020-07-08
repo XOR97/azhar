@@ -26,7 +26,7 @@
     <!-- if featured image exists in file frontmatter, use for open graph data -->
     {{ if isset .Params "feature" }}
     <meta property="og:image" content="{{ .Params.feature }}">
-    <!-- else if no image in frontmatter, and sections are not equal to articles or notes, then display image -->
+    <!-- else if no image in frontmatter, and sections are not equal to articles or notes, then display image --> 
     {{ else if and (ne .Section "articles") (ne .Section "notes") }}
     <meta property="og:image" content="https://res.cloudinary.com/azhar932/image/upload/w_700,dpr_2.0,c_scale,f_auto,q_auto/v1580172324/M1/maxresdefault_rc9tep.jpg">
     {{ end }}
@@ -36,7 +36,7 @@
     <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
     <!-- Disable save to Pintrest button on images -->
     <meta name="pinterest" content="nopin" />
-    <!-- Me -->
+    <!-- Me -->    
     {{ with .Site.Author.name }}<meta name="author" content="{{ . }}">{{ end }}
     <link href="mailto:{{ .Site.Author.email }}" rel="me">
     <link href="{{ .Site.Author.twitter }}" rel="me">
