@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Content schema in Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Content schema in Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="When modelling your data try and think about your content not as ‘pages’ but as content ‘types’ and establish what fields each of those content types will need.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Content schema in Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="When modelling your data try and think about your content not as ‘pages’ but as content ‘types’ and establish what fields each of those content types will need.">
+    <meta property="og:site_name" content="Content schema in Sanity | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/content-schema-in-sanity/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/content-schema-in-sanity/">
+    <meta property="twitter:title" content="Content schema in Sanity - Azhar Khan">
+    <meta property="twitter:description" content=" When modelling your data try and think about your content not as ‘pages’ but as content ‘types’ and establish what fields each of those content types will need. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/content-schema-in-sanity/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+
+    <article id="content" class="Post">
+        <header class="PostHeader">
+            <h1 class="PostHeader-title">Content schema in Sanity</h1>
+        </header>
+        <section class="PostBody">
+          <p>This is the bit where you define your data model, meaning the way you structure your content.</p>
+<p>The Sanity team recommend “you start by modelling your data logically, without thinking too much about how it&rsquo;s going to be presented.”</p>
+<p>When modelling your data try and think about your content not as ‘pages’ but as content ‘types’ and establish what fields each of those content types will need.</p>
+<p>So instead of creating a content type called <code>Homepage</code>, think about the type of content that might exist <em>on</em> your homepage, and potentially elsewhere on your site.</p>
+<p>For example, your homepage might feature latest posts and you might also have a dedicated page for these posts too. In this case it makes sense to create a content type called <code>post</code>.</p>
+<p>Next we need to consider the fields associated with our new content type. Think of these as the data attached to the content type. Things like <code>title</code>, <code>slug</code>, <code>excerpt</code> and <code>publishedAt</code> are fairly typical requirements for a post.</p>
+<p>It’s also worth thinking about the relationships between different data types and modelling your content according to what they mean.</p>
+<p>For example the <code>post</code> content type may also have an author and perhaps a category attached to it. Maybe in the future you decide to add another content type called <code>note</code>, which also requires an author and a category. This is a good reason to create a content type for both <code>author</code> and <code>category</code> and make a reference it from both content types.</p>
+<p>Thinking about your content in this way creates a more flexible data model, as you’re not associating content too tightly to the presentation layer.</p>
+<p>It’s worth reading <a href="https://www.sanity.io/docs/the-schema/donts-and-dos">Dont’s and Dos</a> in the Sanity docs for more on this. Next we’ll put this into practice in a Sanity project.</p>
+<h2 id="understanding-schemajs">Understanding schema.js</h2>
+<p>To begin, fire open <code>schemas/schema.js</code> from inside your Sanity project. The first import you see is the <code>createSchema</code> function which allows us to create a schema.</p>
+<pre><code>import createSchema from 'part:@sanity/base/schema-creator
+</code></pre><p>Next you’ll see <code>schemaTypes</code> which imports any schema types required from plugins. To see what plugins are used head to <code>sanity.json</code>.</p>
+<p>The part we’re most concerned with is the <code>createSchema</code> object. The array inside this object called <code>types</code> is where we define content types.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">createSchema</span><span class="p">({</span>
+  <span class="c1">// We name our schema
+</span><span class="c1"></span>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+  <span class="c1">// Then proceed to concatenate our document type
+</span><span class="c1"></span>  <span class="c1">// to the ones provided by any plugins that are installed
+</span><span class="c1"></span>  <span class="nx">types</span><span class="o">:</span> <span class="nx">schemaTypes</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span>
+    <span class="c1">// The following are document types which will appear
+</span><span class="c1"></span>    <span class="c1">// in the studio.
+</span><span class="c1"></span>    <span class="nx">post</span><span class="p">,</span>
+    <span class="nx">author</span><span class="p">,</span>
+    <span class="nx">category</span><span class="p">,</span>
+    <span class="c1">// When added to this list, object types can be used as
+</span><span class="c1"></span>    <span class="c1">// { type: &#39;typename&#39; } in other document schemas
+</span><span class="c1"></span>    <span class="nx">blockContent</span><span class="p">,</span>
+  <span class="p">]),</span>
+<span class="p">});</span>
+</code></pre></div><p>You can see we have 3 content types <code>post</code>, <code>author</code>, and <code>category</code>. As we started this project using the Blog template these are already defined. If you started with a blank template you won’t see any content types defined.</p>
+<p>Above this block of code you’ll see each content type is stored in an external file and then imported. As our schema grows this will keep our project well organised.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// We import object and document schemas
+</span><span class="c1"></span><span class="kr">import</span> <span class="nx">blockContent</span> <span class="nx">from</span> <span class="s2">&#34;./blockContent&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">category</span> <span class="nx">from</span> <span class="s2">&#34;./category&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">post</span> <span class="nx">from</span> <span class="s2">&#34;./post&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">author</span> <span class="nx">from</span> <span class="s2">&#34;./author&#34;</span><span class="p">;</span>
+</code></pre></div><p>The comment tell us that we are importing both <code>object</code> and <code>document</code> schemas. We’ll get to this next.</p>
+<h2 id="building-a-basic-schema">Building a basic schema</h2>
+<p>Let’s create a new content type for notes. Create a new file <code>schemas/note.js</code> and create a new object. We’ll also need to export the object so we can use it elsewhere.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{};</span>
+</code></pre></div><p>Next we need to name our content type and define what type of content it is. In this case it’s a <code>document</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;note&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div><p>Now we need to import our new content type to the <code>schema.js</code> file and add it to the types array so Sanity can see it.</p>
+<p>Back in <code>schema.js</code> add the following below the <code>author</code> import:</p>
+<p><code>import note from './note</code></p>
+<p>Then we need to update the types array to include the <code>note</code> content type:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">createSchema</span><span class="p">({</span>
+  <span class="c1">// We name our schema
+</span><span class="c1"></span>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+  <span class="c1">// Then proceed to concatenate our document type
+</span><span class="c1"></span>  <span class="c1">// to the ones provided by any plugins that are installed
+</span><span class="c1"></span>  <span class="nx">types</span><span class="o">:</span> <span class="nx">schemaTypes</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span>
+    <span class="c1">// The following are document types which will appear
+</span><span class="c1"></span>    <span class="c1">// in the studio.
+</span><span class="c1"></span>    <span class="nx">post</span><span class="p">,</span>
+    <span class="nx">author</span><span class="p">,</span>
+    <span class="nx">category</span><span class="p">,</span>
+    <span class="nx">note</span><span class="p">,</span>
+    <span class="c1">// When added to this list, object types can be used as
+</span><span class="c1"></span>    <span class="c1">// { type: &#39;typename&#39; } in other document schemas
+</span><span class="c1"></span>    <span class="nx">blockContent</span><span class="p">,</span>
+  <span class="p">]),</span>
+<span class="p">});</span>
+</code></pre></div><p>Now run the studio locally, head to the browser and you’ll notice a few errors. We need a title for our new content type and an array of fields.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;note&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Note&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[],</span>
+<span class="p">};</span>
+</code></pre></div><p>Our notes will need a <code>title</code>, which will be a basic text string type and of course a title so we can identity the field in the studio.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;note&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Note&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Title&#34;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">],</span>
+<span class="p">};</span>
+</code></pre></div><p>Hit save and studio should reload and we can now see our new content type. We can create a new Note and fill in the note Title field.</p>
+<h2 id="referencing-other-document-content-types">Referencing other document content types.</h2>
+<p>Earlier I mentioned creating relationships between content types. The <code>reference</code> type make this possible.</p>
+<p>Inside <code>note.js</code> let’s add a reference that points to the <code>author</code> content type, <code>author</code> should already exist if you started with the Blog template.</p>
+<p>To specific what content type we want author to reference we can use the <code>to</code> field. This takes one rule, that the type is <code>author</code>. Now author will only allow references to the author content type.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;note&#34;</span><span class="p">,</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;document&#34;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Note&#34;</span><span class="p">,</span>
+  <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Title&#34;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;author&#34;</span><span class="p">,</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Author&#34;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;reference&#34;</span><span class="p">,</span>
+      <span class="nx">to</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;author&#34;</span> <span class="p">}],</span>
+    <span class="p">},</span>
+  <span class="p">],</span>
+<span class="p">};</span>
+</code></pre></div><p>Back in Sanity studio we can see a new field titled Author which allows us to select an Author. If you haven’t added an author yet you’ll need to do this in the Author type first.</p>
+<h2 id="further-resources">Further resources</h2>
+<ul>
+<li><a href="https://www.sanity.io/docs/content-studio/the-schema">The Schema</a> from the Sanity Docs</li>
+</ul>
+
+        </section>
+    </article>
+
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Content schema in Sanity" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

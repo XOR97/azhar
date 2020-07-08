@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Responsive images with Cloudinary | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Responsive images with Cloudinary | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Stop committing images to your git repo and use Cloudinary to create automatic responsive images that don’t slow down your build times.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Responsive images with Cloudinary | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Stop committing images to your git repo and use Cloudinary to create automatic responsive images that don’t slow down your build times.">
+    <meta property="og:site_name" content="Responsive images with Cloudinary | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/cloudinary/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/cloudinary/">
+    <meta property="twitter:title" content="Responsive images with Cloudinary - Azhar Khan">
+    <meta property="twitter:description" content=" Stop committing images to your git repo and use Cloudinary to create automatic responsive images that don’t slow down your build times. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/cloudinary/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Responsive images with Cloudinary</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2018-07-23 10:18:59 &#43;0200 &#43;0200">Mon, Jul 23, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/hugo" class="p-category">Hugo</a>
+      
+        <a href="/tags/javascript" class="p-category">Javascript</a>
+      
+        <a href="/tags/api" class="p-category">API</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p class="intro">
+    Responsive images are crucial part of improving website performance. But that doesn’t just mean globally setting images to 100% width, height ‘auto’, then calling it a day.
+</p>
+
+<p>Ideally we want to create multiple versions of each image, sending users the version which best suits their viewing context. If, for example, visitors are using 3G on a mobile device, then we should serve the appropriately scaled images, for the best possible experience.</p>
+<p><a href="https://cloudinary.com/">Cloudinary</a>, a cloud based image solution makes this laborious task somewhat simple, by automatically adapting images for delivery in any context.</p>
+<p>The article presents a problem Cloudinary helps solve, then provides a quickstart guide to help you get set up. This is particularly suited to those working with static or serverless sites, where hosting images directly within a repository can lead to issues down the line.</p>
+<h2 id="the-problem">The Problem&nbsp;<a class="heading-anchor" href="#the-problem" aria-label="Anchor">#</a> </h2>
+<p>When building static sites, in the past I’ve used the <a href="https://www.npmjs.com/package/gulp-responsive">gulp-responsive</a> Gulp task to find the original image in the <code>src</code> folder and auto generate multiple sizes at build time. Perhaps this sounds familiar?</p>
+<p>Using <code>srcset</code> and a Hugo <a href="https://github.com/harrycresswell/harry/blob/master/site/layouts/shortcodes/img.html">shortcode</a>, I can serve up the different sizes when required.</p>
+<p>Flawless workflow, until deployment. Now I’m committing multiple images for every image on my site to my repository. For sites with lots of images this doesn’t really work out. Build times take forever. You get the picture.</p>
+<p>The solution to all this is fairly simple, abstract images assets away from your repo and let a service like Cloudinary take care of your media storage.</p>
+<h2 id="introducing-cloudinary">Introducing Cloudinary&nbsp;<a class="heading-anchor" href="#introducing-cloudinary" aria-label="Anchor">#</a> </h2>
+<p><em>“Cloudinary simplifies responsive images by dynamically adapting image properties — dimensions, crop, format, quality — on-the-fly and delivering the optimal version based on the content and viewing context.”</em></p>
+<p>By adding transformations – custom parameters set in the URL which we’ll look at later – you can customise your image in any number of ways. Think automatic photoshopping in the cloud.</p>
+<p>Using a CDN, Cloudinary delivers media faster based on your visitors location, and now images are out of the repo, build times are back to optimum speeds. Portable also makes total sense. No more syncing your media library when you change environment or make changes down the line.</p>
+<p>The next part will look at getting Cloudinary set up to auto generate responsive images.</p>
+<h2 id="getting-started-with-cloudinary-js-setup">Getting started with Cloudinary: JS setup&nbsp;<a class="heading-anchor" href="#getting-started-with-cloudinary-js-setup" aria-label="Anchor">#</a> </h2>
+<p>There are a few ways to set up Cloudinary but the Javascript option is perhaps the most straight forward.</p>
+<h3 id="step-1-create-an-account-with-cloudinary">Step 1: Create an account with Cloudinary&nbsp;<a class="heading-anchor" href="#step-1-create-an-account-with-cloudinary" aria-label="Anchor">#</a> </h3>
+<p>First, <a href="https://cloudinary.com/users/register/free">Create an Account</a> at Cloudinary.com, then upload a single high-resolution version of any image. Cloudinary with auto generate responsive sizes for you. Pretty cool.</p>
+<h3 id="step-2-include-cloudinary-in-your-project">Step 2: Include Cloudinary in your project&nbsp;<a class="heading-anchor" href="#step-2-include-cloudinary-in-your-project" aria-label="Anchor">#</a> </h3>
+<p>Add Cloudinary to your project by including <code>cloudinary-core-shrinkwrap.js</code> in the footer of your page, right before the closing <code>&lt;body&gt;</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.3.0/cloudinary-core-shrinkwrap.min.js&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="step-3-include-images-with-data-src">Step 3: Include images with data-src&nbsp;<a class="heading-anchor" href="#step-3-include-images-with-data-src" aria-label="Anchor">#</a> </h3>
+<p>Head to your Media Library in Cloudinary and hover over your image thumbnail to reveal the link icon. Click the icon to copy the URL.</p>
+<p>Now we have the URL for an image we can add it to an <code>&lt;img&gt;</code> tag in our HTML using <code>data-src</code>. It’s important you use the <code>data-src</code> attribute and not <code>src</code> as Cloudinary will dynamically create the <code>src</code> images using JavaScript.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">img</span>
+<span class="na">data-src</span><span class="o">=</span><span class="s">&#34;https://res.cloudinary.com/harrycresswell/image/upload/naming-artboards-in-sketch-01.png&#34;</span>
+<span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span>
+<span class="na">class</span><span class="o">=</span><span class="s">&#34;cld-responsive&#34;</span> <span class="p">/&gt;</span>
+</code></pre></div><p>Next we need to add the <code>cld-responsive</code> class to our image, this will allow <code>cloudinary-core-shrinkwrap.js</code> to find the image in our HTML and perform the necessary transformations, which we’ll get into a bit later. Remember you’ll need to do this for all images on your site hosted by Cloudinary.</p>
+<p>The final thing we need to do to get this working is to add the JavaScript call.</p>
+<h3 id="step-4-adding-the-javascript-call">Step 4: Adding the Javascript call&nbsp;<a class="heading-anchor" href="#step-4-adding-the-javascript-call" aria-label="Anchor">#</a> </h3>
+<p>To initialise the Cloudinary instance, call the responsive method in your JavaScript file:</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">cl</span> <span class="o">=</span> <span class="nx">cloudinary</span><span class="p">.</span><span class="nx">Cloudinary</span><span class="p">.</span><span class="k">new</span><span class="p">({</span> <span class="nx">cloud_name</span><span class="o">:</span> <span class="s1">&#39;YOUR_CLOUD_NAME&#39;</span> <span class="p">})</span>
+<span class="nx">cl</span><span class="p">.</span><span class="nx">responsive</span><span class="p">()</span>
+</code></pre></div><p>You can find your <code>YOUR_CLOUD_NAME</code> in your Cloudinary Dashboard under Account Details.</p>
+<p>At this point you should now be seeing you Cloudinary hosted image. But right now Cloudinary is just devilering the image. We still need to set up some image transformations on the URL the make it responsive.</p>
+<h2 id="step-5-responsive-image-transformations">Step 5: Responsive image transformations&nbsp;<a class="heading-anchor" href="#step-5-responsive-image-transformations" aria-label="Anchor">#</a> </h2>
+<p>In the image URL, right after <code>upload/</code>, include <code>w_auto,c_scale</code> this will ensure basic responsive images. Now we have something like this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">img</span>
+<span class="na">data-src</span><span class="o">=</span><span class="s">&#34;https://res.cloudinary.com/harrycresswell/image/upload/w_auto,c_scale/naming-artboards-in-sketch-01.png&#34;</span>
+<span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span>
+<span class="na">class</span><span class="o">=</span><span class="s">&#34;cld-responsive&#34;</span> <span class="p">/&gt;</span>
+</code></pre></div><p>So what’s going on here?</p>
+<p>The <a href="https://cloudinary.com/documentation/responsive_images#automatic_image_width">w_auto</a> transformation will deliver an image automatically scaled to a width that matches the width available in the responsive layout of your site.</p>
+<p><a href="https://cloudinary.com/documentation/image_transformation_reference#crop_parameter">c_scale</a> is the default crop transformation, which will change the size of the image exactly to the given width and height of its container.</p>
+<h2 id="taking-it-further">Taking it further&nbsp;<a class="heading-anchor" href="#taking-it-further" aria-label="Anchor">#</a> </h2>
+<p>There are a number of ways you might want to improve this workflow, such as adding more image transformations, to find out what transformations would work best it’s worth analysis your current image performance.</p>
+<h3 id="running-a-web-speed-test">Running a Web Speed Test&nbsp;<a class="heading-anchor" href="#running-a-web-speed-test" aria-label="Anchor">#</a> </h3>
+<p>Using Cloudinary’s <a href="https://webspeedtest.cloudinary.com/">Web Speed Test</a> we can gather detailed optimisation insights on how changes to image size, format, quality and encoding parameters can improve performance.</p>
+<p>Chances are you could make improvements on your image compression. Cloudinary recommends 2 transformations for this.</p>
+<h3 id="useful-transformations">Useful transformations&nbsp;<a class="heading-anchor" href="#useful-transformations" aria-label="Anchor">#</a> </h3>
+<p>Adding <code>q_auto</code> to the string of transformations in your URL will handle automatic image <a href="https://cloudinary.com/blog/the_holy_grail_of_image_optimization_or_balancing_visual_quality_and_file_size">quality</a>.</p>
+<p>Including <code>f_auto</code> will analyse the image content and select the best <a href="https://cloudinary.com/documentation/image_optimization#how_to_optimize_image_format">format</a> to deliver.</p>
+<p>For optimal image performance on <a href="https://cloudinary.com/blog/how_to_automatically_adapt_website_images_to_retina_and_hidpi_devices">retina</a> displays use <code>dpr_auto</code>.</p>
+<h3 id="using-a-hugo-shortcode">Using a Hugo Shortcode&nbsp;<a class="heading-anchor" href="#using-a-hugo-shortcode" aria-label="Anchor">#</a> </h3>
+<p>If you built your site with Hugo, like this one, you’ll likely want to create a <a href="https://gohugo.io/content-management/shortcodes/">Shortcode</a> so you can easily add Cloudinary hosted images to any Markdown file.</p>
+<p>Inside <code>site/layouts/shortcodes</code>, create a new file to store your shortcode. I named mine <code>cld.html</code> (as in Cloudinary) as it’s nice and short and easy to remember. Inside the HTML file I added the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="p">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="p">=</span><span class="s">&#34;Image&#34;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nx">img</span>
+ <span class="nx">data</span><span class="o">-</span><span class="nx">src</span><span class="p">=</span><span class="s">&#34;{{ .Site.Params.cloudinary_url }}/w_auto,dpr_auto,c_scale,f_auto,q_auto/{{ .Get &#34;</span><span class="nx">src</span><span class="s">&#34; }}&#34;</span>
+ <span class="nx">class</span><span class="p">=</span><span class="s">&#34;cld-responsive&#34;</span> <span class="nx">alt</span><span class="p">=</span><span class="s">&#34;{{ .Get &#34;</span><span class="nx">alt</span><span class="s">&#34; }}&#34;</span><span class="p">&gt;</span>
+ <span class="p">{{</span> <span class="k">if</span> <span class="p">.</span><span class="nx">Get</span> <span class="s">&#34;caption&#34;</span><span class="p">}}</span>
+ <span class="p">&lt;</span><span class="nx">figure</span><span class="p">&gt;</span>
+ <span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+ <span class="p">{{</span> <span class="k">if</span> <span class="p">.</span><span class="nx">Get</span> <span class="s">&#34;caption&#34;</span><span class="p">}}</span>
+ <span class="p">&lt;</span><span class="nx">figcaption</span><span class="p">&gt;{{</span> <span class="p">.</span><span class="nx">Get</span> <span class="s">&#34;caption&#34;</span> <span class="p">}}&lt;</span><span class="o">/</span><span class="nx">figcaption</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="o">/</span><span class="nx">figure</span><span class="p">&gt;</span>
+ <span class="p">{{</span> <span class="nx">end</span> <span class="p">}}</span>
+ <span class="p">&lt;</span><span class="o">/</span><span class="nx">div</span><span class="p">&gt;</span>
+</code></pre></div><p>Inside your <code>config.toml</code> file, add the following line, remembering to updated <code>YOUR_CLOUD_NAME</code> accordingly.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Set Cloudinary URL for image hosting</span><span class="w">
+</span><span class="w"></span>cloudinary_url<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload&#34;</span><span class="w">
+</span></code></pre></div><p>To access your new Shortcode in any markdown file use the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="err">#</span> <span class="nx">Hugo</span> <span class="nx">Shortcode</span> <span class="nx">to</span> <span class="nx">use</span> <span class="nx">in</span> <span class="nx">markdown</span> <span class="nx">files</span>
+<span class="p">{</span> <span class="p">{&lt;</span> <span class="nx">cld</span> <span class="nx">src</span><span class="p">=</span><span class="s">&#34;naming-artboards-in-sketch-organised-albion-03.jpg&#34;</span> <span class="nx">alt</span><span class="p">=</span><span class="s">&#34;&#34;</span> <span class="nx">caption</span><span class="p">=</span><span class="s">&#34;Your Caption&#34;</span> <span class="p">&gt;}</span> <span class="p">}</span>
+</code></pre></div><p>Here <code>src</code> is the last part of your image URL and caption is optional and takes a string of plain text for the image caption.</p>
+<p><em>Note: In the example above I have spaces between the curly brackets to prevent Hugo from rendering the image. You will want to make sure yours are written without spaces</em></p>
+<h3 id="cloudinary-with-forestry-cms">Cloudinary with Forestry CMS&nbsp;<a class="heading-anchor" href="#cloudinary-with-forestry-cms" aria-label="Anchor">#</a> </h3>
+<p>If you’re building a site for a client, you’ve likely considered using a Git based CMS like <a href="https://forestry.io/">Forestry</a>. Forestry is great for content editors who don’t want to mess around with code, instead prefering to use an interface in the browser.</p>
+<p>Unlike a traditional CMS where updates to content are near instantaneous, Forestry needs to re-build your site each time content changes. So for content editors to view their changes quickly, we need to ensure build times are as fast as possible. This is where Cloudinary comes in.</p>
+<p>Cloudinary mitigates the need to store media inside a Git repository – the primary cause of slow build times – by storing your media on their own servers. This makes Cloudinary a great option combined with a Forestry workflow.</p>
+<p>To get Cloudinary and Forestry playing well together you’ll need to change a few settings in your Forestry dashboard.</p>
+<p>Assuming you’ve imported your site to Forestry, you will need to update your website Media configuration which you can find inside Settings on the sidebar:</p>
+<ul>
+<li><strong>Update your Media Storage Provider to Cloudinary</strong></li>
+<li><strong>Add your Cloud Name, API key and API Secret.</strong> You can find these details in your Cloudinary dashboard. Once you’ve added these you should see anything uploaded to cloudinary appear in the Media folder inside Forestry. Likewise when you upload new media via Forestry, it‘ll be hosted by Cloudinary.</li>
+</ul>
+<p>One final thing to note, if you find yourself setting up a Front Matter Template in Forestry, and use the ‘Image/File Upload’ field, you might need to override the public path for front matter fields, to get your images working. You can do this in the Advanced Media Settings under ‘Front Matter Path’. Depending on how you’ve set things up in your layout templates you might want to include any transformations in the URL you provide.</p>
+<p>For more on Forestry head over to the <a href="https://forestry.io/docs/media/cloudinary/">Forestry Docs</a> for more on getting started.</p>
+<h2 id="wrapping-up">Wrapping up&nbsp;<a class="heading-anchor" href="#wrapping-up" aria-label="Anchor">#</a> </h2>
+<p>Responsive images are imperative for both website performance and good user experience. But often the work which goes into making images responsive and not just adaptable or flexible is enough not to bother.</p>
+<p>Cloudinary tackles this pain point with a JavaScript method which provides automatic responsive images along with a simple solution to optimise and edit your images with URL transformations.</p>
+<p>For more on Cloudinary, head over to <a href="https://cloudinary.com/documentation">the docs</a> to see what else is possible. Below you’ll find a list of resources referenced in the configuration above.</p>
+<h2 id="further-reading">Further reading&nbsp;<a class="heading-anchor" href="#further-reading" aria-label="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://cloudinary.com/features/responsive_images">Responsive images</a> on Cloudinary</li>
+<li><a href="https://forestry.io/blog/master-image-delivery-with-cloudinary/">Mastering Image Delivery with Cloudinary</a> by DJ Walker</li>
+<li><a href="https://forestry.io/docs/media/cloudinary/">Cloud Media Storage with Cloudinary</a>, Forestry Docs</li>
+<li><a href="https://cloudinary.com/blog/how_to_automatically_adapt_website_images_to_retina_and_hidpi_devices">Automatically adapt website images to Retina and HiDPI devices</a> by Nadav Soferman</li>
+</ul>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Responsive images with Cloudinary" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

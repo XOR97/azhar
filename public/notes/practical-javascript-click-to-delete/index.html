@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Click to delete | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Click to delete | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Notes taken from module 10 of Practical JavaScript, a free course by Gordon Zhu. In this part we create a way to delete todo items with a todo button.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Click to delete | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Notes taken from module 10 of Practical JavaScript, a free course by Gordon Zhu. In this part we create a way to delete todo items with a todo button.">
+    <meta property="og:site_name" content="Click to delete | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-click-to-delete/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-click-to-delete/">
+    <meta property="twitter:title" content="Click to delete - Azhar Khan">
+    <meta property="twitter:description" content=" Notes taken from module 10 of Practical JavaScript, a free course by Gordon Zhu. In this part we create a way to delete todo items with a todo button. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-click-to-delete/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Click to delete</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Wed, Mar 6, 2019</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>In version 10 of our todo list app we create a way to delete todo items by added a todo button to each todo item. These are my notes from Gordon Zhu’s free course <a href="https://watchandcode.com/p/practical-javascript">Practical JavaScript</a>, which teaches you how to create a todo app in vanilla JavaScript.</p>
+<h2 id="the-return-statement">The &lsquo;return&rsquo; statement&nbsp;<a class="heading-anchor" href="#the-return-statement" aria-label="Anchor">#</a> </h2>
+<p>The return statement allows you to return a value from a function.</p>
+<p>Say, for example, you have a variable which produces the value of 2 and 10. The variable calls a function which multiplies the 2 numbers.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">theProductOf2And10</span> <span class="o">=</span> <span class="nx">multiplyTwoNumbers</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div><p>As <code>multiplyTwoNumbers</code> doesn’t yet exist we will need to create that function. The obvious way to do this is to create a function that takes two values as parameters. Then create a variable that stores the result of the calculation. The calculaton being <code>a * b</code>, using an asterisk to represent multiplication.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">multiplyTwoNumbers</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">theProductOf2And10</span> <span class="o">=</span> <span class="nx">multiplyTwoNumbers</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div><p>What we expect to get from this is the multiplication of 2 and 10, which is 20. But when we run <code>theProductOf2And10</code>, the console returns <code>undefined</code>.</p>
+<p>The reason the value is undefined if because we haven’t returned the value.</p>
+<p>We can easily change this to work the way we want by adding a <code>return</code> statement, which returns the value of our <code>result</code> variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">multiplyTwoNumbers</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">theProductOf2And10</span> <span class="o">=</span> <span class="nx">multiplyTwoNumbers</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div><p>To recap, if you want to return a value from a function, as in this case, you need to <code>return</code> the value you want. If you don’t <code>return</code> the value, the value will be <code>undefined</code>.</p>
+<h2 id="requirements">Requirements&nbsp;<a class="heading-anchor" href="#requirements" aria-label="Anchor">#</a> </h2>
+<p>In version 10 we want to give each todo item a delete button. Instead of having to enter the number of the item in the todos array to delete a todo item, we can then delete an item with a simple click.</p>
+<ul>
+<li>There should be a way to create delete buttons</li>
+<li>There should be a delete button for each todo</li>
+<li>Each li shold have an id that has the todo position</li>
+<li>Delete buttons should have access to the todo id</li>
+<li>Clicking delete should update todoList.todos and the DOM</li>
+</ul>
+<h2 id="there-should-be-a-way-to-create-delete-buttons">There should be a way to create delete buttons&nbsp;<a class="heading-anchor" href="#there-should-be-a-way-to-create-delete-buttons" aria-label="Anchor">#</a> </h2>
+<p>In our JavaScript file, we want to create a new method on our <code>view</code> object. The reason we’re doing this in the <code>view</code> object is because the delete button another DOM element – a visible piece of UI in our application.</p>
+<p>We can call the new method <code>createDeleteButton</code>, and set it to an empty function.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">createDeleteButton</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>Next we want to have a variable called <code>deleteButton</code>, which is returned by the function.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">createDeleteButton</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteButton</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">deleteButton</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>This helps us get the structure for how this function will work – create a button, then return the button. Later we’ll use this method inside <code>displayTodos</code> to create buttons for us.</p>
+<p>Now we can set the variable to create a button element.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">createDeleteButton</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">deleteButton</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Next we need to give the button some text content, so we know what it is. We can use the <code>textContent</code> property and set it to ‘delete’.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">createDeleteButton</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+  <span class="nx">deleteButton</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;delete&#39;</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">deleteButton</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Next we’ll need a way to access these different delete button elements. We can use a class in this case, as unlike <code>id</code>, which will only work for unqiue elements, classes can be reused. This is important as we will need a delete button for every item in our todo list. We can use the <code>className</code> property to identify the elements.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">createDeleteButton</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+  <span class="nx">deleteButton</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;Delete&#39;</span><span class="p">;</span>
+  <span class="nx">dleteButton</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">deleteButton</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="ther-should-be-a-delete-button-for-each-todo">Ther should be a delete button for each todo&nbsp;<a class="heading-anchor" href="#ther-should-be-a-delete-button-for-each-todo" aria-label="Anchor">#</a> </h2>
+<p>The next requirement is to get the delete button to show up for each todo item.</p>
+<p>We can do this by appending our createDeleteButton function to the <code>li</code> element that contains the todo item.</p>
+<p>Inside the <code>displayTodos</code> method, go to the second to last line and create a new line. That should look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoTextWithCompletion</span><span class="p">;</span>
+
+<span class="nx">todosUl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+</code></pre></div><p>Now we can use the <code>appendChild</code> property on <code>todoLi</code>, so we can add the button element.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoTextWithCompletion</span><span class="p">;</span>
+<span class="nx">todoLi</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">()</span>
+<span class="nx">todosUl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+</code></pre></div><p>As <code>createDeleteButton</code> is available on the same object, we can use <code>this</code> to access it. Now when the method runs it will return a delete button, and append it to the todo <code>li</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoTextWithCompletion</span><span class="p">;</span>
+<span class="nx">todoLi</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">createDeleteButton</span><span class="p">());</span>
+<span class="nx">todosUl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+</code></pre></div><p>Now we can head to our app and add a few items to see if the code worked.
+You should see a delete button appear for every item you add. Right now the delete buttons dont’t work when you click them, we’ll get to that next.</p>
+<h2 id="each-li-should-have-an-id-that-has-the-todo-position">Each li should have an id that has the todo position&nbsp;<a class="heading-anchor" href="#each-li-should-have-an-id-that-has-the-todo-position" aria-label="Anchor">#</a> </h2>
+<p>Now we have a delete button, we’re no longer able to tell the app the position of the item in the array which we want to delete. So now we need a way to give each todo item a unique reference.</p>
+<p>This reference will represent the items postion in the array and we can use it later to grab the position of the item we want to delete. The easiest way to make this happen is using an <code>id</code>.</p>
+<p>For example, the first item should have an <code>id</code> of 1, the second an <code>id</code> of 2 and so on.</p>
+<p>We can do this in a single line of code. Right above the last section of code, grab <code>todoLi</code> and set its <code>id</code> property to <code>i</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todoLi</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="nx">todoLi</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">todoTextWithCompletion</span><span class="p">;</span>
+<span class="nx">todoLi</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">createDeleteButton</span><span class="p">());</span>
+<span class="nx">todosUl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">todoLi</span><span class="p">);</span>
+</code></pre></div><p>This works because our <code>for</code> loop iterates over every item in our todos, so <code>i</code> is equal to each position in the array. And we can use it to set the <code>id</code> to the postion.</p>
+<p>We’re using an <code>id</code> in this case as we need a unqiue identifier. There should only every be one <code>id</code> value for each postion. For example there should only be one 1, one 2, one 3 and so on.</p>
+<p>To see how this works, in the app add 3 new items, then Inspect the elements console and see the <code>id</code>’s attached to each of your <code>li</code>’s.</p>
+<p>Now when delete is clicks we have a way to reference the particular item we want to delete.</p>
+<h2 id="delete-buttons-should-have-access-to-the-todo-id">Delete buttons should have access to the todo id&nbsp;<a class="heading-anchor" href="#delete-buttons-should-have-access-to-the-todo-id" aria-label="Anchor">#</a> </h2>
+<p>Delete buttons should have access to the todo <code>id</code> so it knows which todo in the array to delete.</p>
+<p>The first thought might be to add events listeners to each of the delete buttons however this can cause memory problems if there are too many event listeners.</p>
+<p>A better way is to use a single event listener. To conceptulise this let’s add 3 items to our todo list. Inspect Element on those items and notice  that all the <code>li</code>’s are contained in a single unordered list (<code>ul</code>).</p>
+<p>Here, instead of adding several event listeners on the delete buttons, we can add a single event listener on the unordered list. This is because if we you click anything inside the <code>ul</code>, the event listener will know about it. We can handle the events from the parent element, and listen for when a delete button inside the unordered list is clicked.</p>
+<p>Back in our code we can start by saving a reference to the unordered list using <code>document.querySelector</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+</code></pre></div><p>From here we want to add an event listener to the <code>ul</code> which listens for <code>click</code> events. Then run a callback function as we want to do something when the click happens</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="p">});</span>
+</code></pre></div><p>To recap from the functions inside of functions module, this new function which happens after the click event is the callback function. Whereas <code>addEventListener</code> is the higher order function. It’s the function which takes other functions. And <code>addEventListener</code> will run this function for us, whenever a click event happens on the <code>todosUl</code> element.</p>
+<p>What’s most important is that when it runs the function, it will pass in an event. To get access to that event we need to add it as a parameter.</p>
+<p>Finally, we can log out the event to the console using <code>console.log</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div><p>Now let’s add an item to the todo list, then click the delete button on the item to see if the event is logged to the console.</p>
+<p>You should now see a <code>MouseEvent</code> object logged to the console, which includes several properties. We can ignore most of these for now as we’re only interested in the <code>target</code> property. <code>target</code> tells us which element we actually clicked on, in this case <code>button.deleteButton</code>.</p>
+<p>From here we need to access the <code>id</code>, but they are attached to the <code>li</code> element. We can access the <code>li</code> from the delete button by using the <code>parentNode</code> property, as delete button is a child element of the <code>li</code> parent.</p>
+<p>If you expand the <code>target</code> property you can see the <code>parentNode</code> property. Notice it has a value of <code>li#0</code>. This is the <code>li</code> followed by the corresponding <code>id</code> value, where the <code>#</code> symbol represents <code>id</code>. This is how we can access the <code>id</code> of the item that was clicked on.</p>
+<p>With this information, we can think about our code like this:</p>
+<ul>
+<li>get the <code>event</code></li>
+<li>get the <code>target</code> (which will be the delete button)</li>
+<li>go up one level with <code>parentNode</code>, (this gets the list item that the button is inside of)</li>
+<li>then get the <code>id</code> which is on the <code>parentNode</code></li>
+</ul>
+<p>In our code that looks like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div><p>Now when we add an item, hit delete then notice the code logged to the console, we get the value of the <code>id</code>. In this case <code>0</code>.</p>
+<p>To go over our code, when someone clicks the delete button, <code>addEventListener</code> will run our callback function and pass in the <code>event</code> object. When you log out the <code>event</code> object, <code>target</code> is the element clicked on, in this case the delete button, <code>parentNode</code> takes you one level up to the <code>li</code> element, and <code>id</code> grabs the <code>id</code> value on that parent element, which is exactly what we need to delete a specific item.</p>
+<h2 id="clicking-delete-should-update-todolisttodos-and-the-dom">Clicking delete should update todoList.todos and the DOM&nbsp;<a class="heading-anchor" href="#clicking-delete-should-update-todolisttodos-and-the-dom" aria-label="Anchor">#</a> </h2>
+<p>The last part of this version is to to get the array and the DOM to update when delete is clicked, so that the user can see the correct information.</p>
+<p>Remember we can write comments in our code to understand better what we’d like to do.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div><p>In this case <code>event.target</code> returns <code>button.deleteButton</code>, however any number of things could be clicked, so we need a way to check that it is in fact <code>button.deleteButton</code> which has been clicked on. We can do this with an <code>if</code> statement using the comparison opporator which for the <code>className</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+
+  <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><p>This works as it checks for the class name we added when we create a delete button. So this <code>if</code> statement will only be <code>true</code> if that class exists.</p>
+<p>Finally, we want to run <code>handlers.deleteTodo</code> to actually delete the item clicked, if the statement returns true.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+
+  <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Run handlers.deleteTodo.
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><p>We can also get rid of the <code>console.log</code> statement as this was just for demonstration purposes.</p>
+<p>At this point we need to look back at <code>handlers.deleteTodo</code> because the feature is quite different.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;deleteTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">(</span><span class="nx">deleteTodoPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">);</span>
+  <span class="nx">deleteTodoPositionInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="nx">view</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><p>As you can see above, before, <code>handlers.deleteTodo</code> was trying to get the <code>id</code> on the delete todo input, and pass the position value from that input into <code>todoList.deleteTodo</code>. Now we’re no longer using an input to delete a todo item, we’re using a button on each item instead.</p>
+<p>This means we can get rid of the input field and delete button from our earlier version and remove the associated code. That leaves us with the code below.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">();</span>
+  <span class="nx">view</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><p>Now we’ll need to explicitly pass in a posistion, so that whenever you call <code>deleteTodo</code> on the <code>handlers</code> object you will have to pass in a posistion which it will then take and use to delete the item.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">(</span><span class="nx">position</span><span class="p">);</span>
+  <span class="nx">view</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><p>Now we’ve modified our <code>deleteTodo</code> handler to suit our new code, we want to run <code>handlers.deleteTodo</code> and pass in a position. So back inside our <code>view</code> object, we can visualise that in the comments by adding a <code>posistion</code> paramenter.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+
+  <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Run handlers.deleteTodo(position)
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><p>Now we need to think about how we get the position. The posistion is the <code>id</code> of the <code>li</code> element. Rememeber, on <code>elementClicked</code>, the <code>li</code> is the <code>parentNode</code> of the delete button. Then we just need to get the <code>id</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+
+  <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Run handlers.deleteTodo(position)
+</span><span class="c1"></span>    <span class="nx">elementClicked</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><p>This creates a new problem, <code>elementClicked.parentNode.id</code> is a <em>String</em> but our delete handler needs a <em>number</em>.</p>
+<p>JavaScript has a function to turn strings into numbers called <code>parseInt</code>, for example, if we have a string <code>0</code> <code>parseInt</code> will turn it into the number <code>0</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+
+  <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Run handlers.deleteTodo(position)
+</span><span class="c1"></span>    <span class="nb">parseInt</span><span class="p">(</span><span class="nx">elementClicked</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><p>Now that we have our position value as a number, we can use it as the position parameter inside the <code>handlers.deleteTodo</code> function.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+<span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+  <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Run handlers.deleteTodo(position)
+</span><span class="c1"></span>    <span class="nx">handlers</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">elementClicked</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><p>Now we can go to our app and see how it works. Great, our delete buttons are now removing any items we add.</p>
+<p>Now we can move this code inside the <code>view</code> object to keep our code organised. we’re putting it into <code>view</code> as it’s directly linked to what we see in the interface.</p>
+<p>So at the bottom of the <code>view</code> object, we can create a new method called <code>setUpEventListeners</code> to contain our code. Then cut and paste our new code inside.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">setUpEventListeners</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">todosUL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+  <span class="nx">todosUL</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Get the element that was clicked on.
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">elementClicked</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+    <span class="c1">// Check if elementClicked is a delete button
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">elementCLicked</span><span class="p">.</span><span class="nx">className</span> <span class="o">===</span> <span class="s1">&#39;deleteButton&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Run handlers.deleteTodo(position)
+</span><span class="c1"></span>      <span class="nx">handlers</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">elementClicked</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">));</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div><p>Finally, as this is a method we will need to call the method for it to work. At the very bottom of the file we can add <code>view.setUpEventListeners();</code> which will run all this code for us.</p>
+<p>To recap what we’ve done in the past few lessons, we’ve seen that instead of added an event listener on every delete button, we can add a single event listener to the parent element and listen for clicks there.</p>
+<p>When something is clicked we can look at the <code>event</code> object to figure out the exact element that was clicked. Once we have the element, we can check to see <code>if</code> the element is a delete button, and if it is we can run the <code>handlers.deleteTodo</code> method, which passes in the position taken from the <code>parentNode id</code>. We use <code>parseInt</code> to change the value from a string to a number.</p>
+<p>To make this work we had to update our <code>handlers.deleteTodo</code> method so it no longer references our delete todo input. All it does now is takes a number for the position value and sends that number to the <code>todoList.deleteTodo</code> method which deletes the data. Then <code>view.displayTodos</code> updates the DOM so the correct information is show to the user.</p>
+<h2 id="cleanup-and-review">Cleanup and review&nbsp;<a class="heading-anchor" href="#cleanup-and-review" aria-label="Anchor">#</a> </h2>
+<p>Now we have delete buttons on our todo items, we can go into our HTMl and remove the delete button and input field from the interface.</p>
+<p>The lines to remove:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.deleteTodo()&#34;</span><span class="p">&gt;</span>Delete<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;deleteTodoPositionInput&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;number&#34;</span><span class="p">&gt;</span>
+ <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><p>Now we can go back through our JavaScript and do a quick review.</p>
+<p>In the first part of version 10 we focused on a function which creates delete buttons. We used the <code>return</code> statment and did a few other things:</p>
+<ul>
+<li>Create a delete button</li>
+<li>added text text</li>
+<li>added a class name</li>
+<li>returned delete button</li>
+</ul>
+<p>Then we used that method to appead the delete button to the todo <code>li</code>.</p>
+<p>The second part we focused on setting up a single event listener on our <code>ul</code>. We listened for all clicks on the <code>ul</code> and used the <code>event</code> object to work out which item was clicked. If the item clicked was a delete button, only then do you delete the item.</p>
+<p>This pattern is called Event Delegation. This is because it’s listening for events on a single item, then any items inside of that delegate the event handling to the parent element. This is a common JavaScript pattern used for list items, where each item in the list has the same event listeners. So instead of added them to each item in the list you can add one single event listener to the parent element.</p>
+<p>DOM event delegation is a mechanism of responding to ui-events via a single common parent rather than each child.</p>
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Click to delete" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

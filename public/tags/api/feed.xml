@@ -8,10 +8,489 @@
     <language>en</language>
     <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
     <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
-    <lastBuildDate>Thu, 05 Apr 2018 09:49:36 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 27 Jul 2018 09:24:22 +0100</lastBuildDate>
     
         <atom:link href="https://azharkhan.in/tags/api/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+      
+      <item>
+        <title>Static search with Algolia and Hugo 2</title>
+        <link>https://azharkhan.in/articles/hugo-algolia-2/</link>
+        <pubDate>Fri, 27 Jul 2018 09:24:22 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/hugo-algolia-2/</guid>
+        <description>&lt;p class=&#34;intro&#34;&gt;
+    This is Part 2 in a short series on getting started with Algolia search on a site built with Hugo, the static site generator.
+&lt;/p&gt;
+
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;In &lt;a href=&#34;https://harrycresswell.com/articles/hugo-algolia/&#34;&gt;Part 1&lt;/a&gt; we configured Algolia’s search API to index content from a Hugo site and provide instantaneous search results, whenever a search takes place.&lt;/p&gt;
+&lt;p&gt;In this part we’ll implement &lt;a href=&#34;https://community.algolia.com/instantsearch.js/&#34;&gt;Algolia Instantsearch.js&lt;/a&gt;, a framework of prepackaged widgets which will help us design the perfect search experience.&lt;/p&gt;
+&lt;p&gt;By the end of the article visitors to our site will be able to interface with the search, searching and filtering content at near instantaneous speeds.&lt;/p&gt;
+&lt;h2 id=&#34;what-weve-done-so-far&#34;&gt;What we’ve done so far&lt;/h2&gt;
+&lt;p&gt;So far we configured Hugo to generate a JSON index of our content and update the index in Algolia every time we add a new post to our site. We then used a Serverless Webtask function to update the content on our site.&lt;/p&gt;
+&lt;p&gt;A lot to chew, but if you’re still with me then now’s the time to add the actual interface to our website, so visitors can search our posts.&lt;/p&gt;
+&lt;p&gt;So how do we make this good stuff happen?&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Install Algolia InstantSearch JavaScript library&lt;/li&gt;
+&lt;li&gt;Display content from our JSON index (Hits in Algolia talk)&lt;/li&gt;
+&lt;li&gt;Add a search bar to allow for searches&lt;/li&gt;
+&lt;li&gt;Set up post filtering by tag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With that, let’s get right to it.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-installing-instantsearchjs&#34;&gt;Step 1: Installing InstantSearch.js&lt;/h2&gt;
+&lt;p&gt;In the head of your Hugo site add the Algolia stylesheet and default theme:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;link&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text/css&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.1/dist/instantsearch.min.css&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;link&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text/css&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.1/dist/instantsearch-theme-algolia.min.css&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will deliver the necessary styles from the &lt;a href=&#34;https://www.jsdelivr.com/&#34;&gt;jsDeliver&lt;/a&gt; CDN.&lt;/p&gt;
+&lt;p&gt;Next, add the following JS before the closing body tag:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Great, now we have access to the &lt;code&gt;instantsearch&lt;/code&gt; function&lt;/p&gt;
+&lt;h2 id=&#34;initialization&#34;&gt;Initialization&lt;/h2&gt;
+&lt;p&gt;To initialize InstantSearch.js, you need an Algolia account with a configured and non-empty index.&lt;/p&gt;
+&lt;p&gt;Get hold of your &lt;code&gt;appID&lt;/code&gt;, Search-Only &lt;code&gt;APIkey&lt;/code&gt; and &lt;code&gt;indexName&lt;/code&gt;. You can find these in your Algolia dashboard.&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;app.js&lt;/code&gt; or wherever you store your pre compiled Javascript add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Set Algolia options
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;appId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;YOUR_APP_ID&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;apiKey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;indexName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;YOUR_INDEX_NAME&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;hitsPerPage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;routing&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// Parse options to instantsearch
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;search&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;instantsearch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Making sure you replace all instances of &lt;code&gt;YOUR_...&lt;/code&gt; as you go.&lt;/p&gt;
+&lt;p&gt;Awesome! Your Hugo site is now connected to Algolia.&lt;/p&gt;
+&lt;h2 id=&#34;step-2-display-index-hits-search-results&#34;&gt;Step 2: Display index hits (Search results)&lt;/h2&gt;
+&lt;p&gt;Now we need to display our search results and bring this beast to life. Using the hit widget we can display all the results returned by Algolia.&lt;/p&gt;
+&lt;p&gt;Creating a container with an id &lt;code&gt;hits&lt;/code&gt; will tell Algolia where to display your hits.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hits&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- Hits widget will appear here --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In my site I put this in my &lt;code&gt;list.html&lt;/code&gt; template inside &lt;code&gt;layouts/_default/&lt;/code&gt; but yours might be different, depending on your theme structure.&lt;/p&gt;
+&lt;p&gt;Now you’ll need to add your hits widget to your instantsearch instance, using &lt;code&gt;addWidget&lt;/code&gt;. So open up your JS file and add:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// initialize hits widget
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;search&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addWidget&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;instantsearch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;widgets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hits&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// define container
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;#hits&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// add classes for styling
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;cssClasses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Search-hits&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;empty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Search-hits--empty&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;templates&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;c1&#34;&gt;// call custom hit template
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;nx&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hitTemplate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;empty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Didn’t find any results for the search  &amp;lt;em&amp;gt;&amp;#34;{{query}}&amp;#34;&amp;lt;/em&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice I’ve specified the variable &lt;code&gt;hitTemplate&lt;/code&gt; for my template item. Setting up this will allow me to parse a &lt;a href=&#34;https://community.algolia.com/instantsearch.js/v1/documentation/&#34;&gt;Mustache&lt;/a&gt; template string and some HTML to customise the view of the hit. Let’s create that variable now.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// create variable for custom hit template
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hitTemplate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
+  &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;a href=&amp;#34;{{ permalink }}&amp;#34; class=&amp;#34;List-item&amp;#34;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+  &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;div class=&amp;#34;List-image&amp;#34;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+  &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;img src=&amp;#34;https://res.cloudinary.com/harrycresswell/image/upload/w_auto,dpr_auto,c_scale/{{{featuredimage}}}&amp;#34; /&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+  &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;/div&amp;gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+  &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;div class=&amp;#34;List-title&amp;#34;&amp;gt;{{{_highlightResult.title.value}}}&amp;lt;/div&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+  &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;/a&amp;gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+  &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;div class=&amp;#34;List-summary&amp;#34;&amp;gt;{{{summary}}}&amp;lt;/div&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A few things to notice here; values pulled from the Algolia index should be wrapped in 3 curly braces, this prevents conflicts with Hugo templating, as seen in &lt;code&gt;permalink&lt;/code&gt; which is wrapped in 2 braces.&lt;/p&gt;
+&lt;p&gt;Using the &lt;code&gt;_highlightResult&lt;/code&gt; attribute will, by default, add &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; tags to your search results to give feedback on any matching results.&lt;/p&gt;
+&lt;p&gt;My particular template pulls in a featured image, which I specified in the post front matter. You’ll notice I’m using &lt;a href=&#34;https://cloudinary.com/&#34;&gt;Cloudinary&lt;/a&gt; to host my images. By abstracting images away from the repo, build times remain super fast, as now there are no images to process. I’ve added options in the URL for retina and responsive sizing. I cover a lot of these features in &lt;a href=&#34;articles/cloudinary/&#34;&gt;resposives images with Cloudinary&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;step-3-configure-hits-in-algolia&#34;&gt;Step 3: Configure hits in Algolia&lt;/h2&gt;
+&lt;p&gt;For this part you need to head back to your Algolia Dashboard to set searchable Attributes:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Indices &amp;gt; Ranking &amp;gt; Searchable Attributes &amp;gt; Add a Searchable Attribute&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;This will tell Algolia what you want it to pick up in search results. In my case I kept it simple and stuck with &lt;code&gt;title&lt;/code&gt; by choosing it from the dropdown list.&lt;/p&gt;
+&lt;p&gt;Great, title searches should now be configured.&lt;/p&gt;
+&lt;h2 id=&#34;step-4-add-a-search-bar-and-algolia-logo&#34;&gt;Step 4: Add a Search bar (..and Algolia logo)&lt;/h2&gt;
+&lt;p&gt;In order to querying our index we’re going to need a search bar. To do this add the Searchbox widget to your template:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;search-box&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- SearchBox widget will appear here --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Back in your &lt;code&gt;app.js&lt;/code&gt; file, add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Parse options to instantsearch
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;search&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;instantsearch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// initialize SearchBox
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;search&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addWidget&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;instantsearch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;widgets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;searchBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;#search-box&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Search for post&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;reset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;cssClasses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Search-box-container&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Search-box-input&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// make all this stuff happen
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;search&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can search our index and see what matches our query.&lt;/p&gt;
+&lt;h2 id=&#34;step-5-add-a-refinement-list-filtering-by-tag&#34;&gt;Step 5: Add a refinement list (filtering by Tag)&lt;/h2&gt;
+&lt;p&gt;Finally, you might want to provide filters based on the structure of your content. We can do this by adding the refinement list widget and configuring it to work with our tags in Hugo. Let’s start by setting up Hugo so we can assign tags to our posts.&lt;/p&gt;
+&lt;h3 id=&#34;setting-up-tags-in-hugo&#34;&gt;Setting up tags in Hugo&lt;/h3&gt;
+&lt;p&gt;If you have been following from &lt;a href=&#34;articles/hugo-algolia/&#34;&gt;Part 1&lt;/a&gt;, inside your &lt;code&gt;config.toml&lt;/code&gt; file you should have the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;params.algolia&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;vars&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;summary&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;date&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;publishdate&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;expirydate&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;permalink&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;params&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;categories&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It’s important we have &lt;code&gt;tags&lt;/code&gt; set in the Algolia Params.&lt;/p&gt;
+&lt;p&gt;Then within your post front matter, add the following to a few of your posts to make sure everything is set up correctly when you re-index your site:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;k&#34;&gt;tags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- your_first_tag&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- your_second_tag&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;re-indexing-search-and-configuring-algolia&#34;&gt;Re-indexing search and configuring Algolia&lt;/h2&gt;
+&lt;p&gt;Now, from the terminal run &lt;code&gt;npm run build&lt;/code&gt; to rebuild your site, then deploy your site how you normally would.&lt;/p&gt;
+&lt;p&gt;This will trigger your search index to be updated.&lt;/p&gt;
+&lt;p&gt;Next head to &lt;em&gt;Indices &amp;gt; Browse &amp;gt; Preview&lt;/em&gt; in your Algolia Dashboard and providing all went well you should see your new tags listed in your JSON search index.&lt;/p&gt;
+&lt;p&gt;At this point we need to tell Algolia to filter our tags when we set up our refinement list widget in the next step. To do this head to:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Indices &amp;gt; Display &amp;gt; Faceting &amp;gt; Attributes for faceting&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Hit &lt;em&gt;Add an Attribute&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;You should see &lt;code&gt;tags&lt;/code&gt; appear in the dropdown list. Make sure you select them and you’re good to go.&lt;/p&gt;
+&lt;h3 id=&#34;adding-the-refinement-list-widget&#34;&gt;Adding the refinement list widget&lt;/h3&gt;
+&lt;p&gt;The final thing to do is add a refinement list widget so we can filter our results on the font end.&lt;/p&gt;
+&lt;p&gt;Similar to before, add a container with an &lt;code&gt;id=&amp;quot;refinement-list&amp;quot;&lt;/code&gt; to your chosen template:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;refinement-list&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- RefinementList widget will appear here --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is where your refinement list will appear.&lt;/p&gt;
+&lt;p&gt;Just above &lt;code&gt;search.start();&lt;/code&gt; in your &lt;code&gt;app.js&lt;/code&gt; file, add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// initialize RefinementList
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;search&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addWidget&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;instantsearch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;widgets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;refinementList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;#refinement-list&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;attributeName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your tags should now appear on your site and filter your index.&lt;/p&gt;
+&lt;h2 id=&#34;taking-it-further&#34;&gt;Taking it further&lt;/h2&gt;
+&lt;p&gt;This is as far as I’m going with this one but you could now add pagination to your index and a filter reset which clears your search. Check out the &lt;a href=&#34;https://community.algolia.com/instantsearch.js/v2/getting-started.html&#34;&gt;getting started&lt;/a&gt; article for more on this.&lt;/p&gt;
+&lt;h2 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h2&gt;
+&lt;p&gt;Great job. You should now have an InstantSearch results page working with your blog posts on a Hugo static site.&lt;/p&gt;
+&lt;p&gt;Of course you can use InstantSearch with any static site generator, or on any webpage, it doesn’t have to be Hugo. There’s a ton of great resources and tutorials to help you get going on the &lt;a href=&#34;https://community.algolia.com/&#34;&gt;Algolia Community&lt;/a&gt; page .&lt;/p&gt;
+&lt;p&gt;A great place to begin is the &lt;a href=&#34;https://community.algolia.com/instantsearch.js/v2/getting-started.html&#34;&gt;Getting Started with InstantSearch.js&lt;/a&gt; tutorial. I’ll also list some resources I found helpful below.&lt;/p&gt;
+&lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://community.algolia.com/instantsearch.js/v2/getting-started.html&#34;&gt;Getting Started with InstantSearch.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://community.algolia.com/instantsearch.js/v1/documentation/&#34;&gt;Instant Search v1 Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://news.ycombinator.com/item?id=16502918&#34;&gt;Thread on Hacker News&lt;/a&gt; which gave me reason to write this article.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/regisphilibert/benmerde/blob/search/themes/benmerde/src/js/main.js&#34;&gt;Regis Philibert’s Github repo&lt;/a&gt; helped me get my head around &lt;code&gt;hitTemplate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Responsive images with Cloudinary</title>
+        <link>https://azharkhan.in/articles/cloudinary/</link>
+        <pubDate>Mon, 23 Jul 2018 10:18:59 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/cloudinary/</guid>
+        <description>&lt;p class=&#34;intro&#34;&gt;
+    Responsive images are crucial part of improving website performance. But that doesn’t just mean globally setting images to 100% width, height ‘auto’, then calling it a day.
+&lt;/p&gt;
+
+&lt;p&gt;Ideally we want to create multiple versions of each image, sending users the version which best suits their viewing context. If, for example, visitors are using 3G on a mobile device, then we should serve the appropriately scaled images, for the best possible experience.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cloudinary.com/&#34;&gt;Cloudinary&lt;/a&gt;, a cloud based image solution makes this laborious task somewhat simple, by automatically adapting images for delivery in any context.&lt;/p&gt;
+&lt;p&gt;The article presents a problem Cloudinary helps solve, then provides a quickstart guide to help you get set up. This is particularly suited to those working with static or serverless sites, where hosting images directly within a repository can lead to issues down the line.&lt;/p&gt;
+&lt;h2 id=&#34;the-problem&#34;&gt;The Problem&lt;/h2&gt;
+&lt;p&gt;When building static sites, in the past I’ve used the &lt;a href=&#34;https://www.npmjs.com/package/gulp-responsive&#34;&gt;gulp-responsive&lt;/a&gt; Gulp task to find the original image in the &lt;code&gt;src&lt;/code&gt; folder and auto generate multiple sizes at build time. Perhaps this sounds familiar?&lt;/p&gt;
+&lt;p&gt;Using &lt;code&gt;srcset&lt;/code&gt; and a Hugo &lt;a href=&#34;https://github.com/harrycresswell/harry/blob/master/site/layouts/shortcodes/img.html&#34;&gt;shortcode&lt;/a&gt;, I can serve up the different sizes when required.&lt;/p&gt;
+&lt;p&gt;Flawless workflow, until deployment. Now I’m committing multiple images for every image on my site to my repository. For sites with lots of images this doesn’t really work out. Build times take forever. You get the picture.&lt;/p&gt;
+&lt;p&gt;The solution to all this is fairly simple, abstract images assets away from your repo and let a service like Cloudinary take care of your media storage.&lt;/p&gt;
+&lt;h2 id=&#34;introducing-cloudinary&#34;&gt;Introducing Cloudinary&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;“Cloudinary simplifies responsive images by dynamically adapting image properties — dimensions, crop, format, quality — on-the-fly and delivering the optimal version based on the content and viewing context.”&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;By adding transformations – custom parameters set in the URL which we’ll look at later – you can customise your image in any number of ways. Think automatic photoshopping in the cloud.&lt;/p&gt;
+&lt;p&gt;Using a CDN, Cloudinary delivers media faster based on your visitors location, and now images are out of the repo, build times are back to optimum speeds. Portable also makes total sense. No more syncing your media library when you change environment or make changes down the line.&lt;/p&gt;
+&lt;p&gt;The next part will look at getting Cloudinary set up to auto generate responsive images.&lt;/p&gt;
+&lt;h2 id=&#34;getting-started-with-cloudinary-js-setup&#34;&gt;Getting started with Cloudinary: JS setup&lt;/h2&gt;
+&lt;p&gt;There are a few ways to set up Cloudinary but the Javascript option is perhaps the most straight forward.&lt;/p&gt;
+&lt;h3 id=&#34;step-1-create-an-account-with-cloudinary&#34;&gt;Step 1: Create an account with Cloudinary&lt;/h3&gt;
+&lt;p&gt;First, &lt;a href=&#34;https://cloudinary.com/users/register/free&#34;&gt;Create an Account&lt;/a&gt; at Cloudinary.com, then upload a single high-resolution version of any image. Cloudinary with auto generate responsive sizes for you. Pretty cool.&lt;/p&gt;
+&lt;h3 id=&#34;step-2-include-cloudinary-in-your-project&#34;&gt;Step 2: Include Cloudinary in your project&lt;/h3&gt;
+&lt;p&gt;Add Cloudinary to your project by including &lt;code&gt;cloudinary-core-shrinkwrap.js&lt;/code&gt; in the footer of your page, right before the closing &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.3.0/cloudinary-core-shrinkwrap.min.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-3-include-images-with-data-src&#34;&gt;Step 3: Include images with data-src&lt;/h3&gt;
+&lt;p&gt;Head to your Media Library in Cloudinary and hover over your image thumbnail to reveal the link icon. Click the icon to copy the URL.&lt;/p&gt;
+&lt;p&gt;Now we have the URL for an image we can add it to an &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; tag in our HTML using &lt;code&gt;data-src&lt;/code&gt;. It’s important you use the &lt;code&gt;data-src&lt;/code&gt; attribute and not &lt;code&gt;src&lt;/code&gt; as Cloudinary will dynamically create the &lt;code&gt;src&lt;/code&gt; images using JavaScript.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;img&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;data-src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://res.cloudinary.com/harrycresswell/image/upload/naming-artboards-in-sketch-01.png&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;alt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cld-responsive&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next we need to add the &lt;code&gt;cld-responsive&lt;/code&gt; class to our image, this will allow &lt;code&gt;cloudinary-core-shrinkwrap.js&lt;/code&gt; to find the image in our HTML and perform the necessary transformations, which we’ll get into a bit later. Remember you’ll need to do this for all images on your site hosted by Cloudinary.&lt;/p&gt;
+&lt;p&gt;The final thing we need to do to get this working is to add the JavaScript call.&lt;/p&gt;
+&lt;h3 id=&#34;step-4-adding-the-javascript-call&#34;&gt;Step 4: Adding the Javascript call&lt;/h3&gt;
+&lt;p&gt;To initialise the Cloudinary instance, call the responsive method in your JavaScript file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cloudinary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Cloudinary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cloud_name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;YOUR_CLOUD_NAME&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;cl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;responsive&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can find your &lt;code&gt;YOUR_CLOUD_NAME&lt;/code&gt; in your Cloudinary Dashboard under Account Details.&lt;/p&gt;
+&lt;p&gt;At this point you should now be seeing you Cloudinary hosted image. But right now Cloudinary is just devilering the image. We still need to set up some image transformations on the URL the make it responsive.&lt;/p&gt;
+&lt;h2 id=&#34;step-5-responsive-image-transformations&#34;&gt;Step 5: Responsive image transformations&lt;/h2&gt;
+&lt;p&gt;In the image URL, right after &lt;code&gt;upload/&lt;/code&gt;, include &lt;code&gt;w_auto,c_scale&lt;/code&gt; this will ensure basic responsive images. Now we have something like this.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;img&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;data-src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://res.cloudinary.com/harrycresswell/image/upload/w_auto,c_scale/naming-artboards-in-sketch-01.png&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;alt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cld-responsive&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So what’s going on here?&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://cloudinary.com/documentation/responsive_images#automatic_image_width&#34;&gt;w_auto&lt;/a&gt; transformation will deliver an image automatically scaled to a width that matches the width available in the responsive layout of your site.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cloudinary.com/documentation/image_transformation_reference#crop_parameter&#34;&gt;c_scale&lt;/a&gt; is the default crop transformation, which will change the size of the image exactly to the given width and height of its container.&lt;/p&gt;
+&lt;h2 id=&#34;taking-it-further&#34;&gt;Taking it further&lt;/h2&gt;
+&lt;p&gt;There are a number of ways you might want to improve this workflow, such as adding more image transformations, to find out what transformations would work best it’s worth analysis your current image performance.&lt;/p&gt;
+&lt;h3 id=&#34;running-a-web-speed-test&#34;&gt;Running a Web Speed Test&lt;/h3&gt;
+&lt;p&gt;Using Cloudinary’s &lt;a href=&#34;https://webspeedtest.cloudinary.com/&#34;&gt;Web Speed Test&lt;/a&gt; we can gather detailed optimisation insights on how changes to image size, format, quality and encoding parameters can improve performance.&lt;/p&gt;
+&lt;p&gt;Chances are you could make improvements on your image compression. Cloudinary recommends 2 transformations for this.&lt;/p&gt;
+&lt;h3 id=&#34;useful-transformations&#34;&gt;Useful transformations&lt;/h3&gt;
+&lt;p&gt;Adding &lt;code&gt;q_auto&lt;/code&gt; to the string of transformations in your URL will handle automatic image &lt;a href=&#34;https://cloudinary.com/blog/the_holy_grail_of_image_optimization_or_balancing_visual_quality_and_file_size&#34;&gt;quality&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Including &lt;code&gt;f_auto&lt;/code&gt; will analyse the image content and select the best &lt;a href=&#34;https://cloudinary.com/documentation/image_optimization#how_to_optimize_image_format&#34;&gt;format&lt;/a&gt; to deliver.&lt;/p&gt;
+&lt;p&gt;For optimal image performance on &lt;a href=&#34;https://cloudinary.com/blog/how_to_automatically_adapt_website_images_to_retina_and_hidpi_devices&#34;&gt;retina&lt;/a&gt; displays use &lt;code&gt;dpr_auto&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;using-a-hugo-shortcode&#34;&gt;Using a Hugo Shortcode&lt;/h3&gt;
+&lt;p&gt;If you built your site with Hugo, like this one, you’ll likely want to create a &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/&#34;&gt;Shortcode&lt;/a&gt; so you can easily add Cloudinary hosted images to any Markdown file.&lt;/p&gt;
+&lt;p&gt;Inside &lt;code&gt;site/layouts/shortcodes&lt;/code&gt;, create a new file to store your shortcode. I named mine &lt;code&gt;cld.html&lt;/code&gt; (as in Cloudinary) as it’s nice and short and easy to remember. Inside the HTML file I added the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Image&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;img&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{{ .Site.Params.cloudinary_url }}/w_auto,dpr_auto,c_scale,f_auto,q_auto/{{ .Get &amp;#34;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; }}&amp;#34;&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cld-responsive&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;alt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{{ .Get &amp;#34;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alt&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; }}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Get&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;caption&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;figure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Get&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;caption&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;figcaption&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;{{&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Get&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;caption&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&amp;lt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;figcaption&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;figure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Inside your &lt;code&gt;config.toml&lt;/code&gt; file, add the following line, remembering to updated &lt;code&gt;YOUR_CLOUD_NAME&lt;/code&gt; accordingly.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Set Cloudinary URL for image hosting&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;cloudinary_url&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To access your new Shortcode in any markdown file use the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Hugo&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Shortcode&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;use&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;markdown&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;files&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cld&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;naming-artboards-in-sketch-organised-albion-03.jpg&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;alt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;caption&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Your Caption&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;}&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here &lt;code&gt;src&lt;/code&gt; is the last part of your image URL and caption is optional and takes a string of plain text for the image caption.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: In the example above I have spaces between the curly brackets to prevent Hugo from rendering the image. You will want to make sure yours are written without spaces&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;cloudinary-with-forestry-cms&#34;&gt;Cloudinary with Forestry CMS&lt;/h3&gt;
+&lt;p&gt;If you’re building a site for a client, you’ve likely considered using a Git based CMS like &lt;a href=&#34;https://forestry.io/&#34;&gt;Forestry&lt;/a&gt;. Forestry is great for content editors who don’t want to mess around with code, instead prefering to use an interface in the browser.&lt;/p&gt;
+&lt;p&gt;Unlike a traditional CMS where updates to content are near instantaneous, Forestry needs to re-build your site each time content changes. So for content editors to view their changes quickly, we need to ensure build times are as fast as possible. This is where Cloudinary comes in.&lt;/p&gt;
+&lt;p&gt;Cloudinary mitigates the need to store media inside a Git repository – the primary cause of slow build times – by storing your media on their own servers. This makes Cloudinary a great option combined with a Forestry workflow.&lt;/p&gt;
+&lt;p&gt;To get Cloudinary and Forestry playing well together you’ll need to change a few settings in your Forestry dashboard.&lt;/p&gt;
+&lt;p&gt;Assuming you’ve imported your site to Forestry, you will need to update your website Media configuration which you can find inside Settings on the sidebar:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Update your Media Storage Provider to Cloudinary&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Add your Cloud Name, API key and API Secret.&lt;/strong&gt; You can find these details in your Cloudinary dashboard. Once you’ve added these you should see anything uploaded to cloudinary appear in the Media folder inside Forestry. Likewise when you upload new media via Forestry, it‘ll be hosted by Cloudinary.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;One final thing to note, if you find yourself setting up a Front Matter Template in Forestry, and use the ‘Image/File Upload’ field, you might need to override the public path for front matter fields, to get your images working. You can do this in the Advanced Media Settings under ‘Front Matter Path’. Depending on how you’ve set things up in your layout templates you might want to include any transformations in the URL you provide.&lt;/p&gt;
+&lt;p&gt;For more on Forestry head over to the &lt;a href=&#34;https://forestry.io/docs/media/cloudinary/&#34;&gt;Forestry Docs&lt;/a&gt; for more on getting started.&lt;/p&gt;
+&lt;h2 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h2&gt;
+&lt;p&gt;Responsive images are imperative for both website performance and good user experience. But often the work which goes into making images responsive and not just adaptable or flexible is enough not to bother.&lt;/p&gt;
+&lt;p&gt;Cloudinary tackles this pain point with a JavaScript method which provides automatic responsive images along with a simple solution to optimise and edit your images with URL transformations.&lt;/p&gt;
+&lt;p&gt;For more on Cloudinary, head over to &lt;a href=&#34;https://cloudinary.com/documentation&#34;&gt;the docs&lt;/a&gt; to see what else is possible. Below you’ll find a list of resources referenced in the configuration above.&lt;/p&gt;
+&lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloudinary.com/features/responsive_images&#34;&gt;Responsive images&lt;/a&gt; on Cloudinary&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://forestry.io/blog/master-image-delivery-with-cloudinary/&#34;&gt;Mastering Image Delivery with Cloudinary&lt;/a&gt; by DJ Walker&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://forestry.io/docs/media/cloudinary/&#34;&gt;Cloud Media Storage with Cloudinary&lt;/a&gt;, Forestry Docs&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloudinary.com/blog/how_to_automatically_adapt_website_images_to_retina_and_hidpi_devices&#34;&gt;Automatically adapt website images to Retina and HiDPI devices&lt;/a&gt; by Nadav Soferman&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Static search with Algolia and Hugo</title>
+        <link>https://azharkhan.in/articles/hugo-algolia/</link>
+        <pubDate>Fri, 13 Jul 2018 10:15:40 +0200</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/hugo-algolia/</guid>
+        <description>&lt;!-- raw HTML omitted --&gt;
+&lt;p class=&#34;intro&#34;&gt;
+    We’re about to walk through setting up Algolia search on a Hugo static site with a Forestry CMS, so you can search your posts instantaneously and edit content directly from the browser.
+&lt;/p&gt;
+
+&lt;p&gt;This first part is heavily based on &lt;a href=&#34;https://forestry.io/blog/search-with-algolia-in-hugo/#creating-the-json-template&#34;&gt;Chris Macrae’s awesome article on Forestry.io&lt;/a&gt;, with some adaptations to fit my specific needs. In the second article we’ll implement Instantsearch.js on the front end, which aims to pick up where the Chris’s article left off.&lt;/p&gt;
+&lt;h2 id=&#34;whats-algolia&#34;&gt;What’s Algolia?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.algolia.com/&#34;&gt;Algolia&lt;/a&gt; is a search API (SaSS; as in &lt;em&gt;Search&lt;/em&gt; as a Service) which allows you to index data and server it up at lightning speeds.&lt;/p&gt;
+&lt;p&gt;If you’re running a &lt;a href=&#34;https://jamstack.org/&#34;&gt;JAMStack&lt;/a&gt; build – a Hugo static site like this one perhaps – Algolia will allow you to implement rapid fire, instantaneous search, like you’ve seen on &lt;a href=&#34;https://www.smashingmagazine.com/&#34;&gt;Smashing Magazine&lt;/a&gt; and all those JS framework sites (think Vue, Gatsby, React).&lt;/p&gt;
+&lt;p&gt;This stuff isn’t really possible on static sites without using a 3rd party API like Algolia, largely because we don’t have a database to query. But lucky for us Aloglia takes care of all this backend stuff for us.&lt;/p&gt;
+&lt;p&gt;With that said, let’s break down the plan so you know what’s coming up.&lt;/p&gt;
+&lt;h2 id=&#34;what-are-trying-to-do&#34;&gt;What are trying to do?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Send a search index to Algolia when a new post is added (via &lt;a href=&#34;https://forestry.io/&#34;&gt;Forestry&lt;/a&gt; or a &lt;code&gt;git push&lt;/code&gt; from the CLI).&lt;/li&gt;
+&lt;li&gt;Update the search index on our site with a &lt;a href=&#34;https://webtask.io/&#34;&gt;webtask function&lt;/a&gt;, whenever the index is update on Algolia.&lt;/li&gt;
+&lt;li&gt;Build a front end search using Algolia’s &lt;a href=&#34;https://community.algolia.com/instantsearch.js/&#34;&gt;Instantsearch.js&lt;/a&gt; library, so visitors can interface with our content (we’ll do this bit in the second article).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a very basic prototype of what we’re building, &lt;a href=&#34;https://heuristic-hoover-2ec537.netlify.com/&#34;&gt;head over here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I’m assuming you already have a Hugo site set up. If not, I recommend starting out with the &lt;a href=&#34;https://github.com/forestryio-templates/hugo-boilerplate&#34;&gt;Forestry’s Hugo boilerplate&lt;/a&gt;. Here’s &lt;a href=&#34;https://forestry.io/blog/up-and-running-with-hugo/&#34;&gt;a great how-to guide&lt;/a&gt; which will help you get off on the right foot.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-generate-json-search-index&#34;&gt;Step 1: Generate JSON search index&lt;/h2&gt;
+&lt;p&gt;Algolia deals with JSON, so we’ll need set up Hugo to output our content as JSON. We can do this with &lt;a href=&#34;https://gohugo.io/templates/output-formats/&#34;&gt;Custom Output Formats&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Inside your &lt;code&gt;config.toml&lt;/code&gt; file add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;outputFormats.Algolia&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;baseName&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;algolia&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;isPlainText&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;mediaType&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;application/json&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;notAlternative&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;params.algolia&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;vars&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;summary&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;date&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;publishdate&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;expirydate&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;permalink&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;params&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;categories&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You’ll notice we also specified the &lt;code&gt;params&lt;/code&gt; we want Algolia to work with – Categories and Tags.&lt;/p&gt;
+&lt;h2 id=&#34;step-2-build-a-json-template&#34;&gt;Step 2: Build a JSON template&lt;/h2&gt;
+&lt;p&gt;A JSON template will allow Hugo to render the custom JSON output. This will replace the typical &lt;code&gt;_default/list.html&lt;/code&gt; page.&lt;/p&gt;
+&lt;p&gt;Create a new file at &lt;code&gt;layouts/_default/list.algolia.json&lt;/code&gt; and add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* Generates a valid Algolia search index */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hits&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$section&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Site&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetPage&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;section&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Section&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$validVars&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Param&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;algolia.vars&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$validParams&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Param&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;algolia.params&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* Include What Pages? */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* range $i, $hit := .Site.AllPages */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;range&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;where&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;where&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Site&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Pages&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Type&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;in&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;posts&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;IsPage&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$dot&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;IsDescendant&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$section&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Draft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$section&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;IsHome&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* Set the hit&amp;#39;s objectID */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Path&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;objectID&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;UniqueID&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* Store built-in page variables in iterable object */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;content&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Plain&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;date&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;UTC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Unix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Description&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;dir&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Dir&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;expirydate&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ExpiryDate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;UTC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Unix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;fuzzywordcount&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FuzzyWordCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;keywords&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Keywords&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;kind&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Kind&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lang&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Lang&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lastmod&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Lastmod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;UTC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Unix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;permalink&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Permalink&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;publishdate&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PublishDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;readingtime&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ReadingTime&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;relpermalink&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RelPermalink&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;summary&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Summary&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Title&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;URL&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;weight&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Weight&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+	  &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;wordcount&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;WordCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;section&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Section&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* Include valid page vars */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;range&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$param&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Get&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;temp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$validVars&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$key&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$dot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Path&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$key&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$param&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/* Include valid page params */&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;range&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$param&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Params&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$validParams&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$key&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$dot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Path&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$key&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$param&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SetInMap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;hits&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Path&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Get&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$hit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;jsonify&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scratch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetSortedMapValues&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;hits&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we loop through all of content inside of &lt;code&gt;content/posts&lt;/code&gt;. So if, let’s say, your posts folder is called ‘articles’, make sure you update your code to reflect that. Chris’s tutorial loops through all content including pages, so I modified this to serve only post content as I didn’t want to include pages.&lt;/p&gt;
+&lt;h2 id=&#34;step-3-output-the-index&#34;&gt;Step 3: Output the Index&lt;/h2&gt;
+&lt;p&gt;Now we have our custom output layout, variables and page-level params configured, we need to tell Hugo to create the actual JSON index.&lt;/p&gt;
+&lt;p&gt;Back inside your &lt;code&gt;config.toml&lt;/code&gt; file, add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;outputs&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;home&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;=&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;HTML&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;RSS&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Algolia&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This tells Hugo to output the HTML document, the RSS Feed, and an Algolia index for your site’s homepage, which contain our list of content.&lt;/p&gt;
+&lt;p&gt;Build your site with &lt;code&gt;npm run build&lt;/code&gt; and you should now find &lt;code&gt;algolia.json&lt;/code&gt; in the root directory. We can use this to update our index in Algolia.&lt;/p&gt;
+&lt;h2 id=&#34;step-4-create-an-index-in-algolia&#34;&gt;Step 4: Create an index in Algolia&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.algolia.com/users/sign_up&#34;&gt;Create an account&lt;/a&gt; on Algolia and click &lt;em&gt;New Application&lt;/em&gt;. Make sure you choose a memorable application name. Next select the region closest to you. Then you’ll be redirected to the app dashboard.&lt;/p&gt;
+&lt;p&gt;Click the &lt;em&gt;Indices&lt;/em&gt; tab, and choose &lt;em&gt;Add New Index&lt;/em&gt;. Give your new Index a unique name. I used ’hugolia’ for the hell of it, but you can use what you like; your domain name will do.&lt;/p&gt;
+&lt;p&gt;Finally, select the &lt;em&gt;API Keys&lt;/em&gt; tab, and copy your &lt;em&gt;Application ID&lt;/em&gt; and &lt;em&gt;Admin API Key&lt;/em&gt;. We’ll need these later, to update the index.&lt;/p&gt;
+&lt;h2 id=&#34;step-5-send-search-index-to-algolia&#34;&gt;Step 5: Send search index to Algolia&lt;/h2&gt;
+&lt;p&gt;To send our search index to Algolia, we can use &lt;a href=&#34;https://www.npmjs.com/package/atomic-algolia&#34;&gt;atomic-algolia&lt;/a&gt;, an NPM package that does atomic updates to an Algolia index. This will insure our search index is always in-sync with our website’s content.&lt;/p&gt;
+&lt;p&gt;Run &lt;code&gt;npm install atomic-algolia --save&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This installs the atomic-algolia package to our local &lt;code&gt;node_modules&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;Next, open the newly created &lt;code&gt;package.json&lt;/code&gt; file, find &amp;ldquo;scripts&amp;rdquo;, and add the following:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;quot;algolia&amp;quot;: &amp;quot;atomic-algolia&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now create a &lt;code&gt;.env&lt;/code&gt; file at the root of your project to store our environment variables. Add the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;ALGOLIA_APP_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;YOUR_APP_ID&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;ALGOLIA_ADMIN_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;YOUR_ADMIN_KEY&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;ALGOLIA_INDEX_NAME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;YOUR_INDEX_NAME&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;ALGOLIA_INDEX_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{{&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;algolia&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Grab those details from your Algolia Dashboard (See Step 4). If you’re using a different theme the path to your Algolia index file might be in &lt;code&gt;dist/algolia.json&lt;/code&gt;. Others might find the file in their public folder.&lt;/p&gt;
+&lt;p&gt;Now update your index by running:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm run algolia&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If all went well you should now have an index in Algolia synced with the content on your site.&lt;/p&gt;
+&lt;h2 id=&#34;step-6-updating-your-index-with-serverless-functions&#34;&gt;Step 6: Updating your index with serverless functions&lt;/h2&gt;
+&lt;p&gt;Using Forestry’s &lt;a href=&#34;https://github.com/forestryio-templates/serverless-atomic-algolia&#34;&gt;open-source serverless Webtask Function&lt;/a&gt; we can automatically update our Algolia index each time our site is updated. That way we don’t have to run the NPM script above, each time we make changes.&lt;/p&gt;
+&lt;p&gt;To get started, clone the template to your local machine by running:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/forestryio-templates/serverless-atomic-algolia.git
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then install the dependencies:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd serverless-atomic-algolia
+npm install serverless -g &amp;amp;&amp;amp; npm install
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;configuration&#34;&gt;Configuration&lt;/h3&gt;
+&lt;p&gt;Next, set up a Webtasks profile if you don’t already have one. This can be done directly from the command line with:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;serverless config credentials --provider webtasks&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You’ll be asked for an email and you’ll immediately receive a verification code. Enter the verification code and your profile will be ready to use.&lt;/p&gt;
+&lt;p&gt;Next, you’ll need to configure the function with your Indices and Algolia app information.&lt;/p&gt;
+&lt;p&gt;First, copy &lt;code&gt;config/secrets.yml.stub&lt;/code&gt; to &lt;code&gt;config/secrets.yml&lt;/code&gt; and then open it up in your text editor.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;ALGOLIA_APP_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;YOUR_APP_ID&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;ALGOLIA_ADMIN_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;YOUR_ADMIN_KEY&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;DEBOUNCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then, open &lt;code&gt;config/index.js&lt;/code&gt; and update name to the name of your index that you set up earlier, and url to &lt;code&gt;yourdomain.com/algola.json&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;module&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exports&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;indexes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;YOUR_INDEX_NAME&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;PUBLIC_URL_OF_INDEX&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;JSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stringify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;indexes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;deploying-the-function&#34;&gt;Deploying the function&lt;/h3&gt;
+&lt;p&gt;Now deploy the function by running:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;serverless deploy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In the terminal, you should receive an output for the success of your deployment, including the public URL for your new function.&lt;/p&gt;
+&lt;p&gt;We’ll need this URL for when we trigger a web hook when changes are made to the site.&lt;/p&gt;
+&lt;h3 id=&#34;setting-up-a-webhook-in-forestry&#34;&gt;Setting up a Webhook in Forestry&lt;/h3&gt;
+&lt;p&gt;All that’s left to do before we move on to the front end is set up a post-deployment web hook with Forestry. This will trigger the serverless deploy when you make a change.&lt;/p&gt;
+&lt;p&gt;If this is new to you, &lt;a href=&#34;https://forestry.io/&#34;&gt;Forestry&lt;/a&gt; is a lightweight CMS for Jekyll and Hugo sites which is very easy to set up, you just link your Git Repository and you’re good to go.&lt;/p&gt;
+&lt;p&gt;Once your connected to Forestry, find the &lt;em&gt;Settings&lt;/em&gt; page of your site and scroll down to the &lt;em&gt;Webhook URL&lt;/em&gt; setting.&lt;/p&gt;
+&lt;p&gt;Enter the URL you received when deploying your function and click &lt;em&gt;Save Settings&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Now each time Forestry finishes deploying your site, your function will be invoked to update your Algolia index.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: you can still make updates locally and push changes from the CLI, just make sure you do a &lt;code&gt;git pull&lt;/code&gt; so you’re up-to-date with your production site.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;wrapping-up&#34;&gt;Wrapping up&lt;/h2&gt;
+&lt;p&gt;At this point should have a working search index, which watches for any content changes you push to Git then re-indexes Algolia and updates our site.&lt;/p&gt;
+&lt;p&gt;If you need more details on this whole set up, I highly recommend reading &lt;a href=&#34;https://forestry.io/blog/search-with-algolia-in-hugo/?q=&amp;amp;hPP=10&amp;amp;idx=blog&amp;amp;p=0&#34;&gt;Chris’s tutorial on Forestry&lt;/a&gt; which goes into far more depth in certain places I raced through. Props to Chris for explaining in such detail.&lt;/p&gt;
+&lt;p&gt;I wrote this down as much for my own understanding as I hope it has been helpful for your own. This was my first real venture using serverless functions and I’m still wrapping my head around them.&lt;/p&gt;
+&lt;p&gt;With that said, any feedback you might have would be very welcome. &lt;a href=&#34;https://twitter.com/harrycresswell&#34;&gt;Drop me a tweet&lt;/a&gt; or &lt;a href=&#34;https://azharkhan.in/contact/&#34;&gt;send me a message&lt;/a&gt;. I’d be happy to hear from others exploring the world of serverless.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: In &lt;a href=&#34;https://harrycresswell.com/articles/hugo-algolia-2/&#34;&gt;part 2 of this article&lt;/a&gt; we’ll build the front end, so users can interface with our content and see the power of Algolia on a Hugo static site.&lt;/em&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://forestry.io/blog/search-with-algolia-in-hugo/?q=&amp;amp;hPP=10&amp;amp;idx=blog&amp;amp;p=0&#34;&gt;Static site search with Hugo + Algolia&lt;/a&gt; by Chris Macrae&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://code.luasoftware.com/tutorials/algolia/add-algolia-search-to-hugo-static-website/&#34;&gt;Add Algolia Search To Hugo Static Website&lt;/a&gt; by Desmond Lua&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
     
       
       <item>
@@ -107,6 +586,358 @@ hugo new page/contact.html
 &lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.netlify.com/docs/form-handling/&#34;&gt;Netlify Docs: Form Handling&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Send form data to an inbox using Zapier</title>
+        <link>https://azharkhan.in/articles/form-data-with-zapier/</link>
+        <pubDate>Mon, 06 Mar 2017 21:34:41 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/articles/form-data-with-zapier/</guid>
+        <description>&lt;p class=&#34;intro&#34;&gt;
+    Have you ever felt overwhelmed by the amount of code it takes to get a simple contact form working on a website?
+&lt;/p&gt;
+
+&lt;p&gt;Part of the reason I built my site static was because I didn’t want the hassle of having a to deal with a database, a server and PHP. Dealing with all that stuff adds a layer of complexity to a website, particularly when it comes to processing form data, if it’s not a necessity I’d rather avoid it.&lt;/p&gt;
+&lt;p&gt;But where do you even start with processing form data on a static site?&lt;/p&gt;
+&lt;p&gt;At times the options can feel limited, like the only way is to pay for a form provider and embed a form into your site. Whilst there’s nothing wrong with this solution you might want to consider another way, which you have full control over and you don’t have to pay for.&lt;/p&gt;
+&lt;p class=&#34;Message&#34;&gt;
+    
+I now use &lt;a href=&#34;https://azharkhan.in/articles/forms-with-netlify/&#34;&gt;Netlify to handle form submissions&lt;/a&gt; on this site. Saying that, this Zapier solution still works great if you’re not using Netlify.
+
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://azharkhan.in/contact/&#34;&gt;On this site&lt;/a&gt; I’m using &lt;a href=&#34;https://zapier.com/&#34;&gt;Zapier&lt;/a&gt; to collect form data and send it directly to my email. No servers, no database, no PHP. In this article we’ll look at how you can use the same technique to build a simple contact form for your own website, using Webhooks to collect data submitted and automatically send it to you in an email.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;If you’re building a static website with a generator like Jekyll, Hugo, Middleman or even just in vanilla HTML, then this is a great solution to get a form working on your site with minimal fuss.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The good news is it’s pretty simple to implement and it’s free.&lt;/p&gt;
+&lt;h2 id=&#34;why-zapier&#34;&gt;Why Zapier&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://zapier.com/&#34;&gt;Zapier&lt;/a&gt; is an awesome tool which allows you to connect different apps in order to automate tasks. Using an automation tool like Zapier can save you a ton of time and make boring admin tasks a whole lot more fun.&lt;/p&gt;
+&lt;p&gt;Zapier recommends several workflows you can use to integrate different apps, but there’s really no limitation to what you can do with it. Your only limitation is what you can think up, so you can get quite creative with what you do with it.&lt;/p&gt;
+&lt;h3 id=&#34;what-are-webhooks&#34;&gt;What are Webhooks&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://zapier.com/zapbook/webhook/&#34;&gt;Webhooks&lt;/a&gt; are a powerful Zapier feature which collect &lt;code&gt;POST&lt;/code&gt; or &lt;code&gt;JSON&lt;/code&gt; data and send it to a URL. You can then process this data pretty much however you like.&lt;/p&gt;
+&lt;p&gt;If you are a developer then you might be familiar with endpoints. Webhooks are pretty much the same thing. If you have no idea what I’m talking about, don’t worry, it’s really quite straight forward to implement.&lt;/p&gt;
+&lt;h3 id=&#34;why-not-use-a-static-form-provider-instead&#34;&gt;Why not use a static form provider instead&lt;/h3&gt;
+&lt;p&gt;I initially looked into a few different ways to process form data on static sites before deciding to go with Zapier. The main two I looked at were FormKeep and Formspree.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://formkeep.com/&#34;&gt;FormKeep&lt;/a&gt; looks like a great solution, but it’s not cheap. Formkeep might be worth considering for client projects but for a personal website I’d rather keep my costs to a minimum.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://formspree.io/&#34;&gt;Formspree&lt;/a&gt; is another great option. One I really quite like in fact. It’s free and does exactly what we are trying to achieve, it is probably even quicker to implement. Although Formspree and our Zapier method are very similar, in the end I choose to go with Zapier for a couple of reasons:&lt;/p&gt;
+&lt;h3 id=&#34;familiarity&#34;&gt;Familiarity&lt;/h3&gt;
+&lt;p&gt;I kept coming back to Zapier because it’s familiar. I already use Zapier for several other automated sequences in my business — for social media, for my email list and a whole bunch of other stuff. It’s also super quick and easy to set up automation connecting different apps.&lt;/p&gt;
+&lt;h3 id=&#34;flexibility&#34;&gt;Flexibility&lt;/h3&gt;
+&lt;p&gt;Zapier is the most flexible solution.&lt;/p&gt;
+&lt;p&gt;Although the form we’re about to build is a very simple one, if we wanted to add further steps to process our form data, then Zapier makes this easy.&lt;/p&gt;
+&lt;p&gt;Say for example, we wanted to send the data via an email and then afterwards add the form submitter to our mailing list (pretty cool right?). We can do this easily with &lt;a href=&#34;https://zapier.com/learn/getting-started-guide/multi-step-zaps/&#34;&gt;multi-step Zaps&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Then, let’s say, we wanted to send an automated email response, or send a “Getting started with the service” PDF when someone fills out our form. Zapier makes this possible too.&lt;/p&gt;
+&lt;p&gt;With Zapier our form can trigger any series of automated occurrences we want and connect our form up to a variety of different apps.&lt;/p&gt;
+&lt;p&gt;As cool as this stuff is, it’s not something we’ll be covering right now. But hopefully it gives you an idea of the power and possibilities Zapier can bring to a contact form.&lt;/p&gt;
+&lt;h2 id=&#34;building-the-form&#34;&gt;Building the form&lt;/h2&gt;
+&lt;p&gt;We’re almost ready to start building our form, but first lets take a moment to break down what we would like to do. Here are the steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Build a simple HTML form for our static website.&lt;/li&gt;
+&lt;li&gt;Collect the data submitted and store it in a URL using a Zapier Webhook.&lt;/li&gt;
+&lt;li&gt;Use Zapier to automagically send ourselves the data in an email, any time someone submits the form.&lt;/li&gt;
+&lt;li&gt;Finally, redirect the user to a success page after they complete the form.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Before we get started, you might want to &lt;a href=&#34;http://harrycresswell.co.uk/tutorials/zapier-contact/&#34;&gt;jump over here&lt;/a&gt; to see the end result.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-writing-the-html&#34;&gt;Step 1: Writing the HTML&lt;/h2&gt;
+&lt;p&gt;Let’s take a look at the HTML we’re going to use to build the form.&lt;/p&gt;
+&lt;p class=&#34;Message&#34;&gt;
+    If you’d rather skip ahead you can get hold of the source code for this tutorial on &lt;a href=&#34;https://github.com/harrycresswell/zapier-contact-form&#34;&gt;Github&lt;/a&gt;.
+&lt;/p&gt;
+&lt;p&gt;For the purpose of this tutorial our form will have two input fields — one for a name and one for an email address — and a button to submit the data.&lt;/p&gt;
+&lt;p&gt;The end result should look something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;#&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;full-name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your name?&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email-address&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your email address?&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let’s break this down. First make sure you give your form a suitable &lt;code&gt;id&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We’re using &lt;code&gt;id=&amp;quot;myForm&amp;quot;&lt;/code&gt; here to keep things nice and simple. We’ll need this later when we use some Ajax to redirect the page.&lt;/p&gt;
+&lt;p&gt;Next, make sure you add an &lt;code&gt;action&lt;/code&gt; attribute. Leave it blank for now, we will come back to this later.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;#&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally add &lt;code&gt;type=&amp;quot;POST&amp;quot;&lt;/code&gt;. This is our HTTP request which submits the data to Zapier to be processed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;#&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;adding-name-attributes&#34;&gt;Adding name attributes&lt;/h3&gt;
+&lt;p&gt;Remember to assign a &lt;code&gt;name=&amp;quot;&amp;quot;&lt;/code&gt; attribute to all the form elements you want to collect data from &lt;em&gt;(that pretty much means all of them)&lt;/em&gt;. You can name them however you like, but just make sure they are there.&lt;/p&gt;
+&lt;p&gt;Let’s add one for our name input and one for our email input:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;full-name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your name?&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here I’ve used &lt;code&gt;name=&amp;quot;full-name&amp;quot;&lt;/code&gt; and &lt;code&gt;email=&amp;quot;email-address&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email-address&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your email address?&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Zapier will look out for the &lt;code&gt;name=&amp;quot;&amp;quot;&lt;/code&gt; attribute when it tries to grab the values inputed by the user, so it’s important you remember to add them or your form won’t work.&lt;/p&gt;
+&lt;h3 id=&#34;add-a-submit-button&#34;&gt;Add a submit button&lt;/h3&gt;
+&lt;p&gt;Finally we’ll need to add a very basic button, so the user can submit their data. Let’s give our button an &lt;code&gt;id&lt;/code&gt; of &lt;code&gt;Form-submit&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The rest should be fairly obvious — &lt;code&gt;type=&amp;quot;submit&amp;quot;&lt;/code&gt; declares what type of &lt;code&gt;input&lt;/code&gt; we would like to use, and the value declares the text shown on our button. In this case &lt;code&gt;Submit&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: I’ve removed all CSS classes used to style the form for this tutorial, however you would probably want to add some classes to style your form elements otherwise they won’t look all that pretty.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-2-setting-up-zapier-to-collect-the-data&#34;&gt;Step 2: Setting up Zapier to collect the data&lt;/h2&gt;
+&lt;p&gt;If you haven’t already got a Zapier account, then before you do anything else you will need to &lt;a href=&#34;https://zapier.com/&#34;&gt;sign up for a free account&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;create-a-new-zap&#34;&gt;Create a new Zap&lt;/h3&gt;
+&lt;p&gt;Next you will need to make a new Zap. Give your new Zap a name, then search for the &lt;strong&gt;Webhooks by Zapier&lt;/strong&gt; trigger.&lt;/p&gt;
+&lt;div class=&#34;Video&#34;&gt;
+  &lt;video autoplay loop muted=&#34;muted&#34;
+    poster=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.jpg&#34;&gt;
+
+    &lt;source type=&#34;video/mp4&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.mp4&#34;&gt;
+
+    &lt;source type=&#34;video/webm&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.webm&#34;&gt;
+
+    Your browser does not support HTML5 video tag.
+
+    &lt;a href=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.gif&#34;&gt;Click here to view original GIF&lt;/a&gt;
+
+  &lt;/video&gt;
+  
+  &lt;figure&gt;
+  
+  
+    &lt;figcaption&gt;Create a Zap&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;Make sure you select &lt;strong&gt;Catch Hook&lt;/strong&gt;, then hit &lt;strong&gt;save and continue&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;As we want to collect all the data submitted in our form, we’ll leave &lt;strong&gt;Pick off a child key&lt;/strong&gt; blank and then hit &lt;strong&gt;continue&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&#34;Video&#34;&gt;
+  &lt;video autoplay loop muted=&#34;muted&#34;
+    poster=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.jpg&#34;&gt;
+
+    &lt;source type=&#34;video/mp4&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.mp4&#34;&gt;
+
+    &lt;source type=&#34;video/webm&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.webm&#34;&gt;
+
+    Your browser does not support HTML5 video tag.
+
+    &lt;a href=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.gif&#34;&gt;Click here to view original GIF&lt;/a&gt;
+
+  &lt;/video&gt;
+  
+  &lt;figure&gt;
+  
+  
+    &lt;figcaption&gt;Grab your webhook URL&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;Zapier then generates a custom webhook URL. Copy this URL to your clipboard. We will need to add it in our form so that Zapier can store any data submitted.&lt;/p&gt;
+&lt;h3 id=&#34;update-form-with-webhook-url-and-test&#34;&gt;Update form with webhook URL and test&lt;/h3&gt;
+&lt;p&gt;Head back to your form and replace the &lt;strong&gt;#&lt;/strong&gt; symbol in &lt;code&gt;action=&amp;quot;#&amp;quot;&lt;/code&gt; with the Webhook URL Zapier just generated for you.&lt;/p&gt;
+&lt;p&gt;Your form should now look something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://hooks.zapier.com/hooks/catch/1707140/msf6zi/&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;full-name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your name?&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email-address&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your email address?&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we need to test our form to see if it’s working. Fill out your form and hit submit.&lt;/p&gt;
+&lt;p&gt;If all went well your browser window should be redirected to the Zapier Webhook URL. You’ll see a string of data. Something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;attempt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;58b94713-f62a-4f1b-a418-9a4a992774c0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;a0139409-2c05-4adb-a33c-111dd0e3e895&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;request_id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Nx5Ew2eUJxPBY1p5&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let’s head back to Zapier to see if our data was received.&lt;/p&gt;
+&lt;p&gt;Hit &lt;strong&gt;Ok I did this&lt;/strong&gt; to test the connection. You should now see a nice green banner confirming your test was successful. Great job!&lt;/p&gt;
+&lt;div class=&#34;Video&#34;&gt;
+  &lt;video autoplay loop muted=&#34;muted&#34;
+    poster=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.jpg&#34;&gt;
+
+    &lt;source type=&#34;video/mp4&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.mp4&#34;&gt;
+
+    &lt;source type=&#34;video/webm&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.webm&#34;&gt;
+
+    Your browser does not support HTML5 video tag.
+
+    &lt;a href=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.gif&#34;&gt;Click here to view original GIF&lt;/a&gt;
+
+  &lt;/video&gt;
+  
+  &lt;figure&gt;
+  
+  
+    &lt;figcaption&gt;Test Succesfull. Woohoo!&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  
+&lt;/div&gt;
+
+&lt;h2 id=&#34;step-3-automate-an-email-response&#34;&gt;Step 3: Automate an email response&lt;/h2&gt;
+&lt;p&gt;By now we should have a fully functional form, which sends the data to Zapier each time our form is submitted.&lt;/p&gt;
+&lt;p&gt;The next step is to automate an email to our inbox, which sends every time someone fills out our form. We want this email to contain the name and email address of the person who submitted our form. Let’s do this now.&lt;/p&gt;
+&lt;h3 id=&#34;create-an-outbound-email-action&#34;&gt;Create an outbound email action&lt;/h3&gt;
+&lt;p&gt;Search for &lt;strong&gt;Email by Zapier&lt;/strong&gt; in the &amp;ldquo;Choose an action app&amp;rdquo; step.&lt;/p&gt;
+&lt;p&gt;Hit &lt;strong&gt;save and continue&lt;/strong&gt; on Send an outbound email. This will create your action step sequence and bring up the email template where we can decide what our automated email will say.&lt;/p&gt;
+&lt;div class=&#34;Video&#34;&gt;
+  &lt;video autoplay loop muted=&#34;muted&#34;
+    poster=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.jpg&#34;&gt;
+
+    &lt;source type=&#34;video/mp4&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.mp4&#34;&gt;
+
+    &lt;source type=&#34;video/webm&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.webm&#34;&gt;
+
+    Your browser does not support HTML5 video tag.
+
+    &lt;a href=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.gif&#34;&gt;Click here to view original GIF&lt;/a&gt;
+
+  &lt;/video&gt;
+  
+  &lt;figure&gt;
+  
+  
+    &lt;figcaption&gt;Add outbound email action step&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  
+&lt;/div&gt;
+
+&lt;h3 id=&#34;build-the-email-template&#34;&gt;Build the email template&lt;/h3&gt;
+&lt;p&gt;This is the part where we add the data Zapier received via the webhook to our automated email.&lt;/p&gt;
+&lt;p&gt;We will need to specify an email address which we would like the data sent to. You’ll most likely want to make this your own email address.&lt;/p&gt;
+&lt;p&gt;Then we want to create a subject line and pull the data into the body of the email.&lt;/p&gt;
+&lt;p&gt;Hit continue once you are happy. Zapier will summarise your email template then fire off a test.&lt;/p&gt;
+&lt;div class=&#34;Video&#34;&gt;
+  &lt;video autoplay loop muted=&#34;muted&#34;
+    poster=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.jpg&#34;&gt;
+
+    &lt;source type=&#34;video/mp4&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.mp4&#34;&gt;
+
+    &lt;source type=&#34;video/webm&#34;
+        src=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.webm&#34;&gt;
+
+    Your browser does not support HTML5 video tag.
+
+    &lt;a href=&#34;https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.gif&#34;&gt;Click here to view original GIF&lt;/a&gt;
+
+  &lt;/video&gt;
+  
+  &lt;figure&gt;
+  
+  
+    &lt;figcaption&gt;Build the automated email template&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  
+&lt;/div&gt;
+
+&lt;h3 id=&#34;check-your-inbox-for-the-email&#34;&gt;Check your inbox for the email&lt;/h3&gt;
+&lt;p&gt;Now go check your inbox. You should have received an email containing the data, nicely laid out in the template you just set up.&lt;/p&gt;
+&lt;div class=&#34;Image&#34;&gt;
+  &lt;div class=&#34;Ratio Ratio--3by2&#34;&gt;
+    &lt;img
+      data-src=&#34;https://res.cloudinary.com/azhar932/image/upload/w_auto,dpr_auto,c_scale,f_auto,q_auto/v1550264893/hc/zapier-contact-form-automated-email-inbox.jpg&#34;
+      class=&#34;cld-responsive lazyload &#34; alt=&#34;Zapier is now sending us an automated email&#34;&gt;
+  &lt;/div&gt;
+  
+      &lt;figure&gt;
+      
+      
+        &lt;figcaption&gt;Zapier is now sending us an automated email&lt;/figcaption&gt;
+      &lt;/figure&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;You might want to filter your automated emails from Zapier by marking them with a label. This way you can easily identify where they have come from. I’ve called my label Zapier and coloured it orange so it’s easy to spot.&lt;/p&gt;
+&lt;p&gt;At this point everything should be set up correctly, so that Zapier sends an automated email to your inbox when someone fills out your form.&lt;/p&gt;
+&lt;h2 id=&#34;step-4-using-ajax-to-redirect-the-url&#34;&gt;Step 4: Using Ajax to redirect the URL&lt;/h2&gt;
+&lt;p&gt;The final step is to redirect the user when they fill out our form.&lt;/p&gt;
+&lt;p&gt;Right now, anyone who submits the form is redirected to a nasty Webhook URL showing the string on data.&lt;/p&gt;
+&lt;p&gt;Ideally we’d like to be able to tell the person who submits the form that their information was submitted successfully, and keep them on our website, rather than directing them away from it.&lt;/p&gt;
+&lt;p&gt;We can do this with a few lines of Ajax.&lt;/p&gt;
+&lt;p&gt;Before the closing &lt;code&gt;&amp;lt;/body&amp;gt;&lt;/code&gt; tag in the footer of your page, load a copy of jQuery.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- Load jquery --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Beneath that you will need the following Javascript:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// POST form data to zapier on submit
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;#myForm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;submit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;preventDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ajax&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;YOUR_ZAPIER_WEBHOOK_URL_GOES_HERE&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;post&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;#myForm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serialize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;success&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;c1&#34;&gt;// Redirect to another success page
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://google.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure you replace the Webhook URL with the one Zapier generated for you and the redirect URL with the page you want the submitted form to redirect to. For this example I’ve just used Google which is probably not what you want.&lt;/p&gt;
+&lt;p&gt;Finally, let’s head back to our form and remove the &lt;code&gt;action=&amp;quot;&amp;quot;&lt;/code&gt; and &lt;code&gt;type=&amp;quot;&amp;quot;&lt;/code&gt; attributes from the html. We don’t need this anymore as Ajax is now taking care of posting our form data to Zapier.&lt;/p&gt;
+&lt;p&gt;The HTML for our form should now look something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;full-name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your name?&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email-address&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your email address?&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;taking-it-further&#34;&gt;Taking it further&lt;/h2&gt;
+&lt;p&gt;In this article we’ve looked at submitting form data to an email address using Zapier. This is an ideal low cost solution for static sites, where you want to avoid writing server side code or paying for a form provider. There are of course ways we can make this better.&lt;/p&gt;
+&lt;h3 id=&#34;validation&#34;&gt;Validation&lt;/h3&gt;
+&lt;p&gt;Something I haven’t tackled in this article is form validation. Validating your form with success or error prompts would require some extra Javascript and a bit more HTML markup, but it&amp;rsquo;s perfectly possible.&lt;/p&gt;
+&lt;p&gt;However you might find a very basic bit of validation is enough. By adding the &lt;code&gt;required&lt;/code&gt; attribute to the end of any required form elements, you can ensure the form submitter is warned of those fields that are required, in order to submit the form.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email-address&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;required&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will prevent a user from submitting your form without inputting the necessary data.&lt;/p&gt;
+&lt;h3 id=&#34;accessibility&#34;&gt;Accessibility&lt;/h3&gt;
+&lt;p&gt;To make sure your forms are accessible to everyone and to prevent your site from getting penalised by Google, you will want to add labels to your form elements. Make sure you add a &lt;code&gt;for&lt;/code&gt; attribute equal to the &lt;code&gt;id&lt;/code&gt; attribute of the related element to each label. This will bind them together.&lt;/p&gt;
+&lt;p&gt;With this in mind, our might look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;myForm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;label&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Name&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;label&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-name&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;full-name&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your name?&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;label&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-email&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Email Address&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;label&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-email&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;email-address&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;What&amp;#39;s your email address?&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;label&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;u-visually-hidden&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Submit&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;label&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Form-submit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice I’m using a class called &lt;code&gt;u-visually-hidden&lt;/code&gt; to hide the button label from everyone except screen readers and crawlers.&lt;/p&gt;
+&lt;h3 id=&#34;adding-more-fields&#34;&gt;Adding more fields&lt;/h3&gt;
+&lt;p&gt;Although I only used a first name and an email address in this example, you might want to process a whole lot more data with your form. Just remember to include a &lt;code&gt;name&lt;/code&gt; attribute on every form element in order for Zapier to catch the data.&lt;/p&gt;
+&lt;p&gt;I hope this has been a helpful introduction into using Zapier to process form data on static sites. You can find all the resources I used for this technique below.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;If you have any questions or problems with this method then &lt;a href=&#34;https://twitter.com/harrycresswell&#34;&gt;drop me a tweet&lt;/a&gt;, I’d be happy to help.&lt;/p&gt;
+&lt;h3 id=&#34;further-reading&#34;&gt;Further reading&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zapier.com/blog/how-use-zapier-webhooks/&#34;&gt;How to use Webhooks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://discuss.gohugo.io/t/is-it-possible-to-add-a-contact-form-to-a-site/1550&#34;&gt;A Hugo thread on static contact forms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pjrvs.com/a/onboarding/&#34;&gt;Paul Jarvis&amp;rsquo; article on user onboarding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/4744751/how-do-i-redirect-with-javascript&#34;&gt;Page redirects using JS&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       </item>

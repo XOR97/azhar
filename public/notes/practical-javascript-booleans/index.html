@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Booleans | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Booleans | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Build a todo app with Javascript, learn about Boolean values.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Booleans | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Build a todo app with Javascript, learn about Boolean values.">
+    <meta property="og:site_name" content="Booleans | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-booleans/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-booleans/">
+    <meta property="twitter:title" content="Booleans - Azhar Khan">
+    <meta property="twitter:description" content=" Build a todo app with Javascript, learn about Boolean values. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-booleans/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Booleans</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Sat, Nov 3, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>This is Part 4 of my notes on Gordon Zhu’s <a href="https://watchandcode.com/p/practical-javascript">Practical JavaScript</a>. In this part we changed the structure of an array from a text value to an object, modify a method to work with a text property and learn about Booleans.</p>
+<h2 id="building-a-todo-app-v40---understanding-booleans">Building a todo app v4.0 - Understanding Booleans&nbsp;<a class="heading-anchor" href="#building-a-todo-app-v40---understanding-booleans" aria-label="Anchor">#</a> </h2>
+<p>Booleans are a representation of <code>true</code> or <code>false</code>.</p>
+<h2 id="requirements">Requirements&nbsp;<a class="heading-anchor" href="#requirements" aria-label="Anchor">#</a> </h2>
+<ul>
+<li><code>todoList.addTodo</code> should add objects</li>
+<li><code>todoList.changeTodo</code> should change the todoText property</li>
+<li><code>todoList.toggleCompleted</code> should change the completed property</li>
+</ul>
+<h2 id="step-1-todolistaddtodo-should-add-objects">Step 1: todoList.addTodo should add objects&nbsp;<a class="heading-anchor" href="#step-1-todolistaddtodo-should-add-objects" aria-label="Anchor">#</a> </h2>
+<p>First we need to change the addTodo method from adding text items like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">[</span><span class="s1">&#39;item 1&#39;</span><span class="p">,</span> <span class="s1">&#39;item 2&#39;</span><span class="p">,</span> <span class="s1">&#39;item 3&#39;</span><span class="p">]</span>
+</code></pre></div><p>…to adding objects like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span> <span class="nx">todoText</span><span class="o">:</span> <span class="s1">&#39;item 1&#39;</span><span class="p">,</span> <span class="nx">completed</span><span class="o">:</span> <span class="kc">false</span> <span class="c1">// Boolean true or false}
+</span></code></pre></div><p>We want to do this so we can add as many properties as we like. The first property we want is a text value, for example the text we want to add.</p>
+<p>The second property is our Boolean value. This will tell us whether the todo has been completed on not. When you first add a todo it most likely won’t be done yet so we can use <code>false</code> as the default stated of <code>completed</code>.</p>
+<p>Later when we go through our todos and mark as completed this value will change to <code>true</code>. As this data requires a <code>true</code> or <code>false</code> value, representing it with a Boolean is the way to go.</p>
+<h3 id="updating-our-code-from-v30">Updating our code from v.3.0&nbsp;<a class="heading-anchor" href="#updating-our-code-from-v30" aria-label="Anchor">#</a> </h3>
+<p>This is where we left off in our version 3 app.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">todoList</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;item 1&#39;</span><span class="p">,</span> <span class="s1">&#39;item 2&#39;</span><span class="p">,</span> <span class="s1">&#39;item 3&#39;</span><span class="p">],</span> 
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>   
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My Todos&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">);</span>
+  <span class="p">},</span> 
+  <span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">todo</span><span class="p">);</span>  
+    <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>  
+  <span class="p">},</span> 
+  <span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>   
+    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newValue</span><span class="p">;</span>   
+    <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>   
+    <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>First step is to remove the items in our existing array, as we now want to use an object instead.</p>
+<p>In the code above, change:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todos</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;item 1&#39;</span><span class="p">,</span> <span class="s1">&#39;item 2&#39;</span><span class="p">,</span> <span class="s1">&#39;item 3&#39;</span><span class="p">],</span>
+</code></pre></div><p>to the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">todos</span><span class="o">:</span> <span class="p">[],</span>
+</code></pre></div><p>Next we need to modify our <code>addTodo</code> function. Find the code which reads:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>   
+  <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">todo</span><span class="p">);</span>   
+  <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span> 
+<span class="p">},</span>
+</code></pre></div><p>And change it to:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">todoText</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>   
+    <span class="nx">todoText</span><span class="o">:</span> <span class="nx">todoText</span><span class="p">,</span>    
+    <span class="nx">completed</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">});</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><p>A few things to note in our new code:</p>
+<ul>
+<li>We’re now using <code>todoText</code> as our parameter instead of <code>todo</code>. This will will also be a text value but more representative of the data in our object, which is next.</li>
+<li>Now instead of using the <code>push</code> method to add <code>todo</code>, we’re adding the object with 2 properties; <code>todoText</code> and <code>completed</code> which is our Boolean value.</li>
+<li>Remember; first <code>todoText</code> is the name of the property, whereas the second <code>todoText</code> is referring to the <code>todoText</code> parameter, which will change depending on what we parse in when we use the method.</li>
+</ul>
+<p>For example if we write <code>addTodo('hi');</code> the value of <code>todoText</code> will be <code>'hi'</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>   
+  <span class="nx">todoText</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="nx">hi</span><span class="p">,</span>    
+  <span class="nx">completed</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+</code></pre></div><h3 id="using-todolistaddtodo">Using todoList.addTodo&nbsp;<a class="heading-anchor" href="#using-todolistaddtodo" aria-label="Anchor">#</a> </h3>
+<p>Typing <code>todoList.addTodo('this is an object')</code> will now represent the data in an object. Where <code>todoText</code> is given the value <code>'this is an object'</code> and <code>completed</code> has the value of <code>false</code>.</p>
+<h3 id="why-are-we-doing-this">Why are we doing this?&nbsp;<a class="heading-anchor" href="#why-are-we-doing-this" aria-label="Anchor">#</a> </h3>
+<p>We want our todos to show more data, we want to have a text description; the <code>todoText</code> property and also another property to show whether the todo has be done or not; <code>completed</code>. We’re using a Boolean value to represent that.</p>
+<h2 id="step-2-todolistchangetodo-should-change-to-todotext-property">Step 2: todoList.changeTodo should change to todoText property&nbsp;<a class="heading-anchor" href="#step-2-todolistchangetodo-should-change-to-todotext-property" aria-label="Anchor">#</a> </h2>
+<p>Now we need to make sure the <code>changeTodo</code> method only changes the <code>todoText</code> property on each todo object.</p>
+<p>This is because <code>addTodo</code> now adds objects to our array, and those objects have 2 properties; <code>todoText</code> and <code>completed</code> – the boolean true or false value.</p>
+<h3 id="updating-the-newvalue-parameter">Updating the newValue parameter&nbsp;<a class="heading-anchor" href="#updating-the-newvalue-parameter" aria-label="Anchor">#</a> </h3>
+<p>First, we need to update the <code>newValue</code> parameter to something more descriptive, so its more clear whats happening. As we just want to change the todoText property, we can call it <code>todotext</code>.</p>
+<p>So, find the <code>newValue</code> parameter in the code and change it to <code>todoText</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newValue</span><span class="p">;</span>   
+  <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><p>Your code should now look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="nx">todoText</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newValue</span><span class="p">;</span>   
+  <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><h3 id="update-thistodo-position-to-reference-the-todotext-property-in-the-object">update this.todo position to reference the todoText property in the object&nbsp;<a class="heading-anchor" href="#update-thistodo-position-to-reference-the-todotext-property-in-the-object" aria-label="Anchor">#</a> </h3>
+<p>Next we need to modify <code>this.todo[position] = newValue</code>.</p>
+<p>This is because <code>newValue</code> is no longer the parameter parsed in, it’s now <code>todoText</code>.</p>
+<p>As <code>todoText</code> is now a property on the object (in addTodo), we can get at it using the dot notation:</p>
+<p><code>this.todo[postion].todoText = todoText</code></p>
+<p>In our changes above, <code>.todoText</code> grabs the <code>todoText</code> property on the object, and assigns it to the new value which is parsed in; <code>todoText</code>.</p>
+<p>Our new code should look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="nx">todoText</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">].</span><span class="nx">todoText</span> <span class="o">=</span> <span class="nx">todoText</span><span class="p">;</span>   
+  <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">},</span>
+</code></pre></div><p>So to recap, the reason we’re doing this is because the structure of our data has changed from simple text values to an object structure.</p>
+<h2 id="step-3-todolisttogglecompleted-should-change-value-of-completed-property">Step 3: todoList.toggleCompleted should change value of completed property&nbsp;<a class="heading-anchor" href="#step-3-todolisttogglecompleted-should-change-value-of-completed-property" aria-label="Anchor">#</a> </h2>
+<p>Now we need to add a new method called toggleCompleted which switches the value of the completed property.</p>
+<p>Remember, completed is a Boolean value, so if it’s set to <code>false</code> (as default), toggleCompleted will change it to <code>true</code>, and if it’s <code>true</code> it should change to <code>false</code>.</p>
+<h3 id="the-bang-operator">The Bang Operator&nbsp;<a class="heading-anchor" href="#the-bang-operator" aria-label="Anchor">#</a> </h3>
+<p>In Javascript, the Bang Operator (!) takes the opposite of whatever comes after it.</p>
+<p>For example:</p>
+<p>We can get the opposite of <code>true</code> with <code>!true</code>, which returns <code>false</code>. Where <code>!false</code> returns <code>true</code>.</p>
+<p>We can take this a step further:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">harryBoolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</code></pre></div><p>In this case <code>!harryBoolean</code> will return <code>true</code>. What if we set <code>harryBoolean</code> to the opposite of itself:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">harryBoolean</span> <span class="o">=</span> <span class="o">!</span><span class="nx">harryBoolean</span>
+</code></pre></div><p>With the exclamation point we can take the current value of a variable and switch it to the opposite value. We can use this technique in our <code>toggleCompleted</code> method.</p>
+<p>### Adding the toggleCompleted method</p>
+<p>Now let’s put this into practice and write a new method for <code>toggleCompleted</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">postion</span><span class="p">];</span>
+  <span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">=</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">;</span>    
+  <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div><p>So, whats going on here?</p>
+<h2 id="breaking-down-the-code">Breaking down the code&nbsp;<a class="heading-anchor" href="#breaking-down-the-code" aria-label="Anchor">#</a> </h2>
+<p>First we add our new method fo <code>toggleCompleted</code>, and give it a position so we can target the specific todo we want to modify:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><p>Next, we create a reference to our <code>todo</code> in the form of a variable. This will save us from having to write this repetitive code in 2 different places. You’ll see what I mean in the line that will follow.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div><p>Now, we flip the value of <code>todo.completed</code>, by grabbing the value of <code>todo.completed</code> and setting it to the opposite of the current value using the bang operator. So if the value is <code>false</code> it will be <code>true</code> and if it’s <code>true</code> it will be <code>false</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">];</span>
+  <span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">=</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Finally we add the ability to display our updated changes with <code>displayTodos</code>, again using <code>this</code> to target the displayTodos method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">position</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">todo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">todos</span><span class="p">[</span><span class="nx">position</span><span class="p">];</span>
+  <span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span> <span class="o">=</span> <span class="o">!</span><span class="nx">todo</span><span class="p">.</span><span class="nx">completed</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="v40-review">v.4.0 Review&nbsp;<a class="heading-anchor" href="#v40-review" aria-label="Anchor">#</a> </h2>
+<p>In <code>todoList.addTodo</code> we changed the structure of the array to be an array of objects, rather than text, this allowed for a text value and a boolean value, to specify whether the todo has been completed.</p>
+<p>Next, we modified the <code>todoList.changeTodo</code> method so it only modifies the <code>todoText</code> property on each todo object.</p>
+<p>Lastly we learnt about Booleans and how to take the opposite of a boolean value in our new <code>toggleComplete</code> method.</p>
+<h2 id="next-steps">Next Steps&nbsp;<a class="heading-anchor" href="#next-steps" aria-label="Anchor">#</a> </h2>
+<p>Head over to <a href="https://watchandcode.com/">Watchandcode.com</a> to take the course that these notes are based on.</p>
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Booleans" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

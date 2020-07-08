@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Getting data from inputs | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Getting data from inputs | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Build a todo app with Javascript, learn how to refactor your code and grab data from inputs">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Getting data from inputs | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Build a todo app with Javascript, learn how to refactor your code and grab data from inputs">
+    <meta property="og:site_name" content="Getting data from inputs | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-refactoring-code/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-refactoring-code/">
+    <meta property="twitter:title" content="Getting data from inputs - Azhar Khan">
+    <meta property="twitter:description" content=" Build a todo app with Javascript, learn how to refactor your code and grab data from inputs Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-refactoring-code/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Getting data from inputs</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Mon, Jan 7, 2019</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>This is Part 8 of my notes on Gordon Zhu’s <a href="https://watchandcode.com/p/practical-javascript">Practical JavaScript</a>.</p>
+<p>In this version of our todo list app we start by learning about refactoring and how it can help improve our code. Then we look at how to fetch data from input elements in our html.</p>
+<h2 id="what-is-refactoring">What is Refactoring?&nbsp;<a class="heading-anchor" href="#what-is-refactoring" aria-label="Anchor">#</a> </h2>
+<p>Refactoring is the process of restructuring existing code without changing it’s external behaviour. It improves the non-functional attributes of the software.</p>
+<p>In our case when we refactor our code, it will work exactly as before but it will make it more readable, organised and easier to understand.</p>
+<h2 id="reviewing-our-code">Reviewing our code&nbsp;<a class="heading-anchor" href="#reviewing-our-code" aria-label="Anchor">#</a> </h2>
+<p>Previously when we grabbed the buttons inside our HTML we retrieved an <code>id</code> attached to our buttons using <code>getElementById</code>. And used <code>addEventListener</code> to watch for clicks.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;displayTodosButton&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">toggleAllButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleAllButton&#39;</span><span class="p">);</span>
+
+<span class="nx">displayTodosButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">toggleAllButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleAll</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div><p>This is a common way to connect JavaScript to a user interface, however in our case it adds a lot of repetitive extra code and unnecessary complexity, as we will need to write similar code for several buttons.</p>
+<p>Instead we can use a different way which will allow us to remove the <code>id</code>’s for each button, drop the varibales and remove the <code>addEventListener</code> <code>'click'</code> function.</p>
+<h2 id="refactoring-our-buttons">Refactoring our buttons&nbsp;<a class="heading-anchor" href="#refactoring-our-buttons" aria-label="Anchor">#</a> </h2>
+<p>In our <code>html</code> we can start by removing the <code>id</code>’s from our buttons.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>Instead we can replace these <code>id</code>’s with the <code>onclick</code> attribute.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>The <code>onclick</code> attribute works similar to our <code>addEventListener</code> code in our JavaScript.</p>
+<p><code>onclick=&quot;&quot;</code> provides another way to run a function when our button is clicked. Inside the quotes, we can specific the name of the function we want to run.</p>
+<p>As we don’t have a function yet we’ll need to create that next.</p>
+<h2 id="creating-a-new-object-to-handle-functions">Creating a new object to handle functions&nbsp;<a class="heading-anchor" href="#creating-a-new-object-to-handle-functions" aria-label="Anchor">#</a> </h2>
+<p>Back in our JavaScript, we need a way to access our functions which run <code>displayTodos</code> and <code>toggleAll</code>. To do this we can create a new object called <code>handlers</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="p">{</span>
+
+<span class="p">};</span>
+</code></pre></div><p>The reason it’s called <code>handlers</code> is that we want the methods on this object to handle different click events. For example when you click on this button we want something to handle that event. We’ll put all methods that handle different events inside this object.</p>
+<p>Start by creating a new method for <code>displayTodos</code>, making it equivilent to the function we wrote in the previous version.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>Next we need to create another method, this time for <code>toggleAll</code>. Again we can use the function from before.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">toggleAll</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleAll</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>Now we have these methods defined on the <code>handlers</code> object we can access them from our <code>html</code>.</p>
+<h2 id="running-functions-onclick">Running functions onclick&nbsp;<a class="heading-anchor" href="#running-functions-onclick" aria-label="Anchor">#</a> </h2>
+<p>Back in our <code>html</code>, inside <code>onclick=&quot;&quot;</code> we can add the name of the object followed by the method to access the function. Remember the parentheses in order to run the function.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.displayTodos()&#34;</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.toggleAll()&#34;</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><h2 id="comparing-original-and-refactored-code">Comparing original and refactored code&nbsp;<a class="heading-anchor" href="#comparing-original-and-refactored-code" aria-label="Anchor">#</a> </h2>
+<p>Refectoring doesn’t change the way the code works, it just makes it more organised and readable. They are non-functional changes.</p>
+<p>Looking back at our original code you can see there is a lot more of it than what we have now we’ve refactored it.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;displayTodosButton&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">toggleAllButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleAllButton&#39;</span><span class="p">);</span>
+
+<span class="nx">displayTodosButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">toggleAllButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleAll</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div><p>The orginal code was a lot more complicated and harder to understand. Now we’re no longer using <code>getElementById</code> and we no longer have <code>id</code>’s. We’ve also got rid of our <code>addEventListener</code> code.</p>
+<p>Now we just have methods on an object, our code is shorter and easier to understand.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">toggleAll</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleAll</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>If we look at the original <code>html</code> we had 2 <code>id</code>’s which didn’t make it clear what happens when you click the button. Our <code>id</code>’s simply name the button.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;displayTodosButton&#34;</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;toggleAllButton&#34;</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>In our refactored code the <code>onclick</code> attribute gives us an idea of what happens when the button is clicked. It’s more descriptive as you know the <code>displayTodos</code> or <code>toggleAll</code> method is supposed to run when the button is clicked.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.displayTodos()&#34;</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.toggleAll()&#34;</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>This is a clearer way to write our code and avoids the use of repetitive code.</p>
+<p>It’s important to note that the refactoring we’ve done here works well in this case but that might not always be true. Using the <code>onclick</code> attribute is very specific and can only handle one event.</p>
+<p>Often you’ll see the prefered <code>addEventListener</code> method used as it’s more flexible and can handle many different events. The thing to rememebr is theres no strict better way of doing things, it’s often a judgement call.</p>
+<h2 id="requirements-v8">Requirements v8&nbsp;<a class="heading-anchor" href="#requirements-v8" aria-label="Anchor">#</a> </h2>
+<ul>
+<li>It should have working controls for <code>.addTodo</code></li>
+<li>It should have working controls for <code>.changeTodo</code></li>
+<li>It should have working controls for <code>.deleteTodo</code></li>
+<li>It should have working controls for <code>.toggleCompleted</code></li>
+</ul>
+<p>What makes these different from <code>displayTodos</code> and <code>toggleAll</code> is that they each need an input, as they all require an arguement.</p>
+<p>For example, the user will need to type some text when adding a new todo.</p>
+<p>Now we require data to be added we need to add inputs to make this possible.</p>
+<h3 id="there-should-be-a-button-for-adding-todos">There should be a button for adding todos&nbsp;<a class="heading-anchor" href="#there-should-be-a-button-for-adding-todos" aria-label="Anchor">#</a> </h3>
+<p>In our <code>html</code> we need to add a new button for adding todos. We will also need an input so we can collect the data for the user. In this case the data is text for a new todo item.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>Add<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;addTodoTextInput&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>
+</code></pre></div><p>We can add the <code>onclick</code> attribute to the button so we can run the <code>addTodo</code> function, which we’ll get to next.</p>
+<p>Notice we’re using <code>type=&quot;text&quot;</code> property on our <code>input</code> to specifiy the type of data we want to collect. We’ve also added an <code>id</code> so we can access the <code>input</code> data in our JavaScript.</p>
+<p>Back in our JavaScript, we can start by adding a <code>addTodo</code> method on our <code>handlers</code> object, to handle clicks on our add todos button.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">displayTodos</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">toggleAll</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleAll</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// addTodo function here
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><p>To make our method do something, first we need to get hold of the <code>id</code> on our new input. We can use <code>getElementById</code> and save it to a variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">addTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;addTodoTextInput&#39;</span><span class="p">);</span>
+
+  <span class="p">}</span>
+</code></pre></div><p>Now we have access to the input we can grab the  <code>todoList</code> object and access the <code>addTodo</code> method on that.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">addTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;addTodoTextInput&#39;</span><span class="p">);</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></div><p>As the <code>addTodo</code> method takes the <code>todoText</code> argument, we can parse in the <code>addTodoTextInput</code> element as the parameter, using <code>.value</code> to grab the value of whatever is typed into the input.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">addTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;addTodoTextInput&#39;</span><span class="p">);</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">(</span><span class="nx">addTodoTextInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div><p>Finally, we need to tell the program to run the function when you click on the add todo button. To do this we can go back to our <code>html</code> and update the <code>onclick</code> attribute on the button.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.addTodo()&#34;</span><span class="p">&gt;</span>Add<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>If you try out the input and add a new todo, you’ll notice the input field doesn’t clear after we add a new todo. To fix this we can grab the <code>addTodoTextInput</code> and set the value to an empty string.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="nx">addTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">addTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;addTodoTextInput&#39;</span><span class="p">);</span>
+    <span class="nx">todoList</span><span class="p">.</span><span class="nx">addTodo</span><span class="p">(</span><span class="nx">addTodoTextInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="nx">addTodoTextInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div><p>This will reset the input field to nothing after the code runs.</p>
+<h2 id="there-should-be-a-button-for-changing-todos">There should be a button for changing todos&nbsp;<a class="heading-anchor" href="#there-should-be-a-button-for-changing-todos" aria-label="Anchor">#</a> </h2>
+<p>In our <code>html</code> we need to create another button, with an <code>onclick</code> attribute which runs our <code>changeTodo</code> function.</p>
+<p>This time we also need two inputs. The first <code>input</code> will take the value of the todo position and the second will take the todo text value.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.changeTodo()&#34;</span><span class="p">&gt;</span>Change Todo<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">/&gt;</span>
+</code></pre></div><p>Now we need to add an <code>id</code> and <code>type</code> for the position <code>input</code>. We give <code>type</code> the value of <code>number</code> so we can collect number data.</p>
+<p>We can do the same for the text <code>input</code> but this time we need to give <code>type</code> the value of <code>text</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.changeTodo()&#34;</span><span class="p">&gt;</span>Change Todo<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;changeTodoPositionInput&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;number&#34;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;changeTodoTextInput&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">/&gt;</span>
+</code></pre></div><h3 id="create-method-on-handlers-for-changetodo">Create method on handlers for changeTodo&nbsp;<a class="heading-anchor" href="#create-method-on-handlers-for-changetodo" aria-label="Anchor">#</a> </h3>
+<p>Now back in our JavaScript we need to set up a method on our <code>handlers</code> object which runs our changeTodo function when someone adds data to change a todo.</p>
+<p>As before we can create a variable which uses <code>getElementById</code> to access the <code>id</code> on the <code>input</code>. This time we’ll need 2 variables for each <code>input</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">changeTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;changeTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">changeTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;changeTodoTextInput&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Next we want to run our <code>changeTodo</code> method on the <code>todoList</code> object, which takes a <code>position</code> and <code>todoText</code> parameter. Position in this case is a number value.</p>
+<p>Before we used <code>.value</code> to access the data. This will work for our text input, but it won’t for our number input. The reason is because <code>.value</code> grabs a string of text.</p>
+<p>Instead we can use the <code>valueAsNumber</code> property to grab the number data from our <code>input</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">changeTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;changeTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">changeTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;changeTodoTextInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">changeTodo</span><span class="p">(</span><span class="nx">changeTodoPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">,</span> <span class="nx">changeTodoTextInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Finally we’ll need to clear the <code>input</code> values at the end of the method in order to reset the input to an empty state.</p>
+<p>To do this we just need to set the value property on both <code>input</code>’s to any empty string.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">changeTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">changeTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;changeTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">changeTodoTextInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;changeTodoTextInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">changeTodo</span><span class="p">(</span><span class="nx">changeTodoPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">,</span> <span class="nx">changeTodoTextInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="nx">changeTodoPositionInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="nx">changeTodoTextInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>If everything is working correctly you should now be able to add a new todo item then change it.</p>
+<h2 id="there-should-be-a-button-for-deleting-todos">There should be a button for deleting todos&nbsp;<a class="heading-anchor" href="#there-should-be-a-button-for-deleting-todos" aria-label="Anchor">#</a> </h2>
+<p>First we need to build the user interface. As before we’ll need a <code>button</code> and this time only one <code>input</code>.</p>
+<p>We want to run a function inside our JavaScript when the button is clicked so we can use <code>onclick</code> and parse in the method on our <code>handlers</code> object. This method doesn’t actually exist yet but we’ll make it a bit later.</p>
+<p>We then need to add information to the <code>input</code>. First a descriptive <code>id</code> as before, this will allow us to access the data in our JavaScript. Then we add  <code>type=&quot;number&quot;</code> so we can collect a number, representing the position of the todo which needs to be deleted.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.deleteTodo()&#34;</span><span class="p">&gt;</span>Delete<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;deleteTodoPositionInput&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;number&#34;</span> <span class="p">/&gt;</span>
+</code></pre></div><p>In our JavaScript we’ll need to write a new method on our <code>handlers</code> object.</p>
+<p>The pattern is very similar as before. We first need to grab the input for  the position of the item to delete. We can do this with <code>getElementById</code>, parsing in the <code>id</code> and storing this in a variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;deleteTodoPositionInput&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Next we want to run the <code>deleteTodo</code> method on our <code>todoList</code> object.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;deleteTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div><p>If we take a look back at the <code>deleteTodo</code> method we can see it takes a <code>position</code> parameter. In this case can use the number value from our <code>input</code>. As it has to be a number we need to use <code>.valueAsNumber</code> to grab the data.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;deleteTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">(</span><span class="nx">deleteTodoPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Finally we will need to clear the <code>input</code>   once the code has run, so the previous value doesn’t remain in the <code>input</code> box. We do this using an empty string.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">deleteTodo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">deleteTodoPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;deleteTodoPositionInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">deleteTodo</span><span class="p">(</span><span class="nx">deleteTodoPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">);</span>
+  <span class="nx">deleteTodoPositionInput</span><span class="p">.</span><span class="nx">Value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>We can check our code is working by adding a new todo item then deleting it.</p>
+<p>Hopefully now you can see a pattern forming with our code.</p>
+<p>We start by building the user interface, then write the method in our JavaScript. In
+this case our <code>deleteTodo</code> method grabs the input, and parses the input value into our <code>deleteTodo</code> method on our <code>todoList</code>object. Then it clears the input field when it’s done.</p>
+<h2 id="there-should-be-a-button-for-toggling-a-todo">There should be a button for toggling a todo&nbsp;<a class="heading-anchor" href="#there-should-be-a-button-for-toggling-a-todo" aria-label="Anchor">#</a> </h2>
+<p>The <code>toggleCompleted</code> feature will almost be the same as <code>deleteTodo</code>.</p>
+<p>First we start with the user interface. So in the <code>html</code> we need a <code>button</code> and an <code>input</code>.</p>
+<p>As before we need an <code>onclick</code> attribute on our button. We haven’t written the method yet but it will be on our <code>handlers</code> object and be called <code>toggleCompleted</code>.</p>
+<p>Our <code>input</code> needs an <code>id</code> and a <code>type</code> of <code>number</code>. This is because <code>toggleCompleted</code> takes a position of the item you want to toggle.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;handlers.toggleCompleted&#34;</span><span class="p">&gt;</span>Toggle Completed<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;toggleCompletedPositionInput&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;number&#34;</span> <span class="p">/&gt;</span>
+</code></pre></div><p>Now we can move into our JavaScript. We start with a new method; <code>toggleCompleted</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>First we want to grab the <code>input</code> and store in a variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">toggleCompletedPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleCompletedPositionInput&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Next we want to make a call to the method on our <code>todoList</code> object. Parsing the number value from our <code>input</code> to set the postion.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">toggleCompletedPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleCompletedPositionInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleCompleted</span><span class="p">(</span><span class="nx">toggleCompletedPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Finally we need to clear the <code>input</code>, which we can do by setting the value to an empty string.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">toggleCompleted</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">toggleCompletedPositionInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleCompletedPositionInput&#39;</span><span class="p">);</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleCompleted</span><span class="p">(</span><span class="nx">toggleCompletedPositionInput</span><span class="p">.</span><span class="nx">valueAsNumber</span><span class="p">);</span>
+  <span class="nx">toggleCompletedPositionInput</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Now we can add an item to see if it works. Enter the position of the item and hit the toggle completed button. If all went well we should see the following output in the console.</p>
+<pre><code>My Todos:
+(x) new todo item
+</code></pre><p>Hit the button again and we should see:</p>
+<pre><code>My Todos:
+( ) new todo item
+</code></pre><h2 id="review-v8">Review v8&nbsp;<a class="heading-anchor" href="#review-v8" aria-label="Anchor">#</a> </h2>
+<p>In version 8 of our application we looked at how we can effectively use <code>input</code>’s and get data from users. So we can use that data in our application.</p>
+<p>We learnt how to access different both <code>text</code> and <code>number</code> data types using <code>.value</code> and <code>.valueAsNumber</code> properties.</p>
+<p>We’re starting to see how using objects is an effective way of organising our code. Now we have all of our handler methods on a <code>handlers</code> object. This is a good way to group code related to our user interface.</p>
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Getting data from inputs" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Send form data to an inbox using Zapier | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Send form data to an inbox using Zapier | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="A simple way to receive form data directly to your inbox using Webhooks and Zapier.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Send form data to an inbox using Zapier | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="A simple way to receive form data directly to your inbox using Webhooks and Zapier.">
+    <meta property="og:site_name" content="Send form data to an inbox using Zapier | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/form-data-with-zapier/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/form-data-with-zapier/">
+    <meta property="twitter:title" content="Send form data to an inbox using Zapier - Azhar Khan">
+    <meta property="twitter:description" content=" A simple way to receive form data directly to your inbox using Webhooks and Zapier. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/form-data-with-zapier/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Send form data to an inbox using Zapier</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2017-03-06 21:34:41 &#43;0100 &#43;0100">Mon, Mar 6, 2017</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/hugo" class="p-category">Hugo</a>
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/api" class="p-category">API</a>
+      
+        <a href="/tags/automation" class="p-category">Automation</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p class="intro">
+    Have you ever felt overwhelmed by the amount of code it takes to get a simple contact form working on a website?
+</p>
+
+<p>Part of the reason I built my site static was because I didn’t want the hassle of having a to deal with a database, a server and PHP. Dealing with all that stuff adds a layer of complexity to a website, particularly when it comes to processing form data, if it’s not a necessity I’d rather avoid it.</p>
+<p>But where do you even start with processing form data on a static site?</p>
+<p>At times the options can feel limited, like the only way is to pay for a form provider and embed a form into your site. Whilst there’s nothing wrong with this solution you might want to consider another way, which you have full control over and you don’t have to pay for.</p>
+<p class="Message">
+    
+I now use <a href="/articles/forms-with-netlify/">Netlify to handle form submissions</a> on this site. Saying that, this Zapier solution still works great if you’re not using Netlify.
+
+</p>
+<p><a href="/contact/">On this site</a> I’m using <a href="https://zapier.com/">Zapier</a> to collect form data and send it directly to my email. No servers, no database, no PHP. In this article we’ll look at how you can use the same technique to build a simple contact form for your own website, using Webhooks to collect data submitted and automatically send it to you in an email.</p>
+<p><em>If you’re building a static website with a generator like Jekyll, Hugo, Middleman or even just in vanilla HTML, then this is a great solution to get a form working on your site with minimal fuss.</em></p>
+<p>The good news is it’s pretty simple to implement and it’s free.</p>
+<h2 id="why-zapier">Why Zapier&nbsp;<a class="heading-anchor" href="#why-zapier" aria-label="Anchor">#</a> </h2>
+<p><a href="https://zapier.com/">Zapier</a> is an awesome tool which allows you to connect different apps in order to automate tasks. Using an automation tool like Zapier can save you a ton of time and make boring admin tasks a whole lot more fun.</p>
+<p>Zapier recommends several workflows you can use to integrate different apps, but there’s really no limitation to what you can do with it. Your only limitation is what you can think up, so you can get quite creative with what you do with it.</p>
+<h3 id="what-are-webhooks">What are Webhooks&nbsp;<a class="heading-anchor" href="#what-are-webhooks" aria-label="Anchor">#</a> </h3>
+<p><a href="https://zapier.com/zapbook/webhook/">Webhooks</a> are a powerful Zapier feature which collect <code>POST</code> or <code>JSON</code> data and send it to a URL. You can then process this data pretty much however you like.</p>
+<p>If you are a developer then you might be familiar with endpoints. Webhooks are pretty much the same thing. If you have no idea what I’m talking about, don’t worry, it’s really quite straight forward to implement.</p>
+<h3 id="why-not-use-a-static-form-provider-instead">Why not use a static form provider instead&nbsp;<a class="heading-anchor" href="#why-not-use-a-static-form-provider-instead" aria-label="Anchor">#</a> </h3>
+<p>I initially looked into a few different ways to process form data on static sites before deciding to go with Zapier. The main two I looked at were FormKeep and Formspree.</p>
+<p><a href="https://formkeep.com/">FormKeep</a> looks like a great solution, but it’s not cheap. Formkeep might be worth considering for client projects but for a personal website I’d rather keep my costs to a minimum.</p>
+<p><a href="https://formspree.io/">Formspree</a> is another great option. One I really quite like in fact. It’s free and does exactly what we are trying to achieve, it is probably even quicker to implement. Although Formspree and our Zapier method are very similar, in the end I choose to go with Zapier for a couple of reasons:</p>
+<h3 id="familiarity">Familiarity&nbsp;<a class="heading-anchor" href="#familiarity" aria-label="Anchor">#</a> </h3>
+<p>I kept coming back to Zapier because it’s familiar. I already use Zapier for several other automated sequences in my business — for social media, for my email list and a whole bunch of other stuff. It’s also super quick and easy to set up automation connecting different apps.</p>
+<h3 id="flexibility">Flexibility&nbsp;<a class="heading-anchor" href="#flexibility" aria-label="Anchor">#</a> </h3>
+<p>Zapier is the most flexible solution.</p>
+<p>Although the form we’re about to build is a very simple one, if we wanted to add further steps to process our form data, then Zapier makes this easy.</p>
+<p>Say for example, we wanted to send the data via an email and then afterwards add the form submitter to our mailing list (pretty cool right?). We can do this easily with <a href="https://zapier.com/learn/getting-started-guide/multi-step-zaps/">multi-step Zaps</a>.</p>
+<p>Then, let’s say, we wanted to send an automated email response, or send a “Getting started with the service” PDF when someone fills out our form. Zapier makes this possible too.</p>
+<p>With Zapier our form can trigger any series of automated occurrences we want and connect our form up to a variety of different apps.</p>
+<p>As cool as this stuff is, it’s not something we’ll be covering right now. But hopefully it gives you an idea of the power and possibilities Zapier can bring to a contact form.</p>
+<h2 id="building-the-form">Building the form&nbsp;<a class="heading-anchor" href="#building-the-form" aria-label="Anchor">#</a> </h2>
+<p>We’re almost ready to start building our form, but first lets take a moment to break down what we would like to do. Here are the steps:</p>
+<ul>
+<li>Build a simple HTML form for our static website.</li>
+<li>Collect the data submitted and store it in a URL using a Zapier Webhook.</li>
+<li>Use Zapier to automagically send ourselves the data in an email, any time someone submits the form.</li>
+<li>Finally, redirect the user to a success page after they complete the form.</li>
+</ul>
+<p>Before we get started, you might want to <a href="http://harrycresswell.co.uk/tutorials/zapier-contact/">jump over here</a> to see the end result.</p>
+<h2 id="step-1-writing-the-html">Step 1: Writing the HTML&nbsp;<a class="heading-anchor" href="#step-1-writing-the-html" aria-label="Anchor">#</a> </h2>
+<p>Let’s take a look at the HTML we’re going to use to build the form.</p>
+<p class="Message">
+    If you’d rather skip ahead you can get hold of the source code for this tutorial on <a href="https://github.com/harrycresswell/zapier-contact-form">Github</a>.
+</p>
+<p>For the purpose of this tutorial our form will have two input fields — one for a name and one for an email address — and a button to submit the data.</p>
+<p>The end result should look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;#&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;POST&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;full-name&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your name?&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&#34;email&#34;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&#34;email-address&#34;</span>
+    <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your email address?&#34;</span>
+  <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Submit&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-submit&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>Let’s break this down. First make sure you give your form a suitable <code>id</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>We’re using <code>id=&quot;myForm&quot;</code> here to keep things nice and simple. We’ll need this later when we use some Ajax to redirect the page.</p>
+<p>Next, make sure you add an <code>action</code> attribute. Leave it blank for now, we will come back to this later.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>Finally add <code>type=&quot;POST&quot;</code>. This is our HTTP request which submits the data to Zapier to be processed.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;#&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;POST&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="adding-name-attributes">Adding name attributes&nbsp;<a class="heading-anchor" href="#adding-name-attributes" aria-label="Anchor">#</a> </h3>
+<p>Remember to assign a <code>name=&quot;&quot;</code> attribute to all the form elements you want to collect data from <em>(that pretty much means all of them)</em>. You can name them however you like, but just make sure they are there.</p>
+<p>Let’s add one for our name input and one for our email input:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;full-name&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your name?&#34;</span> <span class="p">/&gt;</span>
+</code></pre></div><p>Here I’ve used <code>name=&quot;full-name&quot;</code> and <code>email=&quot;email-address&quot;</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span>
+  <span class="na">type</span><span class="o">=</span><span class="s">&#34;email&#34;</span>
+  <span class="na">name</span><span class="o">=</span><span class="s">&#34;email-address&#34;</span>
+  <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your email address?&#34;</span>
+<span class="p">/&gt;</span>
+</code></pre></div><p>Zapier will look out for the <code>name=&quot;&quot;</code> attribute when it tries to grab the values inputed by the user, so it’s important you remember to add them or your form won’t work.</p>
+<h3 id="add-a-submit-button">Add a submit button&nbsp;<a class="heading-anchor" href="#add-a-submit-button" aria-label="Anchor">#</a> </h3>
+<p>Finally we’ll need to add a very basic button, so the user can submit their data. Let’s give our button an <code>id</code> of <code>Form-submit</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Submit&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-submit&#34;</span> <span class="p">/&gt;</span>
+</code></pre></div><p>The rest should be fairly obvious — <code>type=&quot;submit&quot;</code> declares what type of <code>input</code> we would like to use, and the value declares the text shown on our button. In this case <code>Submit</code>.</p>
+<p><em>Note: I’ve removed all CSS classes used to style the form for this tutorial, however you would probably want to add some classes to style your form elements otherwise they won’t look all that pretty.</em></p>
+<h2 id="step-2-setting-up-zapier-to-collect-the-data">Step 2: Setting up Zapier to collect the data&nbsp;<a class="heading-anchor" href="#step-2-setting-up-zapier-to-collect-the-data" aria-label="Anchor">#</a> </h2>
+<p>If you haven’t already got a Zapier account, then before you do anything else you will need to <a href="https://zapier.com/">sign up for a free account</a>.</p>
+<h3 id="create-a-new-zap">Create a new Zap&nbsp;<a class="heading-anchor" href="#create-a-new-zap" aria-label="Anchor">#</a> </h3>
+<p>Next you will need to make a new Zap. Give your new Zap a name, then search for the <strong>Webhooks by Zapier</strong> trigger.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-create-a-zap.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Create a Zap</figcaption>
+  </figure>
+  
+</div>
+
+<p>Make sure you select <strong>Catch Hook</strong>, then hit <strong>save and continue</strong>.</p>
+<p>As we want to collect all the data submitted in our form, we’ll leave <strong>Pick off a child key</strong> blank and then hit <strong>continue</strong>.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1531988543/hc/zapier-contact-form-webhook-url.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Grab your webhook URL</figcaption>
+  </figure>
+  
+</div>
+
+<p>Zapier then generates a custom webhook URL. Copy this URL to your clipboard. We will need to add it in our form so that Zapier can store any data submitted.</p>
+<h3 id="update-form-with-webhook-url-and-test">Update form with webhook URL and test&nbsp;<a class="heading-anchor" href="#update-form-with-webhook-url-and-test" aria-label="Anchor">#</a> </h3>
+<p>Head back to your form and replace the <strong>#</strong> symbol in <code>action=&quot;#&quot;</code> with the Webhook URL Zapier just generated for you.</p>
+<p>Your form should now look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span>
+  <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span>
+  <span class="na">action</span><span class="o">=</span><span class="s">&#34;https://hooks.zapier.com/hooks/catch/1707140/msf6zi/&#34;</span>
+  <span class="na">type</span><span class="o">=</span><span class="s">&#34;POST&#34;</span>
+<span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;full-name&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your name?&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&#34;email&#34;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&#34;email-address&#34;</span>
+    <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your email address?&#34;</span>
+  <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Submit&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-submit&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>Now we need to test our form to see if it’s working. Fill out your form and hit submit.</p>
+<p>If all went well your browser window should be redirected to the Zapier Webhook URL. You’ll see a string of data. Something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;success&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;attempt&#34;</span><span class="p">:</span> <span class="s2">&#34;58b94713-f62a-4f1b-a418-9a4a992774c0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;a0139409-2c05-4adb-a33c-111dd0e3e895&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;request_id&#34;</span><span class="p">:</span> <span class="s2">&#34;Nx5Ew2eUJxPBY1p5&#34;</span>
+<span class="p">}</span>
+</code></pre></div><p>Now let’s head back to Zapier to see if our data was received.</p>
+<p>Hit <strong>Ok I did this</strong> to test the connection. You should now see a nice green banner confirming your test was successful. Great job!</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1531988545/hc/zapier-contact-form-webhook-succesful.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Test Succesfull. Woohoo!</figcaption>
+  </figure>
+  
+</div>
+
+<h2 id="step-3-automate-an-email-response">Step 3: Automate an email response&nbsp;<a class="heading-anchor" href="#step-3-automate-an-email-response" aria-label="Anchor">#</a> </h2>
+<p>By now we should have a fully functional form, which sends the data to Zapier each time our form is submitted.</p>
+<p>The next step is to automate an email to our inbox, which sends every time someone fills out our form. We want this email to contain the name and email address of the person who submitted our form. Let’s do this now.</p>
+<h3 id="create-an-outbound-email-action">Create an outbound email action&nbsp;<a class="heading-anchor" href="#create-an-outbound-email-action" aria-label="Anchor">#</a> </h3>
+<p>Search for <strong>Email by Zapier</strong> in the &ldquo;Choose an action app&rdquo; step.</p>
+<p>Hit <strong>save and continue</strong> on Send an outbound email. This will create your action step sequence and bring up the email template where we can decide what our automated email will say.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1531988549/hc/zapier-contact-form-add-outbound-email-action-step.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Add outbound email action step</figcaption>
+  </figure>
+  
+</div>
+
+<h3 id="build-the-email-template">Build the email template&nbsp;<a class="heading-anchor" href="#build-the-email-template" aria-label="Anchor">#</a> </h3>
+<p>This is the part where we add the data Zapier received via the webhook to our automated email.</p>
+<p>We will need to specify an email address which we would like the data sent to. You’ll most likely want to make this your own email address.</p>
+<p>Then we want to create a subject line and pull the data into the body of the email.</p>
+<p>Hit continue once you are happy. Zapier will summarise your email template then fire off a test.</p>
+<div class="Video">
+  <video autoplay loop muted="muted"
+    poster="https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.jpg">
+
+    <source type="video/mp4"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.mp4">
+
+    <source type="video/webm"
+        src="https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.webm">
+
+    Your browser does not support HTML5 video tag.
+
+    <a href="https://res.cloudinary.com/azhar932/image/upload/v1531988550/hc/zapier-contact-form-set-up-email-template.gif">Click here to view original GIF</a>
+
+  </video>
+  
+  <figure>
+  
+  
+    <figcaption>Build the automated email template</figcaption>
+  </figure>
+  
+</div>
+
+<h3 id="check-your-inbox-for-the-email">Check your inbox for the email&nbsp;<a class="heading-anchor" href="#check-your-inbox-for-the-email" aria-label="Anchor">#</a> </h3>
+<p>Now go check your inbox. You should have received an email containing the data, nicely laid out in the template you just set up.</p>
+<div class="Image">
+  <div class="Ratio Ratio--3by2">
+    <img
+      data-src="https://res.cloudinary.com/azhar932/image/upload/w_auto,dpr_auto,c_scale,f_auto,q_auto/v1550264893/hc/zapier-contact-form-automated-email-inbox.jpg"
+      class="cld-responsive lazyload " alt="Zapier is now sending us an automated email">
+  </div>
+  
+      <figure>
+      
+      
+        <figcaption>Zapier is now sending us an automated email</figcaption>
+      </figure>
+  
+</div>
+
+<p>You might want to filter your automated emails from Zapier by marking them with a label. This way you can easily identify where they have come from. I’ve called my label Zapier and coloured it orange so it’s easy to spot.</p>
+<p>At this point everything should be set up correctly, so that Zapier sends an automated email to your inbox when someone fills out your form.</p>
+<h2 id="step-4-using-ajax-to-redirect-the-url">Step 4: Using Ajax to redirect the URL&nbsp;<a class="heading-anchor" href="#step-4-using-ajax-to-redirect-the-url" aria-label="Anchor">#</a> </h2>
+<p>The final step is to redirect the user when they fill out our form.</p>
+<p>Right now, anyone who submits the form is redirected to a nasty Webhook URL showing the string on data.</p>
+<p>Ideally we’d like to be able to tell the person who submits the form that their information was submitted successfully, and keep them on our website, rather than directing them away from it.</p>
+<p>We can do this with a few lines of Ajax.</p>
+<p>Before the closing <code>&lt;/body&gt;</code> tag in the footer of your page, load a copy of jQuery.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- Load jquery --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>Beneath that you will need the following Javascript:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// POST form data to zapier on submit
+</span><span class="c1"></span><span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#myForm&#34;</span><span class="p">).</span><span class="nx">submit</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;YOUR_ZAPIER_WEBHOOK_URL_GOES_HERE&#34;</span><span class="p">,</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;post&#34;</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#myForm&#34;</span><span class="p">).</span><span class="nx">serialize</span><span class="p">(),</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// Redirect to another success page
+</span><span class="c1"></span>      <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s2">&#34;http://google.com&#34;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div><p>Make sure you replace the Webhook URL with the one Zapier generated for you and the redirect URL with the page you want the submitted form to redirect to. For this example I’ve just used Google which is probably not what you want.</p>
+<p>Finally, let’s head back to our form and remove the <code>action=&quot;&quot;</code> and <code>type=&quot;&quot;</code> attributes from the html. We don’t need this anymore as Ajax is now taking care of posting our form data to Zapier.</p>
+<p>The HTML for our form should now look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;full-name&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your name?&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&#34;email&#34;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&#34;email-address&#34;</span>
+    <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your email address?&#34;</span>
+  <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Submit&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-submit&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><!-- raw HTML omitted -->
+<h2 id="taking-it-further">Taking it further&nbsp;<a class="heading-anchor" href="#taking-it-further" aria-label="Anchor">#</a> </h2>
+<p>In this article we’ve looked at submitting form data to an email address using Zapier. This is an ideal low cost solution for static sites, where you want to avoid writing server side code or paying for a form provider. There are of course ways we can make this better.</p>
+<h3 id="validation">Validation&nbsp;<a class="heading-anchor" href="#validation" aria-label="Anchor">#</a> </h3>
+<p>Something I haven’t tackled in this article is form validation. Validating your form with success or error prompts would require some extra Javascript and a bit more HTML markup, but it&rsquo;s perfectly possible.</p>
+<p>However you might find a very basic bit of validation is enough. By adding the <code>required</code> attribute to the end of any required form elements, you can ensure the form submitter is warned of those fields that are required, in order to submit the form.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;email&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;email-address&#34;</span> <span class="na">required</span> <span class="p">/&gt;</span>
+</code></pre></div><p>This will prevent a user from submitting your form without inputting the necessary data.</p>
+<h3 id="accessibility">Accessibility&nbsp;<a class="heading-anchor" href="#accessibility" aria-label="Anchor">#</a> </h3>
+<p>To make sure your forms are accessible to everyone and to prevent your site from getting penalised by Google, you will want to add labels to your form elements. Make sure you add a <code>for</code> attribute equal to the <code>id</code> attribute of the related element to each label. This will bind them together.</p>
+<p>With this in mind, our might look like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;myForm&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;Form-name&#34;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-name&#34;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&#34;full-name&#34;</span>
+    <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your name?&#34;</span>
+  <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;Form-email&#34;</span><span class="p">&gt;</span>Email Address<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&#34;email&#34;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-email&#34;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&#34;email-address&#34;</span>
+    <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;What&#39;s your email address?&#34;</span>
+  <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;Form-submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;u-visually-hidden&#34;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Submit&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;Form-submit&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>Notice I’m using a class called <code>u-visually-hidden</code> to hide the button label from everyone except screen readers and crawlers.</p>
+<h3 id="adding-more-fields">Adding more fields&nbsp;<a class="heading-anchor" href="#adding-more-fields" aria-label="Anchor">#</a> </h3>
+<p>Although I only used a first name and an email address in this example, you might want to process a whole lot more data with your form. Just remember to include a <code>name</code> attribute on every form element in order for Zapier to catch the data.</p>
+<p>I hope this has been a helpful introduction into using Zapier to process form data on static sites. You can find all the resources I used for this technique below.</p>
+<!-- raw HTML omitted -->
+<p>If you have any questions or problems with this method then <a href="https://twitter.com/harrycresswell">drop me a tweet</a>, I’d be happy to help.</p>
+<h3 id="further-reading">Further reading&nbsp;<a class="heading-anchor" href="#further-reading" aria-label="Anchor">#</a> </h3>
+<ul>
+<li><a href="https://zapier.com/blog/how-use-zapier-webhooks/">How to use Webhooks</a></li>
+<li><a href="https://discuss.gohugo.io/t/is-it-possible-to-add-a-contact-form-to-a-site/1550">A Hugo thread on static contact forms</a></li>
+<li><a href="https://pjrvs.com/a/onboarding/">Paul Jarvis&rsquo; article on user onboarding</a></li>
+<li><a href="http://stackoverflow.com/questions/4744751/how-do-i-redirect-with-javascript">Page redirects using JS</a></li>
+</ul>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Send form data to an inbox using Zapier" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

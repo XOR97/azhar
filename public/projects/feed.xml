@@ -1,0 +1,27 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <author>Azhar Khan</author>
+    <title>Azhar Khan – Projects</title>
+    <link>https://azharkhan.in/projects/</link>
+    <description>Azhar Khan – Projects</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
+    <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
+    <lastBuildDate>Fri, 30 Aug 2019 16:44:00 +0100</lastBuildDate>
+    
+        <atom:link href="https://azharkhan.in/projects/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <author>Azhar Khan</author>
+      <title>Albion</title>
+      <link>https://azharkhan.in/projects/albion/</link>
+      <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
+      <author>azhar932@icloud.com (Azhar Khan)</author>
+      <guid>https://azharkhan.in/projects/albion/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

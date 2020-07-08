@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>How I built this site | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="How I built this site | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Find out how I built this site, what technology I used, who I learnt it from and the best places to read more on those subjects">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="How I built this site | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Find out how I built this site, what technology I used, who I learnt it from and the best places to read more on those subjects">
+    <meta property="og:site_name" content="How I built this site | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/build/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/build/">
+    <meta property="twitter:title" content="How I built this site - Azhar Khan">
+    <meta property="twitter:description" content=" Find out how I built this site, what technology I used, who I learnt it from and the best places to read more on those subjects Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/build/">
+    
+    
+    <meta property="og:image" content="https://res.cloudinary.com/harrycresswell/image/upload/w_700,dpr_2.0,c_scale,f_auto,q_auto/v1550264713/hc/harry-cresswell-about-me.jpg">
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+
+    <article id="content" class="Post">
+        <header class="PostHeader">
+            <h1 class="PostHeader-title">How I built this site</h1>
+        </header>
+        <section class="PostBody">
+          <p><p class="intro">
+    This page shares the technology and techniques I used to build and host this website. 
+</p>
+ If you have a specific question <!-- raw HTML omitted -->drop me a message<!-- raw HTML omitted -->, I’d be happy to help.</p>
+<h2 id="templating">Templating</h2>
+<p>The website is built using a <a href="https://www.staticgen.com/">static site generator</a> called <a href="https://gohugo.io/">Hugo</a>. I’m using <a href="https://github.com/harrycresswell/harry/tree/master/themes/hc-starter">a custom theme</a> I built on top of Hugo for the front-end.</p>
+<h2 id="asset-pipeline">Asset pipeline</h2>
+<p>All assets are processed by Hugo using <a href="https://gohugo.io/hugo-pipes/">Hugo Pipes</a>. This means I no longer need a build tool like Gulp to do stuff like compile SCSS to CSS or concatenate and minify JavaScript.</p>
+<h2 id="typography">Typography</h2>
+<p>Typography on the site is set using <a href="https://css-tricks.com/snippets/css/system-font-stack/">system defaults</a>, meaning text will render differently depending on your operating system. Personally I like the way this happens. It’s less of a headache to work with browser inconsistences instead of against them.</p>
+<p>I use a <a href="https://www.madebymike.com.au/writing/fluid-type-calc-examples/">fluid type mixin developed by Mike Riethmuller</a> to make it responsive for different screen resolutions. Type sizes are set using 2 modular scales, <a href="http://www.modularscale.com/?1&amp;em&amp;1.2">5:6 — minor third</a> for smaller devices and <a href="http://www.modularscale.com/?1&amp;em&amp;1.875">8:15 — major seventh</a> for desktop.</p>
+<h2 id="css-naming">CSS naming</h2>
+<p>The CSS is written in SCSS, and follows <a href="https://suitcss.github.io/">SuitCSS</a>, a component based CSS methodology developed by <a href="http://nicolasgallagher.com/">Nicholas Gallagher</a>. It’s pretty similar to the <a href="http://getbem.com/">BEM</a> method, I just prefer the way it looks. Otherwise theres not much in it.</p>
+<p>I organise my SCSS partials loosely based on <a href="https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/">ITCSS</a> in terms of order of specificity, however I opted to use a more conventional system for file naming and folder structure.</p>
+<h2 id="deployment-and-hosting">Deployment and hosting</h2>
+<p>The site is hosted directly from <a href="https://github.com/harrycresswell/harry">a GitHub repository</a> and served on the <a href="https://jamstack.org/">JAMstack</a> by <a href="https://www.netlify.com/">Netlify</a>. Netlify is a great CDN which also takes care of TLS certificates for HTTPS, and continuous deployments. That means when I push changes to Github it automatically deploys updates to the live site.</p>
+<p>All the code can be found on <a href="https://github.com/harrycresswell/harry">GitHub</a>. Feel free to use it for your own learning and development.</p>
+<h2 id="form-handling">Form handling</h2>
+<p>All form handling is taken care of by Netlify, so when a visitor submits the form, Netlify collects the submission and notifies me via email. If you’re interested in how all this works, I wrote about it in <a href="/articles/forms-with-netlify/">Static Site Form Handling with Netlify</a>.</p>
+<h2 id="media-storage">Media storage</h2>
+<p>All media on the site (images, GIFs etc) is hosted by <a href="https://cloudinary.com/">Cloudinary</a>, a cloud based storage service. This way I’m not committing large media files to GitHub and can avoid slow build times. Cloudinary provides automatic responsive images and compression with &lsquo;transformations&rsquo; set in the URL. You can read <a href="/articles/cloudinary/">more about how that works here</a>.</p>
+<p>If you have any further questions <a href="mailto:studio@harrycresswell.com">drop me an email</a> or a <a href="https://twitter.com/harrycresswell/">tweet</a>. I&rsquo;d be more than happy to help.</p>
+
+        </section>
+    </article>
+
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="How I built this site" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

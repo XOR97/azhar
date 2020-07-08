@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>HTML and the DOM | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="HTML and the DOM | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Build a todo app with Javascript,learn about the Document Object Model and begin building the front-end HTML to allow users to interface with our application">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="HTML and the DOM | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Build a todo app with Javascript,learn about the Document Object Model and begin building the front-end HTML to allow users to interface with our application">
+    <meta property="og:site_name" content="HTML and the DOM | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/notes/practical-javascript-html-dom/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/notes/practical-javascript-html-dom/">
+    <meta property="twitter:title" content="HTML and the DOM - Azhar Khan">
+    <meta property="twitter:description" content=" Build a todo app with Javascript,learn about the Document Object Model and begin building the front-end HTML to allow users to interface with our application Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/notes/practical-javascript-html-dom/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">HTML and the DOM</h1>
+      </header>
+
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published">Sun, Nov 25, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/javascript" class="p-category">JavaScript</a>
+      
+        <a href="/tags/coursenotes" class="p-category">Coursenotes</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>This is Part 7 of my notes on Gordon Zhu’s <a href="https://watchandcode.com/p/practical-javascript">Practical JavaScript</a>. In this part we learn about the Document Object Model and begin building the front-end HTML to allow users to interface with our application.</p>
+<h2 id="building-a-todo-app-v70">Building a todo app v.7.0&nbsp;<a class="heading-anchor" href="#building-a-todo-app-v70" aria-label="Anchor">#</a> </h2>
+<p>In version 7, we want to start building a user interface that people can interact with, type into, click on etc, so they don’t have to work on the console.  We’ll start by creating 2 buttons which run 2 of our methods.</p>
+<h2 id="requirements">Requirements&nbsp;<a class="heading-anchor" href="#requirements" aria-label="Anchor">#</a> </h2>
+<ul>
+<li>There should be a “Display todos” button and a “Toggle all” button in the app.</li>
+<li>Clicking “Display todos” should run <code>todoList.displayTodos</code></li>
+<li>Clicking “Toggle all” should run <code>todoList.toggleAll</code></li>
+</ul>
+<h2 id="what-is-the-dom">What is the DOM?&nbsp;<a class="heading-anchor" href="#what-is-the-dom" aria-label="Anchor">#</a> </h2>
+<p>Where HTML is plain text which gives the browser information about whats on the page. The Document Object Modal (DOM) is the browsers interpretation of the HTML.</p>
+<p>The browser uses the information in your HTML to build an understanding of what the document looks like.</p>
+<p>If you’ve ever right clicked on your website and hit Inspect Element, you will see how the browser has interpreted your document. The code the browser reveals is the DOM.</p>
+<p>In other words, the DOM represents the HTML code you write and provides a way to interact with the HTML objects.</p>
+<p>The DOM tree is how the nodes in each HTML document are organised. Think of this as a family tree, full of parents, siblings and children. The nodes are essentially the HTML tags you write. When you Inspect Element and drill down through the different levels of your HTML code you are moving through the DOM tree.</p>
+<p>The distinction between plain HTML and the DOM is subtle but it’s important to understand the difference.</p>
+<h2 id="step-1-there-should-be-display-todos-and-toggle-all-buttons-in-the-app">Step 1: There should be “Display todos” and “Toggle all” buttons in the app&nbsp;<a class="heading-anchor" href="#step-1-there-should-be-display-todos-and-toggle-all-buttons-in-the-app" aria-label="Anchor">#</a> </h2>
+<p>First we need to go into our HTML document and create 2 buttons, one for displaying todos and one for toggling all todos.</p>
+<p>Inside the body tags, we can write:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><h2 id="step-2-clicking-display-todos-should-run-todolistdisplaytodos">Step 2: Clicking “Display todos” should run todoList.displayTodos&nbsp;<a class="heading-anchor" href="#step-2-clicking-display-todos-should-run-todolistdisplaytodos" aria-label="Anchor">#</a> </h2>
+<p>Next we need our new display todos button to run the <code>todoList.displayTodos</code> method we made previously.</p>
+<p>In our JavaScript code we can start by writing out some comments for what we want to happen.</p>
+<pre><code>// 1. We want to get access to the display todos button.
+// 2. We want to run displayTodos method, when someone clicks the display todos button
+</code></pre><h3 id="creating-a-reference-to-the-button">Creating a reference to the button&nbsp;<a class="heading-anchor" href="#creating-a-reference-to-the-button" aria-label="Anchor">#</a> </h3>
+<p>Starting with the first requirement, we can create a new variable called <code>displayTodosButton</code> so we can reference the button.</p>
+<p>Then, in order to access the DOM, we can use the <code>document</code> object, which is built into JavaScript. The <code>document</code> object has methods on it that allow you to select a specific element. One of these methods is called <code>getElementById</code> which will grab an <code>id</code> on an element.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 1. We want to get access to the display todos button.
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">();</span>
+</code></pre></div><p>In order for the <code>getElementById</code> method to run we will need to head back to our HTML and add an <code>id</code> to our display todos button.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;displayTodosButton&#34;</span><span class="p">&gt;</span>Display Todos
+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>This will allow us to reference this specific button in our JavaScript:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 1. We want to get access to the display todos button. 
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;displayTodosButton&#39;</span><span class="p">);</span>
+</code></pre></div><h3 id="moving-scriptjs-references-to-the-end-of-the-page">Moving script.js references to the end of the page&nbsp;<a class="heading-anchor" href="#moving-scriptjs-references-to-the-end-of-the-page" aria-label="Anchor">#</a> </h3>
+<p>Now our code will grab the button we want. Let’s add a <code>console.log</code> to our code to check it‘s working correctly.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 1. We want to get access to the display todos button. 
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;displayTodosButton&#39;</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">displayTodosButton</span><span class="p">);</span>
+</code></pre></div><p>If we run our code you might well see an error, this is likely because of how we’re loading the JavaScript. Check to see if your link to <code>script.js</code> is inside the <code>&lt;head&gt;</code> of your document. If it is, remove it from the head and move it just above the closing <code>&lt;/body&gt;</code> tag.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;script.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div><p>Now the browser can see the <code>id</code> in the HTML document before it runs the JavaScript code. Whereas before, we were loading the JavaScript before the browser parsed the HTML, which is no good.</p>
+<p>This time when we run the code, our error should have disappeared and instead we see</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;displayTodosButton</span><span class="p">&gt;</span>Display Todos<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>Great, our code is working as expected.</p>
+<h3 id="run-displaytodos-method">run displayTodos method&nbsp;<a class="heading-anchor" href="#run-displaytodos-method" aria-label="Anchor">#</a> </h3>
+<p>Now we can focus on our second requirement. Here we want to run the display todos method when someone clicks the displays todo button.</p>
+<p>First, we grab our <code>displayTodosButton</code> variable, then add an event listener, which allows us to do something when an even happens. We can use the <code>addEventListener</code> method for this.</p>
+<p>In this case we’re listening for anytime someone clicks the button, and when that happens it runs a function which runs the <code>displayTodos</code> method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 1. We want to get access to the display todos button.
+</span><span class="c1"></span>
+<span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;displayTodosButton&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">displayTodosButton</span><span class="p">);</span>
+
+<span class="c1">// 2. We want to run displayTodos method, when someone clicks the display todos button.
+</span><span class="c1"></span>
+<span class="nx">displayTodosButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+  <span class="p">});</span>
+</code></pre></div><p>Now we can run our code to make sure its working. If all went well the console should return <code>“Your todo list is empty!”</code></p>
+<p>Now we can clean up our code by removing the comments and the <code>console.log</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">displayTodosButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;displayTodosButton&#39;</span><span class="p">);</span>
+<span class="nx">displayTodosButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">displayTodos</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div><h2 id="step-3-clicking-toggle-all-should-run-todolisttoggleall">Step 3: Clicking “Toggle all” should run todoList.toggleAll&nbsp;<a class="heading-anchor" href="#step-3-clicking-toggle-all-should-run-todolisttoggleall" aria-label="Anchor">#</a> </h2>
+<p>The toggle all button will work exactly the same.</p>
+<p>First we need to get a reference to the toggle all button via an <code>id</code>, so we start by giving the button an <code>id</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;toggleAllButton&#34;</span><span class="p">&gt;</span>Toggle All<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>Next we need to grab the button, so create the variable <code>toggleAllButton</code> and use the <code>getElementById</code> method as before and parse in the <code>id</code> we just created.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">toggleAllButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleAllButton&#39;</span><span class="p">);</span>
+</code></pre></div><p>Next we need to add the event listener to it, to listen for clicks.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">toggleAllButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;toggleAllButton&#39;</span><span class="p">);</span>
+<span class="nx">toggleAllButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">todoList</span><span class="p">.</span><span class="nx">toggleAll</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div><p>Now try adding some todo items to your todo list with:</p>
+<pre><code>todoList.addTodo(‘first’);
+todoList.addTodo(‘second’);
+</code></pre><p>Now try clicking the toggle all button to change the todos to completed, then click again to make incomplete.</p>
+<h2 id="v70-review">v.7.0 Review&nbsp;<a class="heading-anchor" href="#v70-review" aria-label="Anchor">#</a> </h2>
+<p>In version 7 we started moving away from the console and into the actual webpage, where people can interface with our todo app.</p>
+<p>We learnt about the DOM and the structure of HTML and where we need to put our JavaScript link.</p>
+<p>Then we learnt about how we can access the DOM using the <code>document</code> method and then grab the buttons on our page via an <code>id</code> using the <code>getElementById</code> method.</p>
+<p>We also learnt about event listeners and the <code>addEventListener</code> method, using a <code>click</code> event, which allows us to run some code when someone clicks a button. The <code>click</code> is just one of many types of events you can use to handle events inside of the DOM.</p>
+ 
+      </section>
+
+      <footer>
+      
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/accessibility-checking-writing-mac-os/">Accessibility check your writing on macOS</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </footer>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="HTML and the DOM" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>

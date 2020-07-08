@@ -8,10 +8,54 @@
     <language>en</language>
     <managingEditor>azhar932@icloud.com (Azhar Khan)</managingEditor>
     <webMaster>azhar932@icloud.com (Azhar Khan)</webMaster>
-    <lastBuildDate>Thu, 30 Apr 2020 11:08:58 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2020 09:50:37 +0100</lastBuildDate>
     
         <atom:link href="https://azharkhan.in/tags/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+      
+      <item>
+        <title>Eleventy</title>
+        <link>https://azharkhan.in/tags/eleventy/</link>
+        <pubDate>Fri, 05 Jun 2020 09:50:37 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/eleventy/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Coursenotes</title>
+        <link>https://azharkhan.in/tags/coursenotes/</link>
+        <pubDate>Tue, 19 May 2020 07:42:58 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/coursenotes/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>JavaScript</title>
+        <link>https://azharkhan.in/tags/javascript/</link>
+        <pubDate>Tue, 19 May 2020 07:42:58 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/javascript/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Hugo</title>
+        <link>https://azharkhan.in/tags/hugo/</link>
+        <pubDate>Fri, 15 May 2020 08:44:48 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/hugo/</guid>
+        <description></description>
+      </item>
+      
     
       
       <item>
@@ -37,11 +81,22 @@
     
       
       <item>
-        <title>Hugo</title>
-        <link>https://azharkhan.in/tags/hugo/</link>
-        <pubDate>Wed, 15 Apr 2020 10:50:11 +0100</pubDate>
+        <title>Productivity</title>
+        <link>https://azharkhan.in/tags/productivity/</link>
+        <pubDate>Wed, 22 Apr 2020 11:01:05 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/hugo/</guid>
+        <guid>https://azharkhan.in/tags/productivity/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Strategy</title>
+        <link>https://azharkhan.in/tags/strategy/</link>
+        <pubDate>Wed, 22 Apr 2020 11:01:05 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/strategy/</guid>
         <description></description>
       </item>
       
@@ -59,11 +114,55 @@
     
       
       <item>
-        <title>JavaScript</title>
-        <link>https://azharkhan.in/tags/javascript/</link>
-        <pubDate>Mon, 30 Mar 2020 17:20:31 +0100</pubDate>
+        <title>Sanity</title>
+        <link>https://azharkhan.in/tags/sanity/</link>
+        <pubDate>Wed, 25 Mar 2020 06:40:37 +0000</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/javascript/</guid>
+        <guid>https://azharkhan.in/tags/sanity/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Automation</title>
+        <link>https://azharkhan.in/tags/automation/</link>
+        <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/automation/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Gatsby</title>
+        <link>https://azharkhan.in/tags/gatsby/</link>
+        <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/gatsby/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>GraphQL</title>
+        <link>https://azharkhan.in/tags/graphql/</link>
+        <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/graphql/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Reflections</title>
+        <link>https://azharkhan.in/tags/reflections/</link>
+        <pubDate>Sat, 29 Feb 2020 13:14:02 +0000</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/reflections/</guid>
         <description></description>
       </item>
       
@@ -81,33 +180,99 @@
     
       
       <item>
-        <title>Strategy</title>
-        <link>https://azharkhan.in/tags/strategy/</link>
-        <pubDate>Fri, 21 Feb 2020 17:59:33 +0000</pubDate>
+        <title>Intentions</title>
+        <link>https://azharkhan.in/tags/intentions/</link>
+        <pubDate>Fri, 10 Jan 2020 11:16:15 +0000</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/strategy/</guid>
+        <guid>https://azharkhan.in/tags/intentions/</guid>
         <description></description>
       </item>
       
     
       
       <item>
-        <title>GraphQL</title>
-        <link>https://azharkhan.in/tags/graphql/</link>
-        <pubDate>Fri, 19 Jul 2019 10:38:59 +0200</pubDate>
+        <title>Year in Review</title>
+        <link>https://azharkhan.in/tags/year-in-review/</link>
+        <pubDate>Tue, 31 Dec 2019 14:17:30 +0000</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/graphql/</guid>
+        <guid>https://azharkhan.in/tags/year-in-review/</guid>
         <description></description>
       </item>
       
     
       
       <item>
-        <title>Sanity</title>
-        <link>https://azharkhan.in/tags/sanity/</link>
-        <pubDate>Fri, 19 Jul 2019 10:38:59 +0200</pubDate>
+        <title>Email Marketing</title>
+        <link>https://azharkhan.in/tags/email-marketing/</link>
+        <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/sanity/</guid>
+        <guid>https://azharkhan.in/tags/email-marketing/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Prototyping</title>
+        <link>https://azharkhan.in/tags/prototyping/</link>
+        <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/prototyping/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>UI Design</title>
+        <link>https://azharkhan.in/tags/ui-design/</link>
+        <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/ui-design/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>Usability Testing</title>
+        <link>https://azharkhan.in/tags/usability-testing/</link>
+        <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/usability-testing/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>UX Design</title>
+        <link>https://azharkhan.in/tags/ux-design/</link>
+        <pubDate>Fri, 30 Aug 2019 16:44:00 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/ux-design/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>CSS</title>
+        <link>https://azharkhan.in/tags/css/</link>
+        <pubDate>Wed, 21 Aug 2019 15:41:48 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/css/</guid>
+        <description></description>
+      </item>
+      
+    
+      
+      <item>
+        <title>React</title>
+        <link>https://azharkhan.in/tags/react/</link>
+        <pubDate>Wed, 21 Aug 2019 15:41:48 +0100</pubDate>
+        <author>azhar932@icloud.com (Azhar Khan)</author>
+        <guid>https://azharkhan.in/tags/react/</guid>
         <description></description>
       </item>
       
@@ -116,7 +281,7 @@
       <item>
         <title>Today I Learned</title>
         <link>https://azharkhan.in/tags/today-i-learned/</link>
-        <pubDate>Fri, 19 Jul 2019 10:38:59 +0200</pubDate>
+        <pubDate>Tue, 20 Aug 2019 10:57:26 +0200</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
         <guid>https://azharkhan.in/tags/today-i-learned/</guid>
         <description></description>
@@ -125,22 +290,22 @@
     
       
       <item>
-        <title>Data Science</title>
-        <link>https://azharkhan.in/tags/data-science/</link>
-        <pubDate>Sun, 27 Jan 2019 14:10:29 +0000</pubDate>
+        <title>Design</title>
+        <link>https://azharkhan.in/tags/design/</link>
+        <pubDate>Fri, 17 May 2019 15:12:50 +0200</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/data-science/</guid>
+        <guid>https://azharkhan.in/tags/design/</guid>
         <description></description>
       </item>
       
     
       
       <item>
-        <title>Productivity</title>
-        <link>https://azharkhan.in/tags/productivity/</link>
-        <pubDate>Fri, 27 Apr 2018 23:25:36 +0100</pubDate>
+        <title>API</title>
+        <link>https://azharkhan.in/tags/api/</link>
+        <pubDate>Fri, 27 Jul 2018 09:24:22 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/productivity/</guid>
+        <guid>https://azharkhan.in/tags/api/</guid>
         <description></description>
       </item>
       
@@ -158,17 +323,6 @@
     
       
       <item>
-        <title>API</title>
-        <link>https://azharkhan.in/tags/api/</link>
-        <pubDate>Thu, 05 Apr 2018 09:49:36 +0200</pubDate>
-        <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/api/</guid>
-        <description></description>
-      </item>
-      
-    
-      
-      <item>
         <title>Process</title>
         <link>https://azharkhan.in/tags/process/</link>
         <pubDate>Mon, 26 Mar 2018 13:28:18 +0100</pubDate>
@@ -180,44 +334,44 @@
     
       
       <item>
-        <title>Design</title>
-        <link>https://azharkhan.in/tags/design/</link>
-        <pubDate>Thu, 15 Mar 2018 11:18:40 +0000</pubDate>
+        <title>Booknotes</title>
+        <link>https://azharkhan.in/tags/booknotes/</link>
+        <pubDate>Wed, 26 Oct 2016 21:34:41 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/design/</guid>
+        <guid>https://azharkhan.in/tags/booknotes/</guid>
         <description></description>
       </item>
       
     
       
       <item>
-        <title>Python</title>
-        <link>https://azharkhan.in/tags/python/</link>
-        <pubDate>Mon, 11 Dec 2017 14:10:29 +0000</pubDate>
+        <title>Creativity</title>
+        <link>https://azharkhan.in/tags/creativity/</link>
+        <pubDate>Wed, 26 Oct 2016 21:34:41 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/python/</guid>
+        <guid>https://azharkhan.in/tags/creativity/</guid>
         <description></description>
       </item>
       
     
       
       <item>
-        <title>Jekyll</title>
-        <link>https://azharkhan.in/tags/jekyll/</link>
-        <pubDate>Mon, 10 Apr 2017 14:10:29 +0000</pubDate>
+        <title>Impact</title>
+        <link>https://azharkhan.in/tags/impact/</link>
+        <pubDate>Wed, 26 Oct 2016 21:34:41 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/jekyll/</guid>
+        <guid>https://azharkhan.in/tags/impact/</guid>
         <description></description>
       </item>
       
     
       
       <item>
-        <title>General</title>
-        <link>https://azharkhan.in/tags/general/</link>
-        <pubDate>Fri, 15 Jul 2016 14:10:29 +0000</pubDate>
+        <title>Marketing</title>
+        <link>https://azharkhan.in/tags/marketing/</link>
+        <pubDate>Wed, 26 Oct 2016 21:34:41 +0100</pubDate>
         <author>azhar932@icloud.com (Azhar Khan)</author>
-        <guid>https://azharkhan.in/tags/general/</guid>
+        <guid>https://azharkhan.in/tags/marketing/</guid>
         <description></description>
       </item>
       
