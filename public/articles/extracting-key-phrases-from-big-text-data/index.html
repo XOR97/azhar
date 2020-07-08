@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Extracting key phrases from BIG (text) data | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</title>
+    <meta name="title" content="Extracting key phrases from BIG (text) data | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    
+    <meta name="description" content="Understanding how value can be derived from a sea of information.">
+    <meta name="keywords" content="Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product">
+    <meta http-equiv="content-language" content="en" />
+    
+    <meta property="og:title" content="Extracting key phrases from BIG (text) data | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:description" content="Understanding how value can be derived from a sea of information.">
+    <meta property="og:site_name" content="Extracting key phrases from BIG (text) data | Azhar Khan &middot; Azhar Khan is an independent data engineer and developer from Ottawa, Canada.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azharkhan.in/articles/extracting-key-phrases-from-big-text-data/">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://azharkhan.in/articles/extracting-key-phrases-from-big-text-data/">
+    <meta property="twitter:title" content="Extracting key phrases from BIG (text) data - Azhar Khan">
+    <meta property="twitter:description" content=" Understanding how value can be derived from a sea of information. Blog posts on code and design by github.com/XOR97">
+    <link rel="canonical" href="https://azharkhan.in/articles/extracting-key-phrases-from-big-text-data/">
+    
+    
+    
+    <meta name="p:domain_verify" content="c60dc1e9be844be29f0fb5525b9afe6f"/>
+    
+    <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
+    
+    <meta name="pinterest" content="nopin" />
+        
+    <meta name="author" content="Azhar Khan">
+    <link href="mailto:azhar932@icloud.com" rel="me">
+    <link href="https://twitter.com/Azhr_K_" rel="me">
+    <link href="https://github.com/XOR97" rel="me">
+    <link href="https://www.linkedin.com/in/azhar93/" rel="me">
+    
+    <link rel="webmention" href="https://webmention.io/harrycresswell.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/harrycresswell.com/xmlrpc" />
+    
+    
+      
+      
+       
+      
+      
+      <link rel="stylesheet" href="https://azharkhan.in/css/main.min.bf08fe8d86332cb842d75cf7df24b0b53fd52f2d350e68cea9eea8bdf244050b.css" integrity="sha256-vwj&#43;jYYzLLhC11z33ySwtT/VLy01DmjOqe6ovfJEBQs=" media="screen">
+    
+    
+    <link rel="apple-touch-icon" href="https://azharkhan.in/img/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://azharkhan.in/img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="https://azharkhan.in/img/favicon.ico" type="image/x-icon">
+    
+    </head>
+	<body class="Wrapper h-card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="Header">
+    <div class="Title">
+      <a class="p-name u-url" rel="me" href="https://azharkhan.in/">Azhar Khan</a>
+      <div hidden>
+          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <p class="p-note">Azhar Khan is an independent data engineer and developer from Ottawa, Canada.</p>
+          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+      </div>
+    </div>
+    <nav class="Nav" aria-label="Main Navigation">
+      <ul class="Nav-list">
+       
+        
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/articles/">Articles</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/notes/">Notes</a>
+        </li>
+      
+        <li class="Nav-listItem">
+          <a class="Nav-listItemLink" href="/tags/">Tags</a>
+        </li>
+      
+      </ul>
+    </nav>
+  </header>
+
+    <main id="main-content" class="Container">
+    
+      
+  <article id="content" class="Post h-entry">
+
+      <header class="PostHeader">
+          <h1 class="PostHeader-title p-name">Extracting key phrases from BIG (text) data</h1>
+      </header>
+    
+      <section class="PostMeta">
+        <time class="PostMeta-date dt-published" datetime="2018-03-21 14:10:29 &#43;0000 UTC">Wed, Mar 21, 2018</time> —
+        
+<div class="PostMeta-tags">
+    <div class="PostMeta-tag">
+      
+      
+        <a href="/tags/data-science" class="p-category">Data Science</a>
+      
+    </div>
+</div>
+
+      </section>
+
+      <section class="PostBody e-content">
+        <p>I often apply natural language processing for purposes of automatically extracting structured information from unstructured (text) datasets. One such task is the extraction of important topical words and phrases from documents, commonly known as <a href="https://en.wikipedia.org/wiki/Terminology_extraction">terminology extraction</a> or <strong>automatic keyphrase extraction</strong>. Keyphrases provide a concise description of a document’s content; they are useful for document categorization, clustering, indexing, search, and summarization; quantifying semantic similarity with other documents; as well as conceptualizing particular knowledge domains.</p>
+<p>Despite wide applicability and much research, keyphrase extraction suffers from poor performance relative to many other core NLP tasks, partly because there’s no objectively “correct” set of keyphrases for a given document. While human-labeled keyphrases are generally considered to be the gold standard, humans disagree about what that standard is! As a general rule of thumb, keyphrases should be relevant to one or more of a document’s major topics, and the set of keyphrases describing a document should provide good coverage of all major topics. (They should also be understandable and grammatical, of course.) The fundamental difficulty lies in determining which keyphrases are the most relevant and provide the best coverage. As described in <a href="http://www.hlt.utdallas.edu/~saidul/acl14.pdf">Automatic Keyphrase Extraction: A Survey of the State of the Art</a>, several factors contribute to this difficulty, including document length, structural inconsistency, changes in topic, and (a lack of) correlations between topics.</p>
+<h2 id="methodology">Methodology&nbsp;<a class="heading-anchor" href="#methodology" aria-label="Anchor">#</a> </h2>
+<p>Automatic keyphrase extraction is typically a two-step process: first, a set of words and phrases that could convey the topical content of a document are identified, then these candidates are scored/ranked and the “best” are selected as a document’s keyphrases.</p>
+<h3 id="1-candidate-identification">1. Candidate Identification&nbsp;<a class="heading-anchor" href="#1-candidate-identification" aria-label="Anchor">#</a> </h3>
+<p>A brute-force method might consider all words and/or phrases in a document as candidate keyphrases. However, given computational costs and the fact that not all words and phrases in a document are equally likely to convey its content, heuristics are typically used to identify a smaller subset of better candidates. Common heuristics include removing <a href="https://en.wikipedia.org/wiki/Stop_words">stop words</a> and punctuation; filtering for words with certain parts of speech or, for multi-word phrases, certain POS patterns; and using external knowledge bases like <a href="https://wordnet.princeton.edu">WordNet</a> or Wikipedia as a reference source of good/bad keyphrases.</p>
+<p>For example, rather than taking all of the <a href="https://en.wikipedia.org/wiki/N-gram">n-grams</a> (where 1 ≤ n ≤ 5) in this post’s first two paragraphs as candidates, we might limit ourselves to only noun phrases matching the POS pattern <code>{(&lt;JJ&gt;* &lt;NN.*&gt;+ &lt;IN&gt;)? &lt;JJ&gt;* &lt;NN.*&gt;+}</code> (a regular expression written in a simplified format used by <a href="http://www.nltk.org">NLTK’s</a> <code>RegexpParser()</code>). This matches any number of adjectives followed by at least one noun that may be joined by a preposition to one other adjective(s)+noun(s) sequence, and results in the following candidates:</p>
+<pre><code>['art', automatic keyphrase extraction', 'changes in topic', 'concise description',
+'content', 'coverage', 'difficulty', 'document', 'document categorization',
+'document length', 'extraction of important topical words', 'fundamental difficulty',
+'general rule of thumb', 'gold standard', 'good coverage', 'human-labeled keyphrases',
+'humans', 'indexing', 'keyphrases', 'major topics', 'many other core nlp tasks',
+'much research', 'natural language processing for purposes', 'particular knowledge domains',
+'phrases from documents', 'search', 'semantic similarity with other documents',
+'set of keyphrases', 'several factors', 'state', 'structural inconsistency',
+'summarization', 'survey', 'terminology extraction', 'topics', 'wide applicability', 'work']
+</code></pre><p>Compared to the brute force result, which gives 1100+ candidate n-grams, most of which are almost certainly not keyphrases (e.g. “task”, “relative to”, “and the set”, “survey of the state”, …), this seems like a much smaller and more likely set of candidates, right? As document length increases, though, even the number of likely candidates can get quite large. Selecting the best keyphrase candidates is the objective of step 2.</p>
+<h3 id="2-keyphrase-selection">2. Keyphrase Selection&nbsp;<a class="heading-anchor" href="#2-keyphrase-selection" aria-label="Anchor">#</a> </h3>
+<p>Researchers have devised a plethora of methods for distinguishing between good and bad (or better and worse) keyphrase candidates. The simplest rely solely on <strong>frequency statistics</strong>, such as <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">TF*IDF</a> or <a href="https://en.wikipedia.org/wiki/Okapi_BM25">BM25</a>, to score candidates, assuming that a document’s keyphrases tend to be relatively frequent within the document as compared to an external reference corpus. Unfortunately, their performance is mediocre; researchers have demonstrated that the best keyphrases aren’t necessarily the most frequent within a document. (For a statistical analysis of human-generated keyphrases, check out <a href="http://vis.stanford.edu/papers/keyphrases">Descriptive Keyphrases for Text Visualization.</a>) A next attempt might score candidates using multiple statistical features combined in an ad hoc or heuristic manner, but this approach only goes so far. More sophisticated methods apply machine learning to the problem. They fall into two broad categories.</p>
+<h3 id="unsupervised">Unsupervised&nbsp;<a class="heading-anchor" href="#unsupervised" aria-label="Anchor">#</a> </h3>
+<p>Unsupervised machine learning methods attempt to discover the underlying structure of a dataset without the assistance of already-labeled examples (“training data”). The canonical unsupervised approach to automatic keyphrase extraction uses a <strong>graph-based ranking</strong> method, in which the importance of a candidate is determined by its relatedness to other candidates, where “relatedness” may be measured by two terms’ frequency of co-occurrence or <a href="https://en.wikipedia.org/wiki/Semantic_similarity">semantic relatedness</a>. This method assumes that more important candidates are related to a greater number of other candidates, and that more of those related candidates are also considered important; it does not, however, ensure that selected keyphrases cover all major topics, although multiple variations try to compensate for this weakness.</p>
+<p>Essentially, a document is represented as a network whose nodes are candidate keyphrases (typically only key words) and whose edges (optionally weighted by the degree of relatedness) connect related candidates. Then, a <a href="https://networkx.github.io/documentation/networkx-1.9/reference/algorithms.centrality.html">graph-based ranking algorithm</a>, such as Google’s famous <a href="https://en.wikipedia.org/wiki/PageRank">PageRank</a>, is run over the network, and the highest-scoring terms are taken to be the document’s keyphrases.</p>
+<p>The most famous instantiation of this approach is <a href="http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf">TextRank</a>; a variation that attempts to ensure good topic coverage is DivRank. For a more extensive breakdown, see <a href="http://www.hlt.utdallas.edu/~vince/papers/coling10-keyphrase.pdf">Conundrums in Unsupervised Keyphrase Extraction</a>, which includes an example of a <strong>topic-based clustering</strong> method, the other main class of unsupervised keyphrase extraction algorithms (which I’m not going to delve into).</p>
+<p>Unsupervised approaches have at least one notable strength: No training data required! In an age of massive but unlabled datasets, this can be a huge advantage over other approaches. As for disadvantages, unsupervised methods make assumptions that don’t necessarily hold across different domains, and up until recently, their performance has been inferior to supervised methods. Which brings me to the next section.</p>
+<h3 id="supervised">Supervised&nbsp;<a class="heading-anchor" href="#supervised" aria-label="Anchor">#</a> </h3>
+<p>Supervised machine learning methods use training data to infer a function that maps a set of input variables called features to some desired (and known) output value; ideally, this function can correctly predict the (unknown) output values of new examples based on their features alone. The two primary developments in supervised approaches to automatic keyphrase extraction deal with <strong>task reformulation</strong> and <strong>feature design</strong>.</p>
+<p>Early implementations recast the problem of extracting keyphrases from a document as a <strong>binary classification</strong> problem, in which some fraction of candidates are classified as keyphrases and the rest as non-keyphrases. This is a well-understood problem, and there are many methods to solve it: <a href="https://scikit-learn.org/stable/modules/naive_bayes.html">Naive Bayes</a>, <a href="https://scikit-learn.org/stable/modules/tree.html">decision trees</a>, and <a href="https://scikit-learn.org/stable/modules/svm.html">support vector machines</a>, among others. However, this reformulation of the task is conceptually problematic; humans don’t judge keyphrases independently of one another, instead they judge certain phrases as more key than others in a intrinsically relative sense. As such, more recently the problem has been reformulated as a <strong>ranking</strong> problem, in which a function is trained to rank candidates pairwise according to degree of “keyness”. The best candidates rise to the top, and the top N are taken to be the document’s keyphrases.</p>
+<p>The second line of research into supervised approaches has explored a wide variety of features used to discriminate between keyphrases and non-keyphrases. The most common are the aforementioned frequency statistics, along with a grab-bag of other <strong>statistical features</strong>: phrase length (number of constituent words), phrase position (normalized position within a document of first and/or last occurrence therein), and “supervised keyphraseness” (number of times a keyphrase appears as such in the training data). Some models take advantage of a document’s <strong>structural features</strong> — titles, abstracts, intros and conclusions, metadata, and so on — because a candidate is more likely to be a keyphrase if it appears in notable sections. Others are <strong>external resource-based features</strong>: “Wikipedia-based keyphraseness” assumes that keyphrases are more likely to appear as Wiki article links and/or titles, while phrase commonness compares a candidate’s frequency in a document with respect to its frequency in an external corpus. The list of possible features goes on and on.</p>
+<p>A well-known implementation of the binary classification method, <a href="http://community.nzdl.org/kea/">KEA</a> (as published in <a href="http://community.nzdl.org/kea/Nevill-et-al-1999-DL99-poster.pdf">Practical Automatic Keyphrase Extraction</a>), used TF*IDF and position of first occurrence (while filtering on phrase length) to identify keyphrases. In A Ranking Approach to Keyphrase Extraction, researchers used a Linear Ranking SVM to rank candidate keyphrases with much success (but failed to give their algorithm a catchy name).</p>
+<p>Supervised approaches have generally achieved better performance than unsupervised approaches; however, good training data is hard to find (although here’s <a href="https://github.com/snkim/AutomaticKeyphraseExtraction">a decent place to start</a>), and the danger of training a model that doesn’t generalize to unseen examples is something to always guard against (e.g. through <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">cross-validation</a>).</p>
+<h3 id="results">Results&nbsp;<a class="heading-anchor" href="#results" aria-label="Anchor">#</a> </h3>
+<p>Okay, now that I’ve scared/bored away all but the truly interested, let’s dig into some code and results! As an example document, I’ll use all of the text in this post up to this results section; as a reference corpus, I’ll use all other posts on this blog. In principle, a reference corpus isn’t necessary for single-document keyphrase extraction (case in point: TextRank), but it’s often helpful to compare a document’s candidates against other documents’ in order to characterize its particular content. Consider that tf*idf reduces to just tf (term frequency) in the case of a single document, since idf (inverse document frequency) is the same value for every candidate.</p>
+<p>As mentioned, there are many ways to extract candidate keyphrases from a document; here’s a simplified and compact implementation of the “noun phrases only” heuristic method:</p>
+<pre><code>def extract_candidate_chunks(text, grammar=r'KT: {(&lt;JJ&gt;* &lt;NN.*&gt;+ &lt;IN&gt;)? &lt;JJ&gt;* &lt;NN.*&gt;+}'):
+    import itertools, nltk, string
+
+    # exclude candidates that are stop words or entirely punctuation
+    punct = set(string.punctuation)
+    stop_words = set(nltk.corpus.stopwords.words('english'))
+    # tokenize, POS-tag, and chunk using regular expressions
+    chunker = nltk.chunk.regexp.RegexpParser(grammar)
+    tagged_sents = nltk.pos_tag_sents(nltk.word_tokenize(sent) for sent in nltk.sent_tokenize(text))
+    all_chunks = list(itertools.chain.from_iterable(nltk.chunk.tree2conlltags(chunker.parse(tagged_sent))
+                                                    for tagged_sent in tagged_sents))
+    # join constituent chunk words into a single chunked phrase
+    candidates = [' '.join(word for word, pos, chunk in group).lower()
+                  for key, group in itertools.groupby(all_chunks, lambda (word,pos,chunk): chunk != 'O') if key]
+
+    return [cand for cand in candidates
+            if cand not in stop_words and not all(char in punct for char in cand)]
+</code></pre><p>When <code>text</code> is assigned to the first two paragraphs of this post, <code>set(extract_candidate_chunks(text))</code> returns more or less the same set of candidate keyphrases as listed in 1. Candidate Identification. (Additional cleaning and filtering code improves the list a bit and helps to makes up for tokenizing/tagging/chunking errors.) For comparison, the original TextRank algorithm performs best when extracting all (unigram) nouns and adjectives, like so:</p>
+<pre><code>def extract_candidate_words(text, good_tags=set(['JJ','JJR','JJS','NN','NNP','NNS','NNPS'])):
+    import itertools, nltk, string
+
+    # exclude candidates that are stop words or entirely punctuation
+    punct = set(string.punctuation)
+    stop_words = set(nltk.corpus.stopwords.words('english'))
+    # tokenize and POS-tag words
+    tagged_words = itertools.chain.from_iterable(nltk.pos_tag_sents(nltk.word_tokenize(sent)
+                                                                    for sent in nltk.sent_tokenize(text)))
+    # filter on certain POS tags and lowercase all words
+    candidates = [word.lower() for word, tag in tagged_words
+                  if tag in good_tags and word.lower() not in stop_words
+                  and not all(char in punct for char in word)]
+
+    return candidates
+</code></pre><p>In this case, <code>set(extract_candidate_words(text))</code> gives basically the same set of words visualized as a network in the sub-section on unsupervised methods.</p>
+<p>Code for keyphrase selection depends entirely on the approach taken, of course. It’s relatively straightforward to implement the simplest, frequency statistic-based approach using <a href="https://scikit-learn.org/stable/">scikit-learn</a> or <a href="https://radimrehurek.com/gensim/">gensim</a>:</p>
+<pre><code>def score_keyphrases_by_tfidf(texts, candidates='chunks'):
+    import gensim, nltk
+
+    # extract candidates from each text in texts, either chunks or words
+    if candidates == 'chunks':
+        boc_texts = [extract_candidate_chunks(text) for text in texts]
+    elif candidates == 'words':
+        boc_texts = [extract_candidate_words(text) for text in texts]
+    # make gensim dictionary and corpus
+    dictionary = gensim.corpora.Dictionary(boc_texts)
+    corpus = [dictionary.doc2bow(boc_text) for boc_text in boc_texts]
+    # transform corpus with tf*idf model
+    tfidf = gensim.models.TfidfModel(corpus)
+    corpus_tfidf = tfidf[corpus]
+
+    return corpus_tfidf, dictionary
+</code></pre><p>First we assign <code>texts</code> to a list of normalized text content (stripped of various YAML, HTML, and Markdown formatting) from all previous blog posts plus the first two sections of this post, then we call <code>score_keyphrases_by_tfidf(texts)</code> to get all posts back in a sparse, tf<em>idf-weighted representation. It’s now trivial to print out the 20 candidate keyphrases with the highest tf</em>idf values for this blog post:</p>
+<pre><code>keyphrase                           tfidf
+-----------------------------------------
+keyphrases......................... 0.573
+document........................... 0.375
+candidates......................... 0.306
+approaches......................... 0.191
+approach........................... 0.115
+candidate.......................... 0.115
+major topics....................... 0.115
+methods............................ 0.115
+automatic keyphrase extraction..... 0.076
+frequency statistics............... 0.076
+keyphrase.......................... 0.076
+keyphrase candidates............... 0.076
+network............................ 0.076
+relatedness........................ 0.076
+researchers........................ 0.076
+set of keyphrases.................. 0.076
+state.............................. 0.076
+survey............................. 0.076
+function........................... 0.075
+performance........................ 0.075
+</code></pre><p>Not too shabby! Although you can clearly see how <a href="https://en.wikipedia.org/wiki/Stemming">stemming</a> or <a href="https://en.wikipedia.org/wiki/Lemmatisation">lemmatizing</a> candidates would improve results (candidate / candidates, approach / approaches, and keyphrase / keyphrases would normalize together). You can also see that this approach seems to favor unigram keyphrases, likely owing to their much higher frequencies of occurrence in natural language texts. Considering that human-selected keyphrases are most often bigrams (according to the analysis in <a href="http://vis.stanford.edu/papers/keyphrases">Descriptive Keyphrases for Text Visualization</a>), this seems to be another limitation of such simplistic methods.</p>
+<p>Now, let’s try a bare-bones implementation of the TextRank algorithm. To keep it simple, only unigram candidates (not chunks or n-grams) are added to the network as nodes, the co-occurrence window size is fixed at 2 (so only adjacent words are said to “co-occur”), and the edges between nodes are unweighted (rather than weighted by the number of co-occurrences). The N top-scoring candidates are taken to be its keywords; sequences of adjacent keywords are merged to form key phrases and their individual PageRank scores are averaged, so as not to bias for longer keyphrases.</p>
+<pre><code>def score_keyphrases_by_textrank(text, n_keywords=0.05):
+    from itertools import takewhile, tee, izip
+    import networkx, nltk
+
+    # tokenize for all words, and extract *candidate* words
+    words = [word.lower()
+             for sent in nltk.sent_tokenize(text)
+             for word in nltk.word_tokenize(sent)]
+    candidates = extract_candidate_words(text)
+    # build graph, each node is a unique candidate
+    graph = networkx.Graph()
+    graph.add_nodes_from(set(candidates))
+    # iterate over word-pairs, add unweighted edges into graph
+    def pairwise(iterable):
+        &quot;&quot;&quot;s -&gt; (s0,s1), (s1,s2), (s2, s3), ...&quot;&quot;&quot;
+        a, b = tee(iterable)
+        next(b, None)
+        return izip(a, b)
+    for w1, w2 in pairwise(candidates):
+        if w2:
+            graph.add_edge(*sorted([w1, w2]))
+    # score nodes using default pagerank algorithm, sort by score, keep top n_keywords
+    ranks = networkx.pagerank(graph)
+    if 0 &lt; n_keywords &lt; 1:
+        n_keywords = int(round(len(candidates) * n_keywords))
+    word_ranks = {word_rank[0]: word_rank[1]
+                  for word_rank in sorted(ranks.iteritems(), key=lambda x: x[1], reverse=True)[:n_keywords]}
+    keywords = set(word_ranks.keys())
+    # merge keywords into keyphrases
+    keyphrases = {}
+    j = 0
+    for i, word in enumerate(words):
+        if i &lt; j:
+            continue
+        if word in keywords:
+            kp_words = list(takewhile(lambda x: x in keywords, words[i:i+10]))
+            avg_pagerank = sum(word_ranks[w] for w in kp_words) / float(len(kp_words))
+            keyphrases[' '.join(kp_words)] = avg_pagerank
+            # counter as hackish way to ensure merged keyphrases are non-overlapping
+            j = i + len(kp_words)
+
+    return sorted(keyphrases.iteritems(), key=lambda x: x[1], reverse=True)
+</code></pre><p>With <code>text</code> as the first two sections of this post, calling <code>score_keyphrases_by_textrank(text)</code> returns the following top 20 keyphrases:</p>
+<pre><code>keyphrase                           textrank
+--------------------------------------------
+keyphrases.........................    0.028
+candidates.........................    0.022
+document...........................    0.022
+candidate keyphrases...............    0.019
+best keyphrases....................    0.018
+keyphrase candidates...............    0.017
+likely candidates..................    0.015
+best candidates....................    0.015
+best keyphrase candidates..........    0.014
+features...........................    0.013
+keyphrase..........................    0.012
+keyphrase extraction...............    0.012
+extraction.........................    0.012
+methods............................    0.011
+candidate..........................     0.01
+words..............................     0.01
+automatic keyphrase extraction.....     0.01
+approaches.........................    0.009
+problem............................    0.009
+set................................    0.008
+</code></pre><p>Again, not too shabby, but obviously there’s room for improvement. You can see that this algorithm occasionally produces novel and high-quality keyphrases, but there’s a fair amount of noise, too. Normalization of candidates (keyphrase / keyphrases, …) could help, as could better cleaning and filtering. Furthermore, experimenting with different aspects of the algorithm — like DivRank, SingleRank, <a href="http://www.aaai.org/Papers/AAAI/2008/AAAI08-136.pdf">ExpandRank</a>, <a href="http://www.aclweb.org/anthology/C/C08/C08-1122.pdf">CollabRank</a>, and others — including co-occurrence window size, weighted graphs, and the manner in which keywords are merged into keyphrases, has been shown to produce better results.</p>
+<p>Lastly, let’s try a supervised algorithm. I prefer a ranking approach over binary classification, for conceptual as well as result quality reasons. Conveniently, someone has already implemented a <a href="https://gist.github.com/agramfort/2071994">pairwise Ranking SVM</a> in Python — and <a href="http://fa.bianp.net/blog/2012/learning-to-rank-with-scikit-learn-the-pairwise-transform/">blogged about it!</a> Feature design is something of an art; drawing on multiple sources for inspiration, I extracted a diverse grab-bag of features:</p>
+<ul>
+<li><strong>frequency-based</strong>: term frequency, g<!-- raw HTML omitted -->2<!-- raw HTML omitted -->, corpus and web “commonness” (as defined <a href="http://vis.stanford.edu/papers/keyphrases">here</a>)</li>
+<li><strong>statistical</strong>: term length, spread, lexical cohesion, max word length</li>
+<li><strong>grammatical</strong>: “is acronym”, “is <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">named entity</a>”</li>
+<li><strong>positional</strong>: normalized positions of first and last occurrence, “is in title”, “is in key excerpt” (such as an abstract or introductory paragraph)</li>
+</ul>
+<p>Feature extraction can get very complicated and convoluted. In the interest of brevity and simplicity, then, here’s a partial example:</p>
+<pre><code>def extract_candidate_features(candidates, doc_text, doc_excerpt, doc_title):
+    import collections, math, nltk, re
+
+    candidate_scores = collections.OrderedDict()
+
+    # get word counts for document
+    doc_word_counts = collections.Counter(word.lower()
+                                          for sent in nltk.sent_tokenize(doc_text)
+                                          for word in nltk.word_tokenize(sent))
+
+    for candidate in candidates:
+
+        pattern = re.compile(r'\b'+re.escape(candidate)+r'(\b|[,;.!?]|\s)', re.IGNORECASE)
+
+        # frequency-based
+        # number of times candidate appears in document
+        cand_doc_count = len(pattern.findall(doc_text))
+        # count could be 0 for multiple reasons; shit happens in a simplified example
+        if not cand_doc_count:
+            print '**WARNING:', candidate, 'not found!'
+            continue
+
+        # statistical
+        candidate_words = candidate.split()
+        max_word_length = max(len(w) for w in candidate_words)
+        term_length = len(candidate_words)
+        # get frequencies for term and constituent words
+        sum_doc_word_counts = float(sum(doc_word_counts[w] for w in candidate_words))
+        try:
+            # lexical cohesion doesn't make sense for 1-word terms
+            if term_length == 1:
+                lexical_cohesion = 0.0
+            else:
+                lexical_cohesion = term_length * (1 + math.log(cand_doc_count, 10)) * cand_doc_count / sum_doc_word_counts
+        except (ValueError, ZeroDivisionError) as e:
+            lexical_cohesion = 0.0
+
+        # positional
+        # found in title, key excerpt
+        in_title = 1 if pattern.search(doc_title) else 0
+        in_excerpt = 1 if pattern.search(doc_excerpt) else 0
+        # first/last position, difference between them (spread)
+        doc_text_length = float(len(doc_text))
+        first_match = pattern.search(doc_text)
+        abs_first_occurrence = first_match.start() / doc_text_length
+        if cand_doc_count == 1:
+            spread = 0.0
+            abs_last_occurrence = abs_first_occurrence
+        else:
+            for last_match in pattern.finditer(doc_text):
+                pass
+            abs_last_occurrence = last_match.start() / doc_text_length
+            spread = abs_last_occurrence - abs_first_occurrence
+
+        candidate_scores[candidate] = {'term_count': cand_doc_count,
+                                       'term_length': term_length, 'max_word_length': max_word_length,
+                                       'spread': spread, 'lexical_cohesion': lexical_cohesion,
+                                       'in_excerpt': in_excerpt, 'in_title': in_title,
+                                       'abs_first_occurrence': abs_first_occurrence,
+                                       'abs_last_occurrence': abs_last_occurrence}
+
+    return candidate_scores
+</code></pre><p>As an example, <code>candidate_scores[&quot;automatic keyphrase extraction&quot;]</code> returns the following features:</p>
+<pre><code>{'abs_first_occurrence': 0.029178287921046986,
+ 'abs_last_occurrence': 0.9301652006007295,
+ 'in_excerpt': 1,
+ 'in_title': 1,
+ 'lexical_cohesion': 0.9699006820274416,
+ 'max_word_length': 10,
+ 'spread': 0.9009869126796826,
+ 'term_count': 6,
+ 'term_length': 3}
+</code></pre><p>The last thing to do is train a Ranking SVM model on an already-labeled dataset; I used the SemEval 2010 keyphrase extraction dataset, plus a couple extra bits and pieces, which can be found in this GitHub repo. When applied to the first two sections of this blog post, the 20 top-scoring candidates are as follows:</p>
+<pre><code>keyphrase                           ranksvm
+-------------------------------------------
+keyphrase extraction...............   1.736
+document categorization............   1.151
+particular knowledge domains.......   1.031
+phrases from documents.............   1.014
+keyphrase..........................    0.97
+terminology extraction.............   0.951
+keyphrases.........................   0.909
+set of keyphrases..................   0.895
+concise description................   0.873
+document...........................   0.691
+human-labeled keyphrases...........   0.643
+candidate identification...........   0.642
+frequency of co-occurrence.........   0.636
+candidate keyphrases...............   0.624
+wide applicability.................   0.604
+rest as non-keyphrases.............   0.578
+binary classification problem......   0.567
+canonical unsupervised approach....   0.566
+structural inconsistency...........   0.556
+paragraphs as candidates...........   0.548
+</code></pre><p>Now that is a nice set of keyphrases! There’s some bias for longer keyphrases (and longer words within keyphrases), perhaps because the training dataset was about 90% scientific articles, but it’s not inappropriate for this science-ish blog’s content.</p>
+<p>All of the code shown here has been pared down and simplified for demonstration purposes. Adding extensive candidate cleaning, filtering, case/syntactic normalization, and de-duplication can dramatically reduce noise and improve results, as can incorporating additional features and external resources into the keyphrase selection algorithm. Furthermore, although all of these methods were presented in the context of single-document keyphrase extraction, there are ways to extract keyphrases from multiple documents and thus categorize/cluster/summarize/index/conceptualize entire corpora. This really is just an introduction to an ongoing challenge in natural language processing research.</p>
+
+        
+<div class="PostAuthor">
+  <img alt="Harry Cresswell" class="Avatar Avatar--round Avatar--m u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  <div class="PostAuthor-text">
+    <h4>Did you enjoy this?</h4>
+    <p>Sign up for my newsletter below &darr;</p>
+  </div>
+</div>
+
+
+<div hidden>
+  <a class="u-url" href="https://azharkhan.in/articles/data-science.-what-the-heck-is-that/">Data Science. What the heck is that?</a>
+  <p class="h-card p-author">
+    <a class="p-name u-url" href="https://azharkhan.in/" rel="author">Harry Cresswell</a>
+    <img alt="Harry Cresswell" class="u-photo" src="https://harrycresswell.com/img/hc.jpg">
+  </p>
+</div>
+      </section>
+
+  </article>
+
+
+    </main>
+
+    <section class="Newsletter" id="braintactics">
+    <h3 class="Newsletter-title">Weekly Newsletter</h3>
+    <p><a href="/newsletter/">Braintactics</a> is a weekly roundup of articles, tools and tips for product designers and front-end developers. I send it every Friday morning.</p>
+
+    <form class="NewsletterForm validate" action="https://harrycresswell.us14.list-manage.com/subscribe/post?u=4e8fba8d0ab4a857159c0104e&amp;id=d6ad2b65ca" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="name">
+            First Name
+            </label>
+            <input class="NewsletterForm-input" id="name" name="NAME" placeholder="e.g. Harry" type="text">
+        </div>
+
+        <div class="NewsletterForm-field">
+            <label class="NewsletterForm-label" for="email">
+            Email Address
+            </label>
+            <input class="NewsletterForm-input" id="email" name="EMAIL" placeholder="e.g. harry@gmail.com" type="email">
+        </div>
+        <div class="NewsletterForm-field">
+        
+            
+            <input class="u-visually-hidden" name="LOCATION" value="Extracting key phrases from BIG (text) data" type="hidden" id="mce-LOCATION">
+            
+        
+            <div class="Form-options" style="display:none">
+                <strong>Product </strong>
+                <ul>
+                    <li>
+                        <input type="checkbox" value="4" name="group[6417][4]" id="mce-group[6417]-6417-0" checked>
+                        <label for="mce-group[6417]-6417-0">Braintactics</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="8" name="group[6417][8]" id="mce-group[6417]-6417-1">
+                        <label for="mce-group[6417]-6417-1">DS in Sketch</label>
+                    </li>
+                </ul>
+            </div>
+            <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>
+            
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <label for="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca">Prevent bot signups</label>
+                <input type="text" name="b_4e8fba8d0ab4a857159c0104e_d6ad2b65ca" tabindex="-1" value="">
+            </div>
+
+            <div class="NewsletterForm-button">
+                <label class="NewsletterForm-label u-visually-hidden" for="subscribe">Subscribe</label>
+                <input class="Button Button--primary" name="subscribe" type="submit" value="Subscribe">
+            </div>
+        </div>
+    </form>
+</section>
+
+  <footer class="Footer" role="contentinfo">
+    <nav class="FooterNav" aria-label="Footer Navigation">
+      
+      
+      <a class="FooterNav-link"
+        href="/articles/">Articles</a>
+      
+      <a class="FooterNav-link"
+        href="/notes/">Notes</a>
+      
+      <a class="FooterNav-link"
+        href="/tags/">Tags</a>
+      
+    </nav>
+    <p>Content &copy;2020 Harry Cresswell, unless otherwise specified. Subscribe to RSS Feeds for <a
+        href="https://azharkhan.in/feed.xml">all content</a>, <a
+        href="https://azharkhan.in/articles/feed.xml">articles</a> or <a
+        href="https://azharkhan.in/notes/feed.xml">notes</a>.</p>
+  </footer>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="https://azharkhan.in/app.min.633fdaa2db6cbb9888b8f7ce0cb9fff72b593e1c71be0f9a84142171ddb816a5.js" integrity="sha256-Yz/aottsu5iIuPfODLn/9ytZPhxxvg&#43;ahBQhcd24FqU=" media="screen"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({
+      cloud_name: "harrycresswell"
+    });
+
+    cl.responsive();
+  </script>
+  </body>
+
+  </html>
