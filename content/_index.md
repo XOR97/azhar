@@ -1,12 +1,10 @@
 ---
-title: "“The more you know, the more you realize you know nothing.”
-— Socrates"
+title: "Cogito Ergo Sum"
 date: "2016-10-24T17:23:17+01:00"
-description: "Data Engineering, Design, Product Management, User Experience, Software Development"
+description: "Azhar Khan is a professional data engineer from Ottawa, ON. Read technical articles and notes on design and code."
+intro: "Hey, I’m Azhar, a data engineer and developer from Ottawa, ON."
 draft: false
-intro: ""
 ---
-
 {{< pullImage src="v1580172324/M1/maxresdefault_rc9tep.jpg" alt="Azhar Khan – Data & Design" >}}
 
 ## Hi. I’m Azhar.
@@ -27,6 +25,6 @@ When not writing code or building design prototypes, I can be found playing foot
 
 ## Where to go next
 
-You can find out [what I'm up to right now](/now/). Alternatively, take a look at [my CV](pdf/Azhar_CV_20Jun.pdf) to get a bit more idea of my experience and also check out a few [things I’ve made](/things/).
+You can find out [what I'm up to right now](/now/). Alternatively, take a look at a few [things I’ve made](/things/) to get a bit of an idea of my experience and work.
 
 Find me on [Github](https://github.com/XOR97), [Twitter](https://twitter.com/Azhr_K_) and [LinkedIn](https://www.linkedin.com/in/azhar93/) if you have questions.
