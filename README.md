@@ -1,6 +1,6 @@
-# harrycresswell.com
+# azharkhan.in
 
-A Hugo starter project and theme used for [harrycresswell.com](https://harrycresswell.com/).
+A Hugo starter project and theme used for [azharkhan.in](https://azharkhan.in/).
 
 ## Features
 
@@ -9,8 +9,6 @@ A Hugo starter project and theme used for [harrycresswell.com](https://harrycres
 - [Lazysizes.js](https://github.com/aFarkas/lazysizes) for image lazy loading
 - Responsive image with [Cloudinary](https://cloudinary.com/documentation/responsive_images#automating_responsive_images_with_javascript)
 - Minimal dependencies
-
-Read more about it in [How I built this site](https://harrycresswell.com/build/).
 
 ## Prerequisites
 
@@ -21,7 +19,7 @@ You need to have the latest/LTS [node](https://nodejs.org/en/download/) and [npm
 Clone this repository:
 
 ```
-git clone https://github.com/harrycresswell/harry.git
+git clone https://github.com/XOR97/azhar.git
 ```
 
 Then run:
@@ -77,6 +75,7 @@ Follow the same steps for notes and projects.
 Write your **Sass** inside `./assets/scss`.
 
 With the server running (`npm start`) Hugo will watch your Sass for changes, then pipe them to `./public/css/main.css` and reload the browser.
+
 
 ### Making layout changes
 
