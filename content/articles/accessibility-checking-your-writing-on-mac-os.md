@@ -8,7 +8,7 @@ tags: ["Accessibility", "Writing"]
 syndicate: "false"
 ---
 
-Your macOS machine will read any document out loud to you. Did you know that? Until only a few weeks ago, I honestly had no idea about most of the accessibility features Mac ships with.
+Did you know that your macOS machine will read any document out loud to you. Until only a few weeks ago, I honestly had no idea about most of the accessibility features Mac ships with.
 
 I found myself watching [Molly Burke](https://www.youtube.com/watch?v=TiP7aantnvE&t=248s), a partially sighted Youtuber, explain how she uses her laptop on a daily basis. Molly, like many, depends on a screen reader and accessibility features to do simple things that most of us take for granted, like surfing the internet.
 
