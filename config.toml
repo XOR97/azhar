@@ -40,7 +40,6 @@ pygmentsCodeFences = true
 
 [permalinks]
   articles = "/:section/:slug/"
-  projects = "/:section/:slug/"
   notes = "/:section/:slug/"
   page = "/:title/"
 
@@ -58,21 +57,6 @@ enableEmoji = true
   weight = 15
 
 [[menu.main]]
-  name = "Tags"
-  url = "/tags/"
-  weight = 20
-
-[[menu.footer]]
-  name = "Articles"
-  url = "/articles/"
-  weight = 10
-
-[[menu.footer]]
-  name = "Notes"
-  url = "/notes/"
-  weight = 15
-
-[[menu.footer]]
   name = "Tags"
   url = "/tags/"
   weight = 20
