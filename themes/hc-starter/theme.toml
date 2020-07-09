@@ -13,6 +13,6 @@ min_version = "0.55.0"
 
 # If porting an existing theme
 [original]
-    author = "Azhar Khan"
-    homepage = "https:/azharkhan.in"
+    author = "Harry Cresswell"
+    homepage = "https:/harrycresswell.com"
     repo = "Link to source code of original theme"
