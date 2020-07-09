@@ -7,6 +7,7 @@
       {{ end }}
     </nav>
     <p>Content &copy;{{ now.Format "2006"}} Azhar Khan, unless otherwise specified.
+    {{ partial "social.html" . }}
   </footer>
 
   <!-- Store JS files independently -->
@@ -29,7 +30,7 @@
   <script src="{{ $globalJS.Permalink }}" integrity="{{ $globalJS.Data.Integrity }}" media="screen"></script>
   <script>
     var cl = cloudinary.Cloudinary.new({
-      cloud_name: "harrycresswell"
+      cloud_name: "azhar932"
     });
 
     cl.responsive();
