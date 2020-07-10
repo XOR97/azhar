@@ -23,9 +23,9 @@ In Ottawa. This is how I’m spending my time right now.
 - [MBA 5270](https://catalogue.uottawa.ca/search/?P=MBA%205270)
 - [MBA 6295](https://catalogue.uottawa.ca/en/search/?search=MBA+6295)
 
-### Listening to...
+### Listening to
 
-
+{{<music>}}
 
 ### Reading
 

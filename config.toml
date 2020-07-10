@@ -13,7 +13,7 @@ pygmentsCodeFences = true
 [params]
   keywords = "Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product"
   description = "Blog posts on code and design by github.com/XOR97"
-  strapline = "Azhar Khan is an independent data engineer and developer from Ottawa, Canada."
+  strapline = "Azhar Khan is a data engineer and developer from Ottawa, Canada."
   location = "Ottawa, CA"
 
   # Set Cloudinary URL for image hosting
