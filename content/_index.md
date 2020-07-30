@@ -17,9 +17,9 @@ Currently my postion vector points to Canada, where I'm trying to get my master'
 
 I write [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
-Most of my experience has been focused on the design & growth of analytic-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination.
+Most of my experience has been focused on the design & growth of analytic-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. Like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
 
-Love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I'm also an opensource contributor and my current favorite projects are [Arrow](https://arrow.apache.org), [Coala](https://coala.io/) & [Bisq](https://bisq.network/).
+Love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I'm also an opensource contributor and my current favorite projects are [Arrow](https://arrow.apache.org) & [Bisq](https://bisq.network/).
 
 When not writing code or building design prototypes, I can be found playing football (soccer if you may), following the [Champions League](https://www.uefa.com) and backpacking across the 🌍. An avid quizzer who occasionally brags about random trivia that no one seems to care. The [Clippers](https://www.nba.com/clippers/) 🏀 are my team. Can cook up a really hybrid version of Aglio E Olio. Also have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa).
 

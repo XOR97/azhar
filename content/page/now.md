@@ -6,10 +6,10 @@ slug = "now"
 url = "now"
 +++
 
-In Ottawa. This is how I’m spending my time right now.
+In Ottawa. This is how I’m spending a portion of my time right now.
 
 
-### Currently into...
+### Currently into
 
 - [Spacy](https://spacy.io)
 - GraphQL
@@ -17,13 +17,13 @@ In Ottawa. This is how I’m spending my time right now.
 - [Sanity.io](https://www.sanity.io/), an API based CMS
 - French. This might be on here for a while
 
-### Courses (Summer 2020)
+### Courses
 
 - [EMP 6997](https://catalogue.uottawa.ca/en/search/?search=6997&fscaturl=%2Fen%2F&gscaturl=%2Fen%2F)
 - [MBA 5270](https://catalogue.uottawa.ca/search/?P=MBA%205270)
 - [MBA 6295](https://catalogue.uottawa.ca/en/search/?search=MBA+6295)
 
-### Listening to
+### Listening
 
 {{<music>}}
 
@@ -35,6 +35,6 @@ In Ottawa. This is how I’m spending my time right now.
 - [How To](https://www.goodreads.com/book/show/43852758-how-to?from_choice=true) by Randall Munroe
 
 
-**Last Updated:** May 20, 2020
+**Last Updated:** June 20, 2020
 
 **Page inspired by:** [Zen Habits](https://zenhabits.net/now/) and [Derek Sivers](https://nownownow.com/about).

@@ -11,10 +11,10 @@ pygmentsCodeFences = true
 # pygmentsCodefencesGuessSyntax = true
 
 [params]
-  keywords = "Data Engineering, Data Science, AI, Analytics, Design, UX, UI, Product"
-  description = "Blog posts on code and design by github.com/XOR97"
-  strapline = "Azhar Khan is a data engineer and developer from Ottawa, Canada."
-  location = "Ottawa, CA"
+  keywords = "Data Engineering, Product Management, Data Science, AI, Analytics, Design, UX, UI"
+  description = "Blog posts on code and design by Azhar"
+  strapline = "I build things"
+  location = "Ontario, CA"
 
   # Set Cloudinary URL for image hosting
   cloudinary_url = "https://res.cloudinary.com/azhar932/image/upload"
@@ -23,9 +23,9 @@ pygmentsCodeFences = true
 [author]
   name = "Azhar Khan"
   email = "azhar932@icloud.com"
-  twitter = "https://twitter.com/Azhr_K_"
+  twitter = "https://twitter.com/AzharCan"
   github = "https://github.com/XOR97"
-  linkedin = "https://www.linkedin.com/in/azhar93/"
+  linkedin = "https://www.linkedin.com/in/Azhar93/"
 
 [taxonomies]
   tag = "tags"
