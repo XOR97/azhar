@@ -21,7 +21,7 @@ Most of my experience has been focused on the design & growth of analytic-driven
 
 Love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I'm also an opensource contributor and my current favorite projects are [Arrow](https://arrow.apache.org) & [Bisq](https://bisq.network/).
 
-When not writing code or building design prototypes, I can be found playing football (soccer if you may), following the [Champions League](https://www.uefa.com) and backpacking across the 🌍. An avid quizzer who occasionally brags about random trivia that no one seems to care. The [Clippers](https://www.nba.com/clippers/) 🏀 are my team. Can cook up a really hybrid version of Aglio E Olio. Also have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa).
+When not writing code or building design prototypes, I can be found playing football (soccer if you may), following the [Champions League](https://www.uefa.com) and backpacking across the 🌍. An avid quizzer who occasionally brags about random trivia that no one seems to care. The [Clippers](https://www.nba.com/clippers/) are my team. Can cook up a really hybrid version of Aglio E Olio. Also have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa).
 
 ###### P.S. I use [Atom](https://atom.io).
 

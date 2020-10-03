@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+		{{ template "_internal/google_analytics.html" . }}
     <!-- Titles -->
     <title>{{ if .IsHome -}}{{ .Site.Title }} &middot; {{ $.Site.Params.strapline }}{{- else -}}{{ .Title }} | {{ .Site.Title }} &middot; {{ $.Site.Params.strapline }} {{- end }}</title>
     <meta name="title" content="{{ if .IsHome -}}{{ .Site.Title }} &middot; {{ $.Site.Params.strapline }}{{- else -}}{{ .Title }} | {{ .Site.Title }} &middot; {{ $.Site.Params.strapline }} {{- end }}">
@@ -26,7 +28,7 @@
     <!-- if featured image exists in file frontmatter, use for open graph data -->
     {{ if isset .Params "feature" }}
     <meta property="og:image" content="{{ .Params.feature }}">
-    <!-- else if no image in frontmatter, and sections are not equal to articles or notes, then display image --> 
+    <!-- else if no image in frontmatter, and sections are not equal to articles or notes, then display image -->
     {{ else if and (ne .Section "articles") (ne .Section "notes") }}
     <meta property="og:image" content="https://res.cloudinary.com/harrycresswell/image/upload/w_700,dpr_2.0,c_scale,f_auto,q_auto/v1550264713/hc/harry-cresswell-about-me.jpg">
     {{ end }}
@@ -36,7 +38,7 @@
     <meta name="google-site-verification" content="9G-wiIrmxQgDxbcs3a3xPW--q3Mxb1VGFN7BsEfJdDk" />
     <!-- Disable save to Pintrest button on images -->
     <meta name="pinterest" content="nopin" />
-    <!-- Me -->    
+    <!-- Me -->
     {{ with .Site.Author.name }}<meta name="author" content="{{ . }}">{{ end }}
     <link href="mailto:{{ .Site.Author.email }}" rel="me">
     <link href="{{ .Site.Author.twitter }}" rel="me">
@@ -75,9 +77,9 @@
     <div class="Title">
       <a class="p-name u-url" rel="me" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
       <div hidden>
-          <img class="u-photo" src="https://harrycresswell.com/img/hc.jpg" alt="Harry Cresswell">
+          <img class="u-photo" src="https://azharkhan.in/img/hc.jpg" alt="Azhar Khan">
           <p class="p-note">{{ .Site.Params.Strapline }}</p>
-          <a href="mailto:studio@harrycresswell.com" rel="me" class="u-email">studio@harrycresswell.com</a>
+          <a href="mailto:azhar@azharkhan.in" rel="me" class="u-email">azhar@azharkhan.in</a>
       </div>
     </div>
     <nav class="Nav" aria-label="Main Navigation">

@@ -3,6 +3,7 @@ theme="hc-starter"
 languageCode = "en"
 title = "Azhar Khan"
 pluralizelisttitles = false
+googleAnalytics = "UA-127874396-1"
 
 # Enable for syntax highlighting
 pygmentsUseClasses=true
@@ -13,7 +14,7 @@ pygmentsCodeFences = true
 [params]
   keywords = "Data Engineering, Product Management, Data Science, AI, Analytics, Design, UX, UI"
   description = "Blog posts on code and design by Azhar"
-  strapline = "I build things"
+  strapline = "I like building stuff"
   location = "Ontario, CA"
 
   # Set Cloudinary URL for image hosting
@@ -46,6 +47,7 @@ pygmentsCodeFences = true
 
 # Enable Emojis
 enableEmoji = true
+
 
 [[menu.main]]
   name = "Articles"
