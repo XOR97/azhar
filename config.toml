@@ -12,10 +12,10 @@ pygmentsCodeFences = true
 # pygmentsCodefencesGuessSyntax = true
 
 [params]
-  keywords = "Data Engineering, Product Management, Data Viz, AI, Analytics, Design, UX, UI"
+  keywords = "Data Engineering, Product Management, Data Viz, Analytics, Design, UX, UI"
   description = "Blog posts on code and design by Azhar"
   strapline = "I like building stuff"
-  location = "Ontario, CA"
+  location = "Canada"
 
   # Set Cloudinary URL for image hosting
   cloudinary_url = "https://res.cloudinary.com/azhar932/image/upload"

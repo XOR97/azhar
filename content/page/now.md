@@ -6,22 +6,17 @@ slug = "now"
 url = "now"
 +++
 
-In Ottawa's National Capital Region. This is how I’m spending a portion of my time right now.
+I'm in Ottawa's National Capital Region. This is how I’m spending a portion of my time right now.
 
 
 ### Currently into
 
+- [Pinot](http://pinot.apache.org)
 - [Spacy](https://spacy.io)
 - GraphQL
 - [Figma](https://www.figma.com)
 - [Sanity.io](https://www.sanity.io/), an API based CMS
-- French. This might be on here for a while
-
-### Courses
-
-- [EMP 6997](https://catalogue.uottawa.ca/en/search/?search=6997&fscaturl=%2Fen%2F&gscaturl=%2Fen%2F)
-- [MBA 5270](https://catalogue.uottawa.ca/search/?P=MBA%205270)
-- [MBA 6295](https://catalogue.uottawa.ca/en/search/?search=MBA+6295)
+- French. (This might be on here for a while)
 
 ### Listening
 

@@ -3,7 +3,7 @@ title = "Columnar In-Memory Analytics using Arrow"
 date = "2019-01-27T14:10:29Z"
 description = "A peek into the the future of analytic computations."
 slug = ""
-tags = ["Data Science"]
+tags = ["Data Engineering"]
 +++
 
 Folks, there is a new library in town that is taking the data engineering community by storm.

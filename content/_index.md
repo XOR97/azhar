@@ -1,7 +1,7 @@
 ---
 title: "Audentes Fortuna Iuvat"
 date: "2016-10-24T17:23:17+01:00"
-description: "Azhar Khan is a professional data engineer and developer from Ottawa, ON. Read technical articles and notes on design and code."
+description: "Azhar Khan is a data engineer and business analyst from Ottawa, ON. Read technical articles and notes on design and code."
 intro: ""
 draft: false
 ---
@@ -11,17 +11,17 @@ draft: false
 
 ## Hi. I’m Azhar.
 
-I use this space to pen my thoughts on topics that are at the intersection of Data Engineering, Product Management, Design & User Experience.
+I use this space to pen my thoughts on topics that are at the intersection of Technology, Data (Engineering + Viz) & sometimes Product Design.
 
-Currently my postion vector points to 🇨🇦, where I'm trying to get my master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). Most recently, I have worked as a Data Engineer at [RateGain](https://rategain.com). I was part of the Data Science and Product teams there and worked on a diverse set of problems ranging from price optimizations techniques, sentiment analysis of reviews to building custom algorithms for city demand forecasting. Prior to that, I was an undergraduate at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
+Currently, my position vector points to 🇨🇦, where I'm trying to get my master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimizations techniques, sentiment analysis of reviews to building custom algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
 
 I write [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
-Most of my experience has been focused on the design & growth of analytic-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. Like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
+Most of my experience focuses on the design & growth of analytics-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. I like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
 
-Love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I'm also an opensource contributor and my current favorite project is [Arrow](https://arrow.apache.org).
+I love working on tools, infrastructure and scaling applications from the ground up. Reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I’m also an active open-source contributor and community member. My current favourite projects are [Pinot](http://pinot.apache.org) & [Arrow](https://arrow.apache.org).
 
-When not writing code or building prototypes, I can be found playing football (soccer if you may), following the [Champions League](https://www.uefa.com) or wandering off to the Mount Royal Park in Montréal. An avid quizzer who occasionally brags about random trivia that no one seems to care. The Clippers are my team. Can cook up a really hybrid version of Aglio E Olio. Also have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa).
+When not writing code or building prototypes, you can find me playing football (soccer if you may), watching the [Champions League](https://www.uefa.com) highlight reel or wandering off to Mount Royal Park in Montréal. An avid quizzer who sometimes brags about random trivia that no one seems to care. I closely follow the [Warriors](https://en.wikipedia.org/wiki/Golden_State_Warriors). Can cook up a hybrid version of Aglio E Olio. Also, have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa).
 
 ###### P.S. I use [Atom](https://atom.io).
 
@@ -29,4 +29,4 @@ When not writing code or building prototypes, I can be found playing football (s
 
 You can find out [what I'm up to right now](/now/). Alternatively, take a look at a few [things I’ve made](/things/) to get a bit more idea of my experience.
 
-Find me on [Github](https://github.com/XOR97), [Twitter](https://twitter.com/AzharCan) and [LinkedIn](https://www.linkedin.com/in/azhar93/) if you have questions.
+Find me on [Twitter](https://twitter.com/AzharCan), [LinkedIn](https://www.linkedin.com/in/azhar93/) and [Github](https://github.com/XOR97), if you have questions.

@@ -3,7 +3,7 @@ title = "Extracting key phrases from BIG (text) data"
 date = "2018-03-21T14:10:29Z"
 description = "Understanding how value can be derived from a sea of information."
 slug = ""
-tags = ["Data Science"]
+tags = ["Data Engineering"]
 +++
 
 I often apply natural language processing for purposes of automatically extracting structured information from unstructured (text) datasets. One such task is the extraction of important topical words and phrases from documents, commonly known as [terminology extraction](https://en.wikipedia.org/wiki/Terminology_extraction) or **automatic keyphrase extraction**. Keyphrases provide a concise description of a document’s content; they are useful for document categorization, clustering, indexing, search, and summarization; quantifying semantic similarity with other documents; as well as conceptualizing particular knowledge domains.
