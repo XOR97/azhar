@@ -13,15 +13,17 @@ draft: false
 
 I use this space to pen my thoughts on topics that are at the intersection of Technology, Data (Engineering + Viz) & sometimes Product Design.
 
-Currently, my position vector points to 🇨🇦, where I'm trying to get my master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimizations techniques, sentiment analysis of reviews to building custom algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
+My position vector points to 🇨🇦, where I'm in the midst of getting a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimization techniques, sentiment analysis of customer reviews to building custom algorithms for city demand forecasting. Before that, I was an undergraduate at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
 
 I write [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
-Most of my experience focuses on the design & growth of analytics-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. I like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
+Most of my experience has focused on the design & growth of analytics-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. I like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
 
-I love working on tools, infrastructure and scaling applications from the ground up. Reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I’m also an active open-source contributor and community member. My current favourite projects are [Pinot](http://pinot.apache.org) & [Arrow](https://arrow.apache.org).
+I love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also program in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I’m also an active open-source contributor and community member. Current favourite projects include [Pinot](http://pinot.apache.org) & [Arrow](https://arrow.apache.org).
 
-When not writing code or building prototypes, you can find me playing football (soccer if you may), watching the [Champions League](https://www.uefa.com) highlight reel or wandering off to Mount Royal Park in Montréal. An avid quizzer who sometimes brags about random trivia that no one seems to care. I closely follow the [Warriors](https://en.wikipedia.org/wiki/Golden_State_Warriors). Can cook up a hybrid version of Aglio E Olio. Also, have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa).
+When not writing code or creating viz charts, you can find me playing football (soccer if you may), watching the [Champions League](https://www.uefa.com) highlights reel or wandering off to Mount Royal Park in Montréal. An avid quizzer who occasionally brags about random trivia. I closely follow the [Warriors](https://en.wikipedia.org/wiki/Golden_State_Warriors). Can cook up a hybrid version of Aglio e Olio. Also, have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa). 
+
+Ad meliora.
 
 ###### P.S. I use [Atom](https://atom.io).
 
