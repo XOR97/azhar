@@ -1,4 +1,5 @@
   <footer class="Footer" role="contentinfo">
+
     <nav class="FooterNav" aria-label="Footer Navigation">
       {{ $currentPage := . }}
       {{ range .Site.Menus.footer }}
@@ -6,7 +7,8 @@
         href="{{.URL}}">{{ .Name }}</a>
       {{ end }}
     </nav>
-    <p>Content &copy;{{ now.Format "2006"}} Azhar Khan, unless otherwise specified.
+
+    Content &copy;{{ now.Format "2006"}} Azhar Khan, unless otherwise specified.
     {{ partial "social.html" . }}
   </footer>
 
@@ -35,6 +37,7 @@
 
     cl.responsive();
   </script>
+
   </body>
 
   </html>
