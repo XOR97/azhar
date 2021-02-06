@@ -25,6 +25,7 @@ I'm in Ottawa's National Capital Region. This is how I’m spending a portion of
 
 ### Reading
 
+- [Atomic Habits](https://www.goodreads.com/book/show/40121378-atomic-habits) by James Clear
 - [The Handmaid's Tale](https://www.goodreads.com/book/show/38447.The_Handmaid_s_Tale) by Margaret Atwood
 - [Pro Git](https://www.goodreads.com/book/show/6518085-pro-git) by Scott Chacon
 - [The Institute](https://www.goodreads.com/book/show/43798285-the-institute?from_choice=true) by Stephen King
