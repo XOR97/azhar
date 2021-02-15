@@ -31,4 +31,4 @@ Ad meliora.
 
 You can find out [what I'm up to right now](/now/). Alternatively, take a look at a few [things I’ve made](/things/) to get a bit more idea of my experience.
 
-Find me on [Twitter](https://twitter.com/AzharCan), [LinkedIn](https://www.linkedin.com/in/azhar93/) and [Github](https://github.com/XOR97), if you have questions.
+Find me on [Twitter](https://twitter.com/AzharCan), [LinkedIn](https://www.linkedin.com/in/azhar93/) or [Github](https://github.com/XOR97), if you have questions.
