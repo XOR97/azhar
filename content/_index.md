@@ -13,7 +13,7 @@ draft: false
 
 I use this space to pen my thoughts on topics that are at the intersection of Technology, Data (Engineering + Viz) & sometimes Product Design.
 
-My position vector points to 🇨🇦, where I'm in the midst of getting a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimization techniques, sentiment analysis of customer reviews to building custom algorithms for city demand forecasting. Before that, I was an undergraduate at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
+My position vector points to 🇨🇦, where I'm in the midst of getting a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimization techniques, sentiment analysis of customer reviews to building custom algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
 
 I write [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
@@ -31,4 +31,4 @@ Ad meliora.
 
 You can find out [what I'm up to right now](/now/). Alternatively, take a look at a few [things I’ve made](/things/) to get a bit more idea of my experience.
 
-Find me on [Twitter](https://twitter.com/AzharCan), [LinkedIn](https://www.linkedin.com/in/azhar93/) or [Github](https://github.com/XOR97), if you have questions.
+Find me on [Twitter](https://twitter.com/AzharCan), [LinkedIn](https://www.linkedin.com/in/azhrkhn/) or [Github](https://github.com/XOR97), if you have questions.
