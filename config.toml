@@ -12,7 +12,7 @@ pygmentsCodeFences = true
 # pygmentsCodefencesGuessSyntax = true
 
 [params]
-  keywords = "Data Engineering, Product Management, Data Viz, Analytics, Design, UX, UI"
+  keywords = "Data Visualization, Data Analysis, Product Management, Data Viz, Information Design, Analytics, Design, UX, UI"
   description = "Blog posts on code and design by Azhar"
   strapline = "I like building stuff"
   location = "Canada"
@@ -26,7 +26,7 @@ pygmentsCodeFences = true
   email = "azhar@azharkhan.in"
   twitter = "https://twitter.com/AzharCan"
   github = "https://github.com/XOR97"
-  linkedin = "https://www.linkedin.com/in/Azhar93/"
+  linkedin = "https://www.linkedin.com/in/azhrkhn/"
 
 [taxonomies]
   tag = "tags"
@@ -48,11 +48,6 @@ pygmentsCodeFences = true
 # Enable Emojis
 enableEmoji = true
 
-
-[[menu.main]]
-  name = "Articles"
-  url = "/articles/"
-  weight = 10
 
 [[menu.main]]
   name = "Notes"
