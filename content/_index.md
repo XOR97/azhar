@@ -1,7 +1,7 @@
 ---
 title: "Hello, Friend."
 date: "2016-10-24T17:23:17+01:00"
-description: "Azhar Khan is a data engineer and business analyst from Ottawa, ON. Read technical articles and notes on design and code."
+description: "Azhar Khan is a business intelligence analyst from Ottawa, ON. Read technical articles and notes on design and code."
 intro: ""
 draft: false
 ---
@@ -13,15 +13,15 @@ draft: false
 
 I use this space to pen my thoughts on topics that are at the intersection of Technology, Data (Engineering + Viz) & sometimes Product Design.
 
-My position vector points to 🇨🇦, where I'm in the midst of obtaining a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimization techniques, sentiment analysis of customer reviews to building custom algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
+My position vector points to 🇨🇦, where I'm in the midst of acquiring a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimizations, sentiment analysis of customer reviews to building algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
 
 I write [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
 Most of my experience has focused on the design & growth of analytics-driven systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. I like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
 
-I love working on tools, infrastructure and scaling applications from the ground up. Heavily reliant on [Python](https://www.python.org) to get me out of trouble but sometimes also code in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I’m also an active open-source contributor and community member. Current favourite projects include [Vega](https://vega.github.io/vega) & [Arrow](https://arrow.apache.org).
+I love working on tools, infrastructure and scaling applications from the ground up. I pick up the language(s)/tool(s), which make the most sense for the task at hand, but I'm most comfortable with [Python](https://www.python.org) to get me out of trouble and occasionally also code in [Go](https://golang.org) and [Ruby](https://www.ruby-lang.org). I’m also an active open-source contributor and community member. Current favourite projects include [Vega](https://vega.github.io/vega) & [Arrow](https://arrow.apache.org).
 
-When not writing code or creating viz charts, you can find me playing football (soccer if you may), watching the [Champions League](https://www.uefa.com) highlights reel or wandering off to Mount Royal Park in Montréal. An avid quizzer who occasionally brags about random trivia. I closely follow the [Warriors](https://en.wikipedia.org/wiki/Golden_State_Warriors). Can cook up a hybrid version of Aglio e Olio. Also, have a weak spot for [Samosas](https://en.wikipedia.org/wiki/Samosa). 
+When not writing code or creating viz charts, you can find me playing football (soccer if you may), watching the [Champions League](https://www.uefa.com) highlights reel or wandering off to Mount Royal Park in Montréal. An avid quizzer who occasionally brags about random trivia. I closely follow the [Warriors](https://en.wikipedia.org/wiki/Golden_State_Warriors). Can cook up a hybrid version of Aglio e Olio. Also, have a weak spot for [Tiramisu](https://en.wikipedia.org/wiki/Tiramisu). 
 
 Audentes Fortuna Iuvat.
 

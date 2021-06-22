@@ -48,6 +48,10 @@ pygmentsCodeFences = true
 # Enable Emojis
 enableEmoji = true
 
+[[menu.main]]
+  name = "Articles"
+  url = "/articles/"
+  weight = 10
 
 [[menu.main]]
   name = "Notes"
