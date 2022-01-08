@@ -49,16 +49,6 @@ pygmentsCodeFences = true
 enableEmoji = true
 
 [[menu.main]]
-  name = "Articles"
-  url = "/articles/"
-  weight = 10
-
-[[menu.main]]
-  name = "Notes"
-  url = "/notes/"
-  weight = 15
-
-[[menu.main]]
   name = "Tags"
   url = "/tags/"
   weight = 20

@@ -32,6 +32,6 @@ I'm in Ottawa's National Capital Region. This is how I’m spending a portion of
 - [How To](https://www.goodreads.com/book/show/43852758-how-to?from_choice=true) by Randall Munroe
 
 
-**Last Updated:** June 1st, 2021
+**Last Updated:** Jan 7th, 2022
 
 **Page inspired by:** [Zen Habits](https://zenhabits.net/now/) and [Derek Sivers](https://nownownow.com/about).

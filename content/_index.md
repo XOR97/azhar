@@ -1,7 +1,7 @@
 ---
 title: "Hello, Friend."
 date: "2016-10-24T17:23:17+01:00"
-description: "Azhar Khan is a business intelligence analyst from Ottawa, ON. Read technical articles and notes on design and code."
+description: "Azhar Khan is a business intelligence analyst from Ottawa, Ontario, Canada. Stuff on data viz, design and code."
 intro: ""
 draft: false
 ---
@@ -15,7 +15,7 @@ I use this space to pen my thoughts on topics that are at the intersection of Te
 
 My position vector points to 🇨🇦, where I'm working with the Data Management team at [Ottawa Public Health](https://www.ottawapublichealth.ca/en/index.aspx). I quite recently acquired a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimizations, sentiment analysis of customer reviews to building algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
 
-I write [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
+I like reading and writing [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
 Most of my experience has focused on the design & growth of information systems and managing their scale. Usually, that means bouncing between research, feature design/development, growth analysis, and team coordination. I like to use new products and give feedback. Always on the lookout for amalgamation of beautiful design and great technology in solving everyday problems.
 
