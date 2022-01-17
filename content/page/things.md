@@ -6,7 +6,7 @@ draft = "false"
 url = "/things/"
 +++
 
-A curated list of projects that I have contributed to or made during my university days. More of my work can be found over at my [Github](https://github.com/XOR97), [Tableau](https://public.tableau.com/profile/azhar93) & [Observable](https://observablehq.com/@xor97) profiles.
+A curated list of projects that I have contributed to or made during my university days. More of my work can be found over at my [Github](https://github.com/XOR97), [Tableau](https://public.tableau.com/profile/azhrkhn) & [Observable](https://observablehq.com/@xor97) profiles.
 
 
 [Movie Recommender System](https://github.com/azkh93/Movie-Recommender-System). A recommender system implemented through collaborative filtering using PySpark.
