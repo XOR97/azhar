@@ -1,0 +1,54 @@
+baseurl = "https://azharkhan.in/"
+theme="hc-starter"
+languageCode = "en"
+title = "Azhar Khan"
+pluralizelisttitles = false
+
+
+# Enable for syntax highlighting
+pygmentsUseClasses=true
+# Enable highlighting for code fences
+pygmentsCodeFences = true
+# pygmentsCodefencesGuessSyntax = true
+
+[params]
+  keywords = "Data Visualization, Data Analysis, Product Management, Data Viz, Information Design, Analytics, Design, UX, UI"
+  description = "Blog posts on code and design by Azhar"
+  strapline = "I like building stuff"
+  location = "Canada"
+
+  # Set Cloudinary URL for image hosting
+  cloudinary_url = "https://res.cloudinary.com/azhar932/image/upload"
+  author = "Azhar Khan"
+
+[author]
+  name = "Azhar Khan"
+  email = "azhar@azharkhan.in"
+  twitter = "https://twitter.com/AzharCan"
+  github = "https://github.com/XOR97"
+  linkedin = "https://www.linkedin.com/in/azhrkhn/"
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = [ "HTML", "RSS" ]
+
+[outputFormats]
+[outputFormats.RSS]
+  mediatype = "application/rss"
+  baseName = "feed"
+
+[permalinks]
+  articles = "/:section/:slug/"
+  projects = "/:section/:slug/"
+  notes = "/:section/:slug/"
+  page = "/:title/"
+
+# Enable Emojis
+enableEmoji = true
+
+[[menu.main]]
+  name = "Tags"
+  url = "/tags/"
+  weight = 20
