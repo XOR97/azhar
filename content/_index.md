@@ -13,7 +13,7 @@ draft: false
 
 I use this space to pen my thoughts on topics that are at the intersection of Technology, Data (Engineering + Viz) & sometimes Product Design.
 
-My position vector points to 🇨🇦, where I'm working with the Consumer, Research & Communicatiion team at [CRTC](https://crtc.gc.ca/eng/home-accueil.htm). I quite recently acquired a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimizations, sentiment analysis of customer reviews to tuning algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
+My position vector points to 🇨🇦, where I'm working with the Consumer, Research & Communication team at [CRTC](https://crtc.gc.ca/eng/home-accueil.htm). I quite recently acquired a master's degree in Engineering Management from the [University of Ottawa](https://www.uottawa.ca/en). I have worked in both data and product teams at [RateGain](https://rategain.com), solving problems ranging from price optimizations, sentiment analysis of customer reviews to tuning algorithms for city demand forecasting. Before that, I was an undergrad at [Jamia Hamdard University](https://en.wikipedia.org/wiki/Jamia_Hamdard) in New Delhi, where I got my bachelor's degree in Computer Science.
 
 I like reading and writing [articles on code and design](/articles/). I also keep [notes on things I’m learning](/notes/) from books, courses and talks.
 
@@ -25,7 +25,6 @@ When not writing code or creating viz charts, you can find me playing football (
 
 Audentes Fortuna Iuvat.
 
-###### P.S. I use [Atom](https://atom.io).
 
 ## Where to go next
 
