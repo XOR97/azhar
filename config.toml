@@ -1,4 +1,4 @@
-baseurl = "https://azharkhan.in/"
+baseurl = "https://xor97.netlify.app/"
 theme="hc-starter"
 languageCode = "en"
 title = "Azhar Khan"
@@ -24,7 +24,7 @@ pygmentsCodeFences = true
 [author]
   name = "Azhar Khan"
   email = "azhar@azharkhan.in"
-  twitter = "https://twitter.com/AzharCan"
+  twitter = "https://twitter.com/imazhrkhn"
   github = "https://github.com/XOR97"
   linkedin = "https://www.linkedin.com/in/azhrkhn/"
 
